@@ -10,6 +10,7 @@ m_cursor{},m_iShowingInven(IM_NOTEQUIPED), m_Equiped{}, m_bItemSelected(false), 
 
 Inventory::~Inventory()
 {
+	Release();
 
 }
 
@@ -156,14 +157,10 @@ void Inventory::CursorMove(int itemType, int maxsize)
 
 void Inventory::CursorSelectMenu()
 {
-	if (m_iShowingInven == IM_NOTEQUIPED && m_bItemSelected == false)
+	if (m_iShowingInven == IM_NOTEQUIPED && m_bItemSelected == false && m_vNotEquiped.size() !=0)
 	{
 		m_selectedItem = m_vNotEquiped[static_cast<int>(m_cursor._crdX)];
-		it = m_vNotEquiped.begin();
-		for (size_t i = 0; i < static_cast<size_t>(m_cursor._crdX); i++)
-		{
-			++it;
-		}
+		selectedItemNum = static_cast<int>(m_cursor._crdX);
 		m_bItemSelected = true;
 		if (m_selectedItem->GetItemType() == IT_WEAPON) 
 		{
@@ -251,7 +248,8 @@ void Inventory::ControlUnequipedItem()
 		if (m_Equiped[static_cast<int>(m_cursor._crdY)][static_cast<int>(m_cursor._crdX)] == nullptr)
 		{
 			m_Equiped[static_cast<int>(m_cursor._crdY)][static_cast<int>(m_cursor._crdX)] = m_selectedItem;
-			m_vNotEquiped.erase(it);
+
+			EquipItem(selectedItemNum);
 			m_selectedItem = nullptr;
 			m_bItemSelected = false;
 		}
@@ -269,7 +267,7 @@ void Inventory::ControlUnequipedItem()
 		if (m_Equiped[static_cast<int>(m_cursor._crdY)][static_cast<int>(m_cursor._crdX)] == nullptr)
 		{
 			m_Equiped[static_cast<int>(m_cursor._crdY)][static_cast<int>(m_cursor._crdX)] = m_selectedItem;
-			m_vNotEquiped.erase(it);
+			EquipItem(selectedItemNum);
 			m_selectedItem = nullptr;
 			m_bItemSelected = false;
 		}
@@ -281,6 +279,8 @@ void Inventory::ControlUnequipedItem()
 			m_bItemSelected = false;
 		}
 	}
+
+	m_cursor.ResetCoor();
 }
 
 void Inventory::ControlEquipedItem()
@@ -310,4 +310,44 @@ StatInfo Inventory::GetEquipedItemStat()
 void Inventory::AddItem(Item* item)
 {
 	m_vNotEquiped.push_back(item);
+}
+
+void Inventory::SwapIndex(size_t index)
+{
+	Item* tmp = m_vNotEquiped[index];
+	m_vNotEquiped[index] = m_vNotEquiped.back();
+	m_vNotEquiped.back() = tmp;
+}
+
+void Inventory::EquipItem(size_t index)
+{
+	SwapIndex(index);
+	m_vNotEquiped.pop_back();
+}
+
+void Inventory::DeletItem(size_t index)
+{
+	SwapIndex(index);
+	SAFE_DELETE(m_vNotEquiped.back());
+
+	m_vNotEquiped.pop_back();
+}
+
+void Inventory::Release()
+{
+	if (m_vNotEquiped.size() != 0)
+	{
+		for (size_t i = 0; i < m_vNotEquiped.size(); i++)
+		{
+			delete m_vNotEquiped[i];
+		}
+	}
+
+	for (int i = 0; i < IS_END; ++i)
+	{
+		for (int j = 0; j < MAXEQUIP; j++)
+		{
+			SAFE_DELETE(m_Equiped[i][j]);
+		}
+	}
 }

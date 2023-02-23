@@ -11,6 +11,9 @@
 #define JUMP_POWER 3
 #define MAX_ARROW 9
 #define MAXEQUIP 3
+#define MAINSHOPNUM 3
+#define WEAPONSHOPNUM 5
+#define ARMORSHOPNUM 5
 
 enum ITEMTYPE
 {

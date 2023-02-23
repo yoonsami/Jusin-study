@@ -24,6 +24,14 @@ public:
 	void ControlEquipedItem();
 	StatInfo GetEquipedItemStat();
 	void AddItem(Item* item);
+	Item* GetNotequipedItem(size_t index) { return m_vNotEquiped[index]; }
+	void SwapIndex(size_t index);
+	void EquipItem(size_t index);
+	void DeletItem(size_t index);
+	size_t InvenSize() { return m_vNotEquiped.size(); }
+
+	void Release();
+
 private:
 	Item* m_selectedItem;
 	int selectedItemNum;
@@ -33,6 +41,5 @@ private:
 	Item* m_Equiped[IS_END][MAXEQUIP];
 	int m_iItemCount;
 	PosInfo m_cursor;
-	vector<Item*>::iterator it;
 };
 

@@ -55,6 +55,7 @@ void Game::Render()
 void Game::Release()
 {
 	SAFE_DELETE(m_pPlayer);
+	SAFE_DELETE(m_pField);
 }
 
 void Game::CursorMove(int MaxSize)

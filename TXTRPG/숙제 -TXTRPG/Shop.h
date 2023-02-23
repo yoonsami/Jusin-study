@@ -18,13 +18,15 @@ public:
 	void CursorSelectMenu();
 	bool IsShopping() { return Shopping; }
 	void StartShopping() { Shopping = true; }
+	void SellItem(size_t index);
 	void Release();
-
+	void ShowNotEquipedInven();
 private:
 	bool Shopping;
 	bool ShoppingMain;
 	bool ShoppingWeapon;
 	bool ShoppingArmor;
+	bool SellingItem;
 	Player* m_player;
 	Item* m_item;
 	PosInfo m_cursor;
