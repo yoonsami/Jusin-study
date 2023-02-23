@@ -72,20 +72,7 @@ void Player::Resurrect()
 	m_statInfo._money = static_cast<int>(0.9 * m_statInfo._money);
 }
 
-bool Player::AddItemToInven(Item* _newitem)
-{
-	bool ItemAdded = m_itemInventory.AddItem(_newitem);
-	if (ItemAdded == false)
-	{
-		cout << "ÀÎº¥Åä¸®°¡ ²Ë Ã¡½À´Ï´Ù." << endl;
-		system("pause");
-		SAFE_DELETE(_newitem);
-		return false;
-	}
 
-	AddMoney(-(_newitem->GetPrice()));
-	return true;
-}
 
 void Player::ShowInventory()
 {

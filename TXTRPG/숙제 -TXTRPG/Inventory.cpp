@@ -2,7 +2,7 @@
 #include "Inventory.h"
 #include "Item.h"
 
-Inventory::Inventory() : m_iItemCount(0), m_notEquiped{}, m_selectedItem(nullptr),
+Inventory::Inventory() : m_iItemCount(0), m_selectedItem(nullptr),
 m_cursor{},m_iShowingInven(IM_NOTEQUIPED), m_Equiped{}, m_bItemSelected(false), selectedItemNum(0)
 {
 
@@ -13,25 +13,10 @@ Inventory::~Inventory()
 
 }
 
-bool Inventory::AddItem(Item* _newItem)
-{
-	for (int i = 0; i < INVENTORY_SIZE; ++i)
-	{
-		if (m_notEquiped[i] == nullptr)
-		{
-			m_notEquiped[i] = _newItem;
-			++m_iItemCount;
-			_newItem = nullptr;
-			return true;
-		}
-	}
-	_newItem = nullptr;
-	return false;
-}
 
 void Inventory::Update()
 {
-	if (m_iShowingInven == IM_NOTEQUIPED && m_bItemSelected == false)  CursorControl(INVENTORY_SIZE);
+	if (m_iShowingInven == IM_NOTEQUIPED && m_bItemSelected == false)  CursorControl(m_vNotEquiped.size());
 	else if (m_iShowingInven == IM_NOTEQUIPED && m_bItemSelected == true)  CursorControl(IS_END, MAXEQUIP);
 	else if(m_iShowingInven == IM_EQUIPED) CursorControl(IS_END, MAXEQUIP);
 }
@@ -44,6 +29,7 @@ void Inventory::Render()
 		
 		if (m_bItemSelected == false)
 		{
+
 			ShowNotEquipedInven();
 			cout << endl << endl << "Z] 장착하기 E] 장착한 목록 보기 ESC] 나가기" << endl;
 		}
@@ -170,10 +156,14 @@ void Inventory::CursorMove(int itemType, int maxsize)
 
 void Inventory::CursorSelectMenu()
 {
-	if (m_iShowingInven == IM_NOTEQUIPED && m_bItemSelected == false && m_notEquiped[static_cast<int>(m_cursor._crdX)])
+	if (m_iShowingInven == IM_NOTEQUIPED && m_bItemSelected == false)
 	{
-		m_selectedItem = m_notEquiped[static_cast<int>(m_cursor._crdX)];
-		selectedItemNum = static_cast<int>(m_cursor._crdX);
+		m_selectedItem = m_vNotEquiped[static_cast<int>(m_cursor._crdX)];
+		it = m_vNotEquiped.begin();
+		for (size_t i = 0; i < static_cast<size_t>(m_cursor._crdX); i++)
+		{
+			++it;
+		}
 		m_bItemSelected = true;
 		if (m_selectedItem->GetItemType() == IT_WEAPON) 
 		{
@@ -195,23 +185,20 @@ void Inventory::CursorSelectMenu()
 void Inventory::ShowNotEquipedInven()
 {
 	
-	for (int i = 0; i < INVENTORY_SIZE; ++i)
+	for (size_t i = 0; i < m_vNotEquiped.size(); ++i)
 	{
-		if (i < static_cast<int>(m_cursor._crdX))		cout << "□";
-		else if (i == static_cast<int>(m_cursor._crdX)) cout << "■";
-		else if (i > static_cast<int>(m_cursor._crdX))	cout << "□";
+		if (i < static_cast<size_t>(m_cursor._crdX))		cout << "□";
+		else if (i == static_cast<size_t>(m_cursor._crdX)) cout << "■";
+		else if (i > static_cast<size_t>(m_cursor._crdX))	cout << "□";
 	}
 	cout << endl;
-	for (int i = 0; i < INVENTORY_SIZE; ++i)
+	if (m_vNotEquiped.size() == 0)
+		cout << "아이템이 없습니다." << endl;
+	else
 	{
-	if (m_notEquiped[i]) cout << "★";
-	else cout << "☆";
+		if (m_vNotEquiped[static_cast<size_t>(m_cursor._crdX)])
+			m_vNotEquiped[static_cast<size_t>(m_cursor._crdX)]->PrintInfo();
 	}
-	cout << endl;
-	if (m_notEquiped[static_cast<int>(m_cursor._crdX)])
-		m_notEquiped[static_cast<int>(m_cursor._crdX)]->PrintInfo();
-
-	
 }
 
 void Inventory::ShowEquipedInven()
@@ -251,9 +238,8 @@ void Inventory::ShowEquipedInven()
 		else cout << "☆";
 	}
 	cout << endl;
-	if (m_Equiped[static_cast<int>(m_cursor._crdY)][static_cast<int>(m_cursor._crdX)])
-		m_Equiped[static_cast<int>(m_cursor._crdY)][static_cast<int>(m_cursor._crdX)]->PrintInfo();
-	
+		if (m_Equiped[static_cast<size_t>(m_cursor._crdY)][static_cast<size_t>(m_cursor._crdX)])
+			m_Equiped[static_cast<int>(m_cursor._crdY)][static_cast<int>(m_cursor._crdX)]->PrintInfo();
 }
 
 void Inventory::ControlUnequipedItem()
@@ -265,7 +251,7 @@ void Inventory::ControlUnequipedItem()
 		if (m_Equiped[static_cast<int>(m_cursor._crdY)][static_cast<int>(m_cursor._crdX)] == nullptr)
 		{
 			m_Equiped[static_cast<int>(m_cursor._crdY)][static_cast<int>(m_cursor._crdX)] = m_selectedItem;
-			m_notEquiped[selectedItemNum] = nullptr;
+			m_vNotEquiped.erase(it);
 			m_selectedItem = nullptr;
 			m_bItemSelected = false;
 		}
@@ -283,7 +269,7 @@ void Inventory::ControlUnequipedItem()
 		if (m_Equiped[static_cast<int>(m_cursor._crdY)][static_cast<int>(m_cursor._crdX)] == nullptr)
 		{
 			m_Equiped[static_cast<int>(m_cursor._crdY)][static_cast<int>(m_cursor._crdX)] = m_selectedItem;
-			m_notEquiped[selectedItemNum] = nullptr;
+			m_vNotEquiped.erase(it);
 			m_selectedItem = nullptr;
 			m_bItemSelected = false;
 		}
@@ -299,18 +285,10 @@ void Inventory::ControlUnequipedItem()
 
 void Inventory::ControlEquipedItem()
 {
-	for (int i = 0; i < INVENTORY_SIZE; ++i)
-	{
-		if (m_notEquiped[i] == nullptr)
-		{
-			m_notEquiped[i] = m_Equiped[static_cast<int>(m_cursor._crdY)][static_cast<int>(m_cursor._crdX)];
-			m_Equiped[static_cast<int>(m_cursor._crdY)][static_cast<int>(m_cursor._crdX)] = nullptr;
-			return;
-		}
-	}
 
-	cout << "인벤토리가 가득 차 장비를 벗을 수 없습니다." << endl;
-	system("pause");
+			m_vNotEquiped.push_back(m_Equiped[static_cast<int>(m_cursor._crdY)][static_cast<int>(m_cursor._crdX)]);
+			m_Equiped[static_cast<int>(m_cursor._crdY)][static_cast<int>(m_cursor._crdX)] = nullptr;
+
 }
 
 StatInfo Inventory::GetEquipedItemStat()
@@ -327,4 +305,9 @@ StatInfo Inventory::GetEquipedItemStat()
 		}
 	}
 	return tmp;
+}
+
+void Inventory::AddItem(Item* item)
+{
+	m_vNotEquiped.push_back(item);
 }

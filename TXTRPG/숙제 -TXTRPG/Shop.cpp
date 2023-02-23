@@ -200,12 +200,11 @@ void Shop::CursorSelectMenu()
 			m_item = new Weapon(m_player->GetPlayerType(), RT_COMMON);
 			if (m_player->GetMoney() >= m_item->GetPrice())
 			{
-				bool purchased = m_player->AddItemToInven(m_item);
-				if(purchased)
-				{
-					cout << "구매를 완료했습니다." << endl;
-					system("pause");
-				}
+				m_player->GetInventory().AddItem(m_item);
+
+				cout << "구매를 완료했습니다." << endl;
+				system("pause");
+
 				m_item = nullptr;
 			}
 			else if (m_player->GetMoney() < m_item->GetPrice())
@@ -219,12 +218,11 @@ void Shop::CursorSelectMenu()
 			m_item = new Weapon(m_player->GetPlayerType(), RT_RARE);
 			if (m_player->GetMoney() >= m_item->GetPrice())
 			{
-				bool purchased = m_player->AddItemToInven(m_item);
-				if (purchased)
-				{
-					cout << "구매를 완료했습니다." << endl;
-					system("pause");
-				}
+				m_player->GetInventory().AddItem(m_item);
+
+				cout << "구매를 완료했습니다." << endl;
+				system("pause");
+
 				m_item = nullptr;
 			}
 			else if (m_player->GetMoney() < m_item->GetPrice())
@@ -238,12 +236,11 @@ void Shop::CursorSelectMenu()
 			m_item = new Weapon(m_player->GetPlayerType(), RT_LEGEND);
 			if (m_player->GetMoney() >= m_item->GetPrice())
 			{
-				bool purchased = m_player->AddItemToInven(m_item);
-				if (purchased)
-				{
-					cout << "구매를 완료했습니다." << endl;
-					system("pause");
-				}
+				m_player->GetInventory().AddItem(m_item);
+
+				cout << "구매를 완료했습니다." << endl;
+				system("pause");
+
 				m_item = nullptr;
 			}
 			else if (m_player->GetMoney() < m_item->GetPrice())
@@ -268,12 +265,11 @@ void Shop::CursorSelectMenu()
 			m_item = new Armor(m_player->GetPlayerType(), RT_COMMON);
 			if (m_player->GetMoney() >= m_item->GetPrice())
 			{
-				bool purchased = m_player->AddItemToInven(m_item);
-				if (purchased)
-				{
-					cout << "구매를 완료했습니다." << endl;
-					system("pause");
-				}
+				m_player->GetInventory().AddItem(m_item);
+
+				cout << "구매를 완료했습니다." << endl;
+				system("pause");
+
 				m_item = nullptr;
 			}
 			else if (m_player->GetMoney() < m_item->GetPrice())
@@ -288,12 +284,11 @@ void Shop::CursorSelectMenu()
 			m_item = new Armor(m_player->GetPlayerType(), RT_RARE);
 			if (m_player->GetMoney() >= m_item->GetPrice())
 			{
-				bool purchased = m_player->AddItemToInven(m_item);
-				if (purchased)
-				{
-					cout << "구매를 완료했습니다." << endl;
-					system("pause");
-				}
+				m_player->GetInventory().AddItem(m_item);
+
+				cout << "구매를 완료했습니다." << endl;
+				system("pause");
+
 				m_item = nullptr;
 			}
 			else if (m_player->GetMoney() < m_item->GetPrice())
@@ -307,12 +302,11 @@ void Shop::CursorSelectMenu()
 			m_item = new Armor(m_player->GetPlayerType(), RT_LEGEND);
 			if (m_player->GetMoney() >= m_item->GetPrice())
 			{
-				bool purchased = m_player->AddItemToInven(m_item);
-				if (purchased)
-				{
-					cout << "구매를 완료했습니다." << endl;
-					system("pause");
-				}
+				m_player->GetInventory().AddItem(m_item);
+
+				cout << "구매를 완료했습니다." << endl;
+				system("pause");
+
 				m_item = nullptr;
 			}
 			else if (m_player->GetMoney() < m_item->GetPrice())

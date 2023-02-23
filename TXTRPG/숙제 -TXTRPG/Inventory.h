@@ -9,7 +9,6 @@ public:
 	~Inventory();
 
 public:
-	bool AddItem(Item* _newItem);
 	void Update();
 	void Render();
 	void CursorControl(int MenuSize);
@@ -24,15 +23,16 @@ public:
 	void ControlUnequipedItem();
 	void ControlEquipedItem();
 	StatInfo GetEquipedItemStat();
-
+	void AddItem(Item* item);
 private:
 	Item* m_selectedItem;
 	int selectedItemNum;
 	bool m_bItemSelected;
 	int m_iShowingInven;
-	Item* m_notEquiped[INVENTORY_SIZE];
+	vector<Item*> m_vNotEquiped;
 	Item* m_Equiped[IS_END][MAXEQUIP];
 	int m_iItemCount;
 	PosInfo m_cursor;
+	vector<Item*>::iterator it;
 };
 

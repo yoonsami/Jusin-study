@@ -4,6 +4,6 @@
 #include <string.h>
 #include <list>
 #include <conio.h>
-
+#include <vector>
 using namespace std;
 

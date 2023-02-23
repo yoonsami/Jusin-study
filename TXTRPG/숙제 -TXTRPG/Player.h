@@ -18,12 +18,13 @@ public:
 	void Move();
 	void Resurrect();
 	void AddMoney(int _money);
-	bool AddItemToInven(Item* _newitem);
 	void ShowInventory();
 	void Jump() { _Vel._crdY -= JUMP_POWER; }
 	int GetMoney() { return m_statInfo._money; }
 	int GetPlayerType() { return m_iPlayerType; }
 	void CloseInventory() { InventoryOpened = false; }
+	Inventory& GetInventory() { return m_itemInventory; }
+
 protected:
 	Inventory m_itemInventory;
 	StatInfo m_itemStat;
