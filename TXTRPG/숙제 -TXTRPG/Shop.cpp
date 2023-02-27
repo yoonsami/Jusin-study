@@ -41,7 +41,6 @@ void Shop::Update()
 		size_t tmp = m_player->GetInventory().InvenSize();
 		CursorControl(tmp);
 	}
-	
 }
 void Shop::Render()
 {
@@ -398,7 +397,6 @@ void Shop::Release()
 
 void Shop::ShowNotEquipedInven()
 {
-	
 	for (size_t i = 0; i < m_player->GetInventory().InvenSize(); ++i)
 	{
 		if (i < static_cast<size_t>(m_cursor._crdX))		cout << "□";
@@ -410,7 +408,6 @@ void Shop::ShowNotEquipedInven()
 		cout << "아이템이 없습니다." << endl;
 	else
 	{
-		
 		if (m_player->GetInventory().GetNotequipedItem(static_cast<size_t>(m_cursor._crdX)))
 			m_player->GetInventory().GetNotequipedItem(static_cast<size_t>(m_cursor._crdX))->PrintInfo();
 	}

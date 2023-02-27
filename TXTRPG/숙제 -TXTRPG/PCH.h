@@ -6,5 +6,6 @@
 #include <conio.h>
 #include <vector>
 #include <windows.h>
+#include <algorithm>
 using namespace std;
 

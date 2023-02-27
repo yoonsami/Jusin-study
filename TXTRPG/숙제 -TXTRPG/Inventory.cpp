@@ -27,10 +27,8 @@ void Inventory::Render()
 	system("cls");
 	if (m_iShowingInven == IM_NOTEQUIPED)
 	{
-		
 		if (m_bItemSelected == false)
 		{
-
 			ShowNotEquipedInven();
 			cout << endl << endl << "Z] 장착하기 E] 장착한 목록 보기 ESC] 나가기" << endl;
 		}
@@ -285,10 +283,8 @@ void Inventory::ControlUnequipedItem()
 
 void Inventory::ControlEquipedItem()
 {
-
-			m_vNotEquiped.push_back(m_Equiped[static_cast<int>(m_cursor._crdY)][static_cast<int>(m_cursor._crdX)]);
-			m_Equiped[static_cast<int>(m_cursor._crdY)][static_cast<int>(m_cursor._crdX)] = nullptr;
-
+	m_vNotEquiped.push_back(m_Equiped[static_cast<int>(m_cursor._crdY)][static_cast<int>(m_cursor._crdX)]);
+	m_Equiped[static_cast<int>(m_cursor._crdY)][static_cast<int>(m_cursor._crdX)] = nullptr;
 }
 
 StatInfo Inventory::GetEquipedItemStat()
@@ -329,7 +325,6 @@ void Inventory::DeletItem(size_t index)
 {
 	SwapIndex(index);
 	SAFE_DELETE(m_vNotEquiped.back());
-
 	m_vNotEquiped.pop_back();
 }
 

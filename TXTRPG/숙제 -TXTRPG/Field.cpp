@@ -69,7 +69,9 @@ void Field::Update()
 			else
 				while (getchar() != '\n');
 		}
-		
+		float dist = (m_pMonster->GetPos() - _player->GetPos()).OfSize();
+		if (dist <= 1.f && dist >= -1.f)
+			_player->OnAttacked(m_pMonster);
 
 		if (_arrow && _arrow->GetArrowPos() == m_pMonster->GetPos())
 		{

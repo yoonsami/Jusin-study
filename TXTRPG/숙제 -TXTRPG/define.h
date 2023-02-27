@@ -15,6 +15,7 @@
 #define WEAPONSHOPNUM 5
 #define ARMORSHOPNUM 5
 
+
 enum ITEMTYPE
 {
 	IT_WEAPON = 1,
