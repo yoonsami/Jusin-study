@@ -91,9 +91,11 @@ void Player::ShowInventory()
 void Knight::Attack(Creature* _target)
 {
 	m_target = _target;
+
 	float dist = ( m_target->GetPos() - _posCrd).OfSize();
 	if (dist <= 1.f && dist >= -1.f)
 		_target->OnAttacked(this);
+
 	m_target = nullptr;
 }
 

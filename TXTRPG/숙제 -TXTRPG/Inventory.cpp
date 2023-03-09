@@ -334,7 +334,7 @@ void Inventory::Release()
 	{
 		for (size_t i = 0; i < m_vNotEquiped.size(); i++)
 		{
-			delete m_vNotEquiped[i];
+			SAFE_DELETE(m_vNotEquiped[i]);
 		}
 	}
 

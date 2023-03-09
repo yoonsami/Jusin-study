@@ -14,6 +14,7 @@ ReportProgram::~ReportProgram()
 		if (_studentScore[i])
 			delete _studentScore[i];
 	}
+	_studentScore.clear();
 }
 
 void ReportProgram::Init()
