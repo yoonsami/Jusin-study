@@ -19,6 +19,7 @@ struct Vec2
 	Vec2 operator+ (const Vec2& vec) { return Vec2{ vX + vec.vX, vY + vec.vY }; }
 	Vec2 operator- (const Vec2& vec) { return Vec2{ vX - vec.vX, vY - vec.vY }; }
 	Vec2 operator/ (const FLOAT& a) { return Vec2{ vX / a, vY /a }; }
+	Vec2 operator* (const FLOAT& a) { return Vec2{ vX * a, vY *a}; }
 	FLOAT Get_Theta()
 	{
 		if (abs(vX) <= 0.0001f)

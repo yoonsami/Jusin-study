@@ -22,5 +22,7 @@ private:
 	Vec2 _Vel = {};
 	Vec2 _Acc = {};
 	Vec2 _Pin = {};
+	FLOAT RopeSize;
+	FLOAT FirstHeight;
 };
 
