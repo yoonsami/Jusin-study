@@ -18,8 +18,11 @@ void Bullet::Init()
 	m_fSpeed = 5.f;
 }
 
-void Bullet::Update()
+int Bullet::Update()
 {
+	if (m_bDead)
+		return OBJ_DEAD;
+
 	switch (m_eDir)
 	{
 	case DIRECTION::DIR_LEFT:
@@ -32,6 +35,7 @@ void Bullet::Update()
 		m_tInfo.fX += m_fSpeed;
 		break;
 	case DIRECTION::DIR_DOWN:
+		m_tInfo.fY += m_fSpeed;
 		break;
 	case DIRECTION::DIR_LU:
 		m_tInfo.fX -= m_fSpeed;
@@ -43,12 +47,18 @@ void Bullet::Update()
 		break;
 	case DIRECTION::DIR_END:
 		break;
-	default:
-		break;
 	}
 
 	__super::Update_Rect();
 
+	return OBJ_NOEVENT;
+}
+
+void Bullet::Late_Update()
+{
+	if (m_tRect.left	<= PLAYZONELEFT		|| m_tRect.top		<= PLAYZONETOP ||
+		m_tRect.right	>= PLAYZONERIGHT	|| m_tRect.bottom	>= PLAYZONEBOTTOM)
+		m_bDead = true;
 }
 
 void Bullet::Render(HDC hDC)
@@ -61,9 +71,3 @@ void Bullet::Release()
 
 }
 
-void Bullet::Set_PosDir(float _fX, float _fY, DIRECTION _dir)
-{
-	m_tInfo.fX = _fX;
-	m_tInfo.fY = _fY;
-	m_eDir = _dir;
-}

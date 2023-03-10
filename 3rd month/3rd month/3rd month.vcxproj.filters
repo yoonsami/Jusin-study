@@ -31,6 +31,12 @@
     <Filter Include="01.Object\02.Monstser">
       <UniqueIdentifier>{f22b04d7-5aa2-4978-a020-95b177e0ec2c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.Design">
+      <UniqueIdentifier>{4291b0dc-5d2a-41d8-89e4-60d798a058ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Design\00.AbstractFactory">
+      <UniqueIdentifier>{0e1cd61a-079e-4518-93be-da089669f073}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -51,7 +57,7 @@
     <ClInclude Include="MainGame.h">
       <Filter>00.MainGame</Filter>
     </ClInclude>
-    <ClInclude Include="define.h">
+    <ClInclude Include="Define.h">
       <Filter>99.header</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
@@ -65,6 +71,21 @@
     </ClInclude>
     <ClInclude Include="Monster.h">
       <Filter>01.Object\02.Monstser</Filter>
+    </ClInclude>
+    <ClInclude Include="Include.h">
+      <Filter>99.header</Filter>
+    </ClInclude>
+    <ClInclude Include="Enum.h">
+      <Filter>99.header</Filter>
+    </ClInclude>
+    <ClInclude Include="Struct.h">
+      <Filter>99.header</Filter>
+    </ClInclude>
+    <ClInclude Include="Functor.h">
+      <Filter>99.header</Filter>
+    </ClInclude>
+    <ClInclude Include="AbstractFactory.h">
+      <Filter>02.Design\00.AbstractFactory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

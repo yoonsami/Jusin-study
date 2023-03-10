@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Player.h"
 #include "Bullet.h"
+#include "AbstractFactory.h"
 
 Player::~Player()
 {
@@ -14,12 +15,17 @@ void Player::Init()
 	m_fSpeed = 10.f;
 }
 
-void Player::Update()
+int Player::Update()
 {
 	Key_Input();
 
 	__super::Update_Rect();
 
+	return OBJ_NOEVENT;
+}
+
+void Player::Late_Update()
+{
 
 }
 
@@ -60,18 +66,19 @@ void Player::Key_Input()
 
 	if (GetAsyncKeyState(VK_SPACE))
 	{
-		m_pBulletList->push_back(Create_Bullet(DIRECTION::DIR_UP));
-		m_pBulletList->push_back(Create_Bullet(DIRECTION::DIR_LU));
-		m_pBulletList->push_back(Create_Bullet(DIRECTION::DIR_RU));
+		m_pBulletList->push_back(AbstractFactory<Bullet>::Create(m_tInfo.fX, m_tInfo.fY, DIRECTION::DIR_UP));
+		m_pBulletList->push_back(AbstractFactory<Bullet>::Create(m_tInfo.fX, m_tInfo.fY, DIRECTION::DIR_LU));
+		m_pBulletList->push_back(AbstractFactory<Bullet>::Create(m_tInfo.fX, m_tInfo.fY, DIRECTION::DIR_RU));
 	}
 
+	if (GetAsyncKeyState('W'))
+		m_pBulletList->push_back(AbstractFactory<Bullet>::Create(m_tInfo.fX, m_tInfo.fY, DIRECTION::DIR_UP));
+	if (GetAsyncKeyState('A'))
+		m_pBulletList->push_back(AbstractFactory<Bullet>::Create(m_tInfo.fX, m_tInfo.fY, DIRECTION::DIR_LEFT));
+	if (GetAsyncKeyState('S'))
+		m_pBulletList->push_back(AbstractFactory<Bullet>::Create(m_tInfo.fX, m_tInfo.fY, DIRECTION::DIR_DOWN));
+	if (GetAsyncKeyState('D'))
+		m_pBulletList->push_back(AbstractFactory<Bullet>::Create(m_tInfo.fX, m_tInfo.fY, DIRECTION::DIR_RIGHT));
 
-}
 
-Object* Player::Create_Bullet(DIRECTION _dir)
-{
-	Object* bullet = new Bullet;
-	bullet->Init();
-	dynamic_cast<Bullet*>(bullet)->Set_PosDir(m_tInfo.fX, m_tInfo.fY - (m_tInfo.fCY / 2.f), _dir);
-	return bullet;
 }

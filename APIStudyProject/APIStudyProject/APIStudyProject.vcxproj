@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{96248979-ca54-440b-b987-9f4494d39217}</ProjectGuid>
-    <RootNamespace>My3rdmonth</RootNamespace>
+    <ProjectGuid>{5905af5c-82fe-4839-97eb-16de2fc55d64}</ProjectGuid>
+    <RootNamespace>APIStudyProject</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -147,42 +147,31 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="3rd month.h" />
-    <ClInclude Include="AbstractFactory.h" />
-    <ClInclude Include="Bullet.h" />
-    <ClInclude Include="Define.h" />
-    <ClInclude Include="Enum.h" />
+    <ClInclude Include="APIStudyProject.h" />
+    <ClInclude Include="define.h" />
     <ClInclude Include="framework.h" />
-    <ClInclude Include="Functor.h" />
-    <ClInclude Include="Include.h" />
     <ClInclude Include="MainGame.h" />
-    <ClInclude Include="Monster.h" />
-    <ClInclude Include="Object.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Resource.h" />
-    <ClInclude Include="Struct.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="3rd month.cpp" />
-    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="APIStudyProject.cpp" />
     <ClCompile Include="MainGame.cpp" />
-    <ClCompile Include="Monster.cpp" />
-    <ClCompile Include="Object.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
-      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ResourceCompile Include="3rd month.rc" />
+    <ResourceCompile Include="APIStudyProject.rc" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="3rd month.ico" />
+    <Image Include="APIStudyProject.ico" />
     <Image Include="small.ico" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -9,7 +9,8 @@ public:
 	virtual ~Player();
 public:
 	virtual void		Init() override;
-	virtual void		Update() override;
+	virtual int			Update() override;
+	virtual void			Late_Update() override;
 	virtual void		Render(HDC hDC) override;
 	virtual void		Release() override;
 
@@ -17,7 +18,6 @@ public:
 	void Set_Bullet(list<Object*>* _bulletList) { m_pBulletList = _bulletList; }
 private:
 	void Key_Input();
-	Object* Create_Bullet(DIRECTION _dir);
 	
 private:
 	list<Object*>* m_pBulletList;
