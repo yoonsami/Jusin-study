@@ -21,6 +21,7 @@ void MainGame::Init()
 
 	m_objList[OT_PLAYER].push_back(AbstractFactory<Player>::Create());
 	dynamic_cast<Player*>(m_objList[OT_PLAYER].front())->Set_Bullet(&m_objList[OT_BULLET]);
+
 	m_objList[OT_MONSTER].push_back(AbstractFactory<Monster>::Create());
 	dynamic_cast<Monster*>(m_objList[OT_MONSTER].front())->Set_Bullet(&m_objList[OT_BULLET]);
 }
@@ -29,11 +30,16 @@ void MainGame::Update()
 {
 	++m_iFPS;
 
-	if(m_objList[OT_MONSTER].size() == 0)
+	if (m_monsterCreate + 1000 < GetTickCount64())
 	{
-		m_objList[OT_MONSTER].push_back(AbstractFactory<Monster>::Create());
-		dynamic_cast<Monster*>(m_objList[OT_MONSTER].front())->Set_Bullet(&m_objList[OT_BULLET]);
+		if (m_objList[OT_MONSTER].size() == 0)
+		{
+			m_objList[OT_MONSTER].push_back(AbstractFactory<Monster>::Create());
+			for (auto& i : m_objList[OT_MONSTER])
+				dynamic_cast<Monster*>(i)->Set_Bullet(&m_objList[OT_BULLET]);
+		}
 	}
+	
 
 	for (size_t i = 0; i < OT_END; ++i)
 	{
@@ -42,6 +48,8 @@ void MainGame::Update()
 			int Result = (*it)->Update();
 			if (Result == OBJ_DEAD)
 			{
+				if(i == OT_MONSTER)
+					m_monsterCreate = GetTickCount64();
 				Safe_Delete<Object*>(*it);
 				it = m_objList[i].erase(it);
 			}

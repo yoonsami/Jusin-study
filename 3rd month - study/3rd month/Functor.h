@@ -18,3 +18,4 @@ void	Safe_Delete_Array(T& Temp)
 		Temp = nullptr;
 	}
 }
+

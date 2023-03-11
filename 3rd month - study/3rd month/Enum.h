@@ -19,3 +19,11 @@ enum ObjectType
 	OT_BULLET,
 	OT_END
 };
+
+enum UITYPE
+{
+	UT_HPBAR,
+	UT_JUMPCHABAR,
+	UT_FIRECHABAR,
+	UT_END
+};

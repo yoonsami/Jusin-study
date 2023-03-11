@@ -6,6 +6,8 @@
 #include <list>
 #include <algorithm>
 #include <ctime>
+#include <string>
+#include <vector>
 // TODO: 프로그램에 필요한 추가 헤더는 여기에서 참조합니다.
 #ifdef _DEBUG
 
@@ -22,3 +24,4 @@
 #endif
 
 using namespace std;
+

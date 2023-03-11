@@ -1,6 +1,8 @@
 #include "pch.h"
 #include "Monster.h"
 #include "Bullet.h"
+#include "HpBar.h"
+#include "AbstractFactory.h"
 
 Monster::Monster()
 {
@@ -14,13 +16,22 @@ Monster::~Monster()
 
 void Monster::Init()
 {
-	m_tInfo = { WINCX / 2.f, 200, 60.f, 60.f };
+	m_tPos = { WINCX / 2.f, 200, 60.f, 60.f };
 	m_fSpeed = 5.f;
 	if (rand() % 2 == 0)
+	{
 		m_eDir = DIRECTION::DIR_LEFT;
+		_Vel.vX = -3.f;
+	}
 	else
+	{
 		m_eDir = DIRECTION::DIR_RIGHT;
+		_Vel.vX = 3.f;
+	}
+
 	m_bInvincible = true;
+
+	m_Ui.push_back(new HpBar(this));
 }
 
 int Monster::Update()
@@ -31,17 +42,23 @@ int Monster::Update()
 
 		m_dwTime = GetTickCount64();
 	}
-	if (m_bDead)
+	if (Is_Dead())
 		return OBJ_DEAD;
 
-	Move();
+	
+	// Get_Acc();
+
+	for (auto& i : m_Ui)
+	{
+		i->Update();
+	}
+
 	__super::Update_Rect();
 	return OBJ_NOEVENT;;
 }
 
 void Monster::Late_Update()
 {
-	Turn();
 	if(m_bInvincible == false)
 		CheckCollide();
 }
@@ -61,26 +78,15 @@ void Monster::Render(HDC hDC)
 		::DeleteObject(hpen);
 
 	}
+	for (auto& i : m_Ui)
+	{
+		i->Render(hDC);
+	}
 }
 
 void Monster::Release()
 {
-}
-
-void Monster::Move()
-{
-	if (m_eDir == DIRECTION::DIR_LEFT)
-		m_tInfo.fX -= m_fSpeed;
-	else if (m_eDir == DIRECTION::DIR_RIGHT)
-		m_tInfo.fX += m_fSpeed;
-}
-
-void Monster::Turn()
-{
-	if (m_tInfo.fX - (m_tInfo.fCX / 2) < PLAYZONELEFT)
-		m_eDir = DIRECTION::DIR_RIGHT;
-	else if (m_tInfo.fX + (m_tInfo.fCX / 2) > PLAYZONERIGHT)
-		m_eDir = DIRECTION::DIR_LEFT;
+	for_each(m_Ui.begin(), m_Ui.end(), Safe_Delete<Object*>);
 }
 
 void Monster::CheckCollide()
@@ -89,11 +95,12 @@ void Monster::CheckCollide()
 	BOOL bCollide = FALSE;
 	for (auto& i : *m_pBulletList)
 	{
-		bCollide = IntersectRect(&tmp, &i->Get_Rect(), &m_tRect);
+		bCollide = Collider::IntersectCirRect(&i->Get_Rect(), &m_tRect);
 		if (bCollide)
 		{
 			dynamic_cast<Bullet*>(i)->Set_Dead();
-			m_bDead = true;
+			m_tStat.fHp -= 10;
+			if (m_tStat.fHp < 0) m_tStat.fHp = 0;
 			return;
 		}
 	}

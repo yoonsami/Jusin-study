@@ -15,12 +15,12 @@ public:
 	void Late_Update();
 	void Render();
 	void Release();
-	
 
 private:
 	HDC				m_DC = {};
 	list<Object*>	m_objList[OT_END];
 	DWORD64			m_dwTime = GetTickCount64();
+	DWORD64			m_monsterCreate = 0;
 	int				m_iFPS = 0;
 	TCHAR			m_szFPS[32];
 };

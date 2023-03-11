@@ -7,8 +7,12 @@
 #define			PURE		= 0
 #define			GRAVITY		1.f
 #define			DELTATIME	1.0f
-#define			ELASTICITY	0.f
-#define			JUMPPOWER	30.f
+#define			ELASTICITY	1.f
+#define			PLAYERELASTICITY	0.f
+#define			MINJMPPOW	15.f
+#define			MAXJMPPOW	25.f
+#define			MINBULSIZE	20.f
+#define			MAXBULSIZE	50.f
 
 //플레이존 좌표값 정의
 #define			PLAYZONELEFT 50
