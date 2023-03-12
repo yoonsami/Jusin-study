@@ -5,6 +5,7 @@ class Bullet : public Creature
 {
 public:
 	Bullet();
+	Bullet(const Bullet& bullet);
 	virtual ~Bullet();
 
 public:
@@ -13,8 +14,11 @@ public:
 	virtual void		Late_Update() override;
 	virtual void		Render(HDC hDC) override;
 	virtual void		Release() override;
-
+	virtual void		Set_Att(FLOAT Att) { if (m_bFullCharged) m_tStat.fAtt = Att * 1.5f; else m_tStat.fAtt = Att; }
 public:
-	void Set_Dead() { m_bDead = true; }
+	void Set_FullCharged(BOOL FullCharged) { m_bFullCharged = FullCharged; }
+
+private:
+	BOOL			m_bFullCharged = false;
 };
 

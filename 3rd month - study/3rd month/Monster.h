@@ -4,6 +4,8 @@ class Monster : public Creature
 {
 public:
 	Monster();
+	Monster(INT _MonsterType);
+	Monster(const Monster& monster);
 	virtual ~Monster();
 
 public:
@@ -20,6 +22,7 @@ public:
 
 private:
 	list<Object*>*	m_pBulletList = nullptr;
-	DWORD64			m_dwTime = GetTickCount64();
+	DWORD64			m_InvincibleTimer = GetTickCount64();
+	INT				m_iMonsterType;
 };
 

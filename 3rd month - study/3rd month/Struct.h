@@ -40,7 +40,7 @@ struct STATINFO
 	FLOAT		fHp;
 	FLOAT		fMaxHp;
 	FLOAT		fAtt;
-	FLOAT		Get_HpRatio() { if (fMaxHp) return fHp / fMaxHp; else return 0; }
+	FLOAT		Get_HpRatio() { if (fMaxHp) return (fHp / fMaxHp); else return 0; }
 };
 
 struct Collider
@@ -56,26 +56,57 @@ struct Collider
 		return (cenA - cenB).Get_Size() <  (sizeA + sizeB) / 2.f;
 	}
 	
-	static BOOL IntersectCirDot(RECT* circle, LONG fX, LONG fY)
+	static BOOL IntersectCirDot(RECT* circle, FLOAT fX, FLOAT fY)
 	{
 		Vec2 cen = { ((circle->left + circle->right) / 2.f) , ((circle->top + circle->bottom) / 2.f) };
-		Vec2 dot = { (FLOAT)fX,(FLOAT)fY };
+		Vec2 dot = { fX,fY };
 
 		return (cen - dot).Get_Size() < abs(circle->right - circle->left) * 0.5f;
 
 	}
 
+	static BOOL IntersectRectDot(RECT* rect, FLOAT fX, FLOAT fY)
+	{
+		return (fX< rect->right&& fX> rect->left && fY > rect->top && fY < rect->bottom);
+	}
+
 	static BOOL IntersectCirRect(RECT* circle, RECT* rect)
+	{
+		FLOAT closestX = (circle->left + circle->right) / 2.f;
+		FLOAT closestY = (circle->top + circle->bottom) / 2.f;
+
+		if (closestX < rect->left)
+			closestX = static_cast<FLOAT>(rect->left);
+		else if (closestX > rect->right)
+			closestX = static_cast<FLOAT>(rect->right);
+
+		if (closestY < rect->top)
+			closestY = static_cast<FLOAT>(rect->top);
+		else if (closestY > rect->bottom)
+			closestY = static_cast<FLOAT>(rect->bottom);
+
+		return IntersectCirDot(circle, closestX, closestY);
+	}
+
+	static BOOL IntersectWith(RECT& rectA, RECT& rectB, FIGURETYPE figureA, FIGURETYPE figureB)
 	{
 		RECT tmp;
 		
-		if (!IntersectCirDot(circle, rect->left, rect->top) && !IntersectCirDot(circle, rect->right, rect->top) &&
-			!IntersectCirDot(circle, rect->left, rect->bottom) && !IntersectCirDot(circle, rect->right, rect->bottom))
+		if (figureA == FIGURETYPE::FT_RECT)
 		{
-			if (!IntersectRect(&tmp, circle, rect))
-				return false;
+			if (figureB == FIGURETYPE::FT_RECT)
+				return IntersectRect(&tmp, &rectA, &rectB);
+			if (figureB == FIGURETYPE::FT_CIRCLE)
+				return IntersectCirRect(&rectB,&rectA);
+		}
+		if(figureA == FIGURETYPE::FT_CIRCLE)
+		{
+			if (figureB == FIGURETYPE::FT_RECT)
+				return IntersectCirRect(&rectA, &rectB);
+			if (figureB == FIGURETYPE::FT_CIRCLE)
+				return IntersectCircle(&rectA, &rectB);
 		}
 		
-		return true;
+		return false;
 	}
 };

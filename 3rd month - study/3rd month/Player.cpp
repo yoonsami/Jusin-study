@@ -4,6 +4,32 @@
 #include "AbstractFactory.h"
 #include "HpBar.h"
 #include "JumpChargeBar.h"
+#include "ShootingChargeBar.h"
+
+Player::Player() : Creature(CT_PLAYER), m_iPlayerType(0)
+{
+
+}
+Player::Player(INT _PlayerType) : Creature(CT_PLAYER), m_iPlayerType(_PlayerType)
+{
+
+}
+
+
+Player::Player(const Player& player) :Creature(player), m_iPlayerType(0)
+{
+	m_pBulletList	= nullptr;
+	SpacePressed = player.SpacePressed;
+	RightPressed = player.RightPressed;
+	LeftPressed = player.LeftPressed;
+	ZPressed	= player.ZPressed;
+	XPressed	= player.XPressed;
+	m_fJumpCharge = player.m_fJumpCharge;
+	m_fFireCharge = player.m_fFireCharge;
+	m_bFullCharged = player.m_bFullCharged;
+	m_InvincibleTimer = GetTickCount64();
+	
+}
 
 Player::~Player()
 {
@@ -14,22 +40,32 @@ void Player::Init()
 {
 	m_tPos = { WINCX / 2.f, WINCY / 2.f, 50.f, 50.f };
 
-	_Pin.vX = WINCX / 2.f;
-	_Pin.vY = 0;
+	/*_Pin.vX = WINCX / 2.f;
+	_Pin.vY = 0;*/
 
-	RopeSize = (m_tPos - _Pin).Get_PosVec().Get_Size();
-	FirstHeight = abs(m_tPos.fY - _Pin.vY);
+	/*RopeSize = (m_tPos - _Pin).Get_PosVec().Get_Size();
+	FirstHeight = abs(m_tPos.fY - _Pin.vY);*/
 	m_fSpeed = 5.f;
+
+	m_eFigure = FIGURETYPE::FT_RECT;
 
 	m_Ui.push_back(new HpBar(this));
 	m_Ui.push_back(new JumpChargeBar(this));
-	// m_Ui.push_back(new HpBar(this));
-	// m_Ui.push_back(new HpBar(this));
+	m_Ui.push_back(new ShootingChargeBar(this));
+	
 }
 
 int Player::Update()
 {
-	Key_Input();
+	if (m_InvincibleTimer + 1000 < GetTickCount64())
+	{
+		m_bInvincible = false;
+
+		m_InvincibleTimer = GetTickCount64();
+	}
+
+	if(!Is_Dead())
+		Key_Input();
 	Get_Acc();
 	for (auto& i : m_Ui)
 	{
@@ -38,6 +74,7 @@ int Player::Update()
 	__super::Update_Rect();
 
 	return OBJ_NOEVENT;
+
 }
 
 void Player::Late_Update()
@@ -50,7 +87,19 @@ void Player::Late_Update()
 
 void Player::Render(HDC hDC)
 {
-	Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+	if (m_bInvincible == false)
+		Draw_Figure(hDC);
+	else
+	{
+		HPEN hpen;
+		HPEN hpenOld;
+		hpen = CreatePen(PS_SOLID, 3, RGB(255, 0, 0));
+		hpenOld = (HPEN)::SelectObject(hDC, (HGDIOBJ)hpen);
+		Draw_Figure(hDC);
+		hpen = (HPEN)::SelectObject(hDC, hpenOld);
+		::DeleteObject(hpen);
+
+	}
 
 	for (auto& i : m_Ui)
 	{
@@ -75,16 +124,17 @@ void Player::Render(HDC hDC)
 
 	swprintf_s(szBuff3, L"aX : %f, aY : %f", _Acc.vX, _Acc.vY);
 	TextOut(hDC, 50, 150, szBuff3, lstrlen(szBuff3));
-	Vec2 tmp = (m_tPos - _Pin).Get_PosVec();
+	/*Vec2 tmp = (m_tPos - _Pin).Get_PosVec();
 	swprintf_s(szBuff4, L"distance : %f", tmp.Get_Size());
-	TextOut(hDC, 50, 200, szBuff4, lstrlen(szBuff4));
+	TextOut(hDC, 50, 200, szBuff4, lstrlen(szBuff4));*/
 	swprintf_s(szBuff5, L"GetAsyncKeyState : %d", GetAsyncKeyState(VK_SPACE));
 	TextOut(hDC, 50, 250, szBuff5, lstrlen(szBuff5));
 }
 
 void Player::Release()
 {
-	for_each(m_Ui.begin(), m_Ui.end(), Safe_Delete<Object*>);
+	if(m_Ui.size()>0)
+		for_each(m_Ui.begin(), m_Ui.end(), Safe_Delete<Object*>);
 }
 
 void Player::Get_Acc()
@@ -97,25 +147,25 @@ void Player::Get_Acc()
 	if (OnGround)
 		_Acc -= {0.f, GRAVITY};
 
-	if(SetPin)
-	{
-		Vec2 tmp = (m_tPos - _Pin).Get_PosVec();
+	//if(SetPin)
+	//{
+	//	Vec2 tmp = (m_tPos - _Pin).Get_PosVec();
 
-		// 중력에 의한 장력
-		_Acc.vX += GRAVITY * (-tmp.vX / RopeSize) * (tmp.vY / RopeSize);
-		_Acc.vY += -GRAVITY * static_cast<FLOAT>(pow((tmp.vY / RopeSize), 2));
-		// 구심력에 의한 장력
+	//	// 중력에 의한 장력
+	//	_Acc.vX += GRAVITY * (-tmp.vX / RopeSize) * (tmp.vY / RopeSize);
+	//	_Acc.vY += -GRAVITY * static_cast<FLOAT>(pow((tmp.vY / RopeSize), 2));
+	//	// 구심력에 의한 장력
 
-		_Acc.vX += static_cast<FLOAT>(pow(_Vel.Get_Size(), 2)) * ((-tmp.vX / RopeSize) / RopeSize);
-		_Acc.vY -= static_cast<FLOAT>(pow(_Vel.Get_Size(), 2)) * ((tmp.vY / RopeSize) / RopeSize);
-	}
+	//	_Acc.vX += static_cast<FLOAT>(pow(_Vel.Get_Size(), 2)) * ((-tmp.vX / RopeSize) / RopeSize);
+	//	_Acc.vY -= static_cast<FLOAT>(pow(_Vel.Get_Size(), 2)) * ((tmp.vY / RopeSize) / RopeSize);
+	//}
 
 	_Vel += _Acc * DELTATIME;
 	//좌표 변화량 계산 후 +=
 	m_tPos += (_Vel + (_Vel - (_Acc * DELTATIME))) * DELTATIME * 0.5f;
 
 	// 보정
-	if (SetPin) 
+	/*if (SetPin)
 	{
 		Vec2 tmp = (m_tPos - _Pin).Get_PosVec();
 		m_tPos.fX = _Pin.vX + RopeSize * ((tmp.vX) / tmp.Get_Size());
@@ -135,7 +185,7 @@ void Player::Get_Acc()
 
 			_Vel = {};
 		}
-	}
+	}*/
 
 	if (m_tPos.fY + (m_tPos.fCY * 0.5f) > PLAYZONEBOTTOM)
 	{
@@ -219,15 +269,15 @@ void Player::Key_Input()
 
 	if ((GetAsyncKeyState(VK_SPACE) & 0x8000) && OnGround)
 	{
-		JumpCharge += 0.5f;
+		m_fJumpCharge += 0.5f;
 		SpacePressed = true;
 	}
 	if ((GetAsyncKeyState(VK_SPACE) == (SHORT)0x0000) && SpacePressed == true)
 	{
 		
-		_Vel.vY -= clamp(JumpCharge, MINJMPPOW, MAXJMPPOW);
+		_Vel.vY -= clamp(m_fJumpCharge, MINJMPPOW, MAXJMPPOW);
 		SpacePressed = false;
-		JumpCharge = 5.f;
+		m_fJumpCharge = 5.f;
 	}
 
 	if ((GetAsyncKeyState('Z') == (SHORT)0x8000) && !ZPressed && !OnGround)
@@ -241,14 +291,19 @@ void Player::Key_Input()
 
 	if (GetAsyncKeyState('X') & 0x8000)
 	{
-		++FireCharge;
+		++m_fFireCharge;
+
+		if (m_fFireCharge > 80) m_bFullCharged = true;
 		XPressed = true;
 	}
 	if ((GetAsyncKeyState('X') == (SHORT)0x0000) && XPressed)
 	{
-		FLOAT BulSize = clamp(FireCharge, MINBULSIZE, MAXBULSIZE);
+		FLOAT BulSize = clamp(m_fFireCharge, MINFIREPOW, MAXFIREPOW);
 		m_pBulletList->push_back(AbstractFactory<Bullet>::Create(m_tPos.fX, m_tPos.fY,BulSize,BulSize, DIRECTION::DIR_UP));
+		dynamic_cast<Bullet*>(m_pBulletList->back())->Set_FullCharged(m_bFullCharged);
+		m_pBulletList->back()->Set_Att(MINBULDAM + Get_ShootChargeRatio() * (MAXBULDAM - MINBULDAM));
 		XPressed = false;
-		FireCharge = 0;
+		m_fFireCharge = 0;
+		m_bFullCharged = false;
 	}
 }

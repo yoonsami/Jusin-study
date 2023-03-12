@@ -4,9 +4,21 @@
 #include "HpBar.h"
 #include "AbstractFactory.h"
 
-Monster::Monster()
+Monster::Monster(INT _MonsterType) :Creature(CT_MONSTER),m_iMonsterType(_MonsterType)
 {
 
+}
+
+Monster::Monster() : Creature(CT_MONSTER), m_iMonsterType(0)
+{
+
+}
+
+Monster::Monster(const Monster& monster) :Creature(monster)
+{
+	m_pBulletList = nullptr;
+	m_InvincibleTimer = GetTickCount64();
+	m_iMonsterType = monster.m_iMonsterType;
 }
 
 Monster::~Monster()
@@ -18,35 +30,42 @@ void Monster::Init()
 {
 	m_tPos = { WINCX / 2.f, 200, 60.f, 60.f };
 	m_fSpeed = 5.f;
-	if (rand() % 2 == 0)
+	if(m_eDir == DIRECTION::DIR_END)
 	{
-		m_eDir = DIRECTION::DIR_LEFT;
-		_Vel.vX = -3.f;
+		if (rand() % 2 == 0)
+		{
+			m_eDir = DIRECTION::DIR_LEFT;
+			_Vel.vX = -3.f;
+		}
+		else
+		{
+			m_eDir = DIRECTION::DIR_RIGHT;
+			_Vel.vX = 3.f;
+		}
 	}
-	else
-	{
-		m_eDir = DIRECTION::DIR_RIGHT;
-		_Vel.vX = 3.f;
-	}
+	else if (m_eDir == DIRECTION::DIR_LEFT)  _Vel.vX = -3.f;
+	else if (m_eDir == DIRECTION::DIR_RIGHT) _Vel.vX = 3.f;
 
+	m_eFigure = FIGURETYPE::FT_CIRCLE;
 	m_bInvincible = true;
-
+	m_tStat.fAtt = 15.f;
 	m_Ui.push_back(new HpBar(this));
 }
 
 int Monster::Update()
 {
-	if (m_dwTime + 1000 < GetTickCount64())
+	if (m_InvincibleTimer + 1000 < GetTickCount64())
 	{
 		m_bInvincible = false;
 
-		m_dwTime = GetTickCount64();
+		m_InvincibleTimer = GetTickCount64();
 	}
+
 	if (Is_Dead())
 		return OBJ_DEAD;
 
 	
-	// Get_Acc();
+	Get_Acc();
 
 	for (auto& i : m_Ui)
 	{
@@ -66,14 +85,14 @@ void Monster::Late_Update()
 void Monster::Render(HDC hDC)
 {
 	if(m_bInvincible == false)
-		Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+		Draw_Figure(hDC);
 	else
 	{
 		HPEN hpen;
 		HPEN hpenOld;
 		hpen = CreatePen(PS_SOLID, 3, RGB(255, 0, 0));
 		hpenOld = (HPEN)::SelectObject(hDC, (HGDIOBJ)hpen);
-		Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
+		Draw_Figure(hDC);
 		hpen = (HPEN)::SelectObject(hDC, hpenOld);
 		::DeleteObject(hpen);
 
@@ -91,16 +110,14 @@ void Monster::Release()
 
 void Monster::CheckCollide()
 {
-	RECT tmp{};
 	BOOL bCollide = FALSE;
 	for (auto& i : *m_pBulletList)
 	{
-		bCollide = Collider::IntersectCirRect(&i->Get_Rect(), &m_tRect);
+		bCollide = Collider::IntersectWith(i->Get_Rect(), m_tRect, i->Get_Figure(), m_eFigure);
 		if (bCollide)
 		{
-			dynamic_cast<Bullet*>(i)->Set_Dead();
-			m_tStat.fHp -= 10;
-			if (m_tStat.fHp < 0) m_tStat.fHp = 0;
+			OnAttacked(*i);
+			i->Set_Dead();
 			return;
 		}
 	}

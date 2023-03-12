@@ -1,10 +1,24 @@
 #include "pch.h"
 #include "Object.h"
 
-Object::Object()
+Object::Object(INT _ObjectType) : m_iObjectType(_ObjectType)
 {
 	ZeroMemory(&m_tPos, sizeof(POSINFO));
 	ZeroMemory(&m_tRect, sizeof(RECT));
+}
+
+Object::Object(const Object& player)
+{
+	m_tStat = player.m_tStat;
+	m_tPos = player.m_tPos;
+	m_tRect = player.m_tRect;
+	m_eDir = player.m_eDir;
+	_Vel = player._Vel;
+	_Acc = player._Acc;
+	m_bInvincible = player.m_bInvincible;
+	OnGround = player.OnGround;
+	m_bDead = player.m_bDead;
+	m_eFigure = player.m_eFigure;
 }
 
 Object::~Object()
@@ -57,6 +71,12 @@ void Object::Get_Acc()
 	else	OnGround = false;
 }
 
+
+void Object::OnAttacked(Object& Attacker)
+{
+	m_tStat.fHp -= Attacker.m_tStat.fAtt;
+	if (m_tStat.fHp < 0) m_tStat.fHp = 0;
+}
 
 void Object::Set_PosDir(float _fX, float _fY, DIRECTION _dir)
 {

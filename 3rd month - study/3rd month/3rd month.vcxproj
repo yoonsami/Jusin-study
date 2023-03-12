@@ -154,6 +154,7 @@
     <ClInclude Include="3rd month.h" />
     <ClInclude Include="AbstractFactory.h" />
     <ClInclude Include="Bullet.h" />
+    <ClInclude Include="CareTaker.h" />
     <ClInclude Include="Creature.h" />
     <ClInclude Include="Define.h" />
     <ClInclude Include="Enum.h" />
@@ -163,11 +164,13 @@
     <ClInclude Include="Include.h" />
     <ClInclude Include="JumpChargeBar.h" />
     <ClInclude Include="MainGame.h" />
+    <ClInclude Include="Memento.h" />
     <ClInclude Include="Monster.h" />
     <ClInclude Include="Object.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="ShootingChargeBar.h" />
     <ClInclude Include="Struct.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="UI.h" />
@@ -175,10 +178,12 @@
   <ItemGroup>
     <ClCompile Include="3rd month.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="CareTaker.cpp" />
     <ClCompile Include="Creature.cpp" />
     <ClCompile Include="HpBar.cpp" />
     <ClCompile Include="JumpChargeBar.cpp" />
     <ClCompile Include="MainGame.cpp" />
+    <ClCompile Include="Memento.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="pch.cpp">
@@ -188,6 +193,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="ShootingChargeBar.cpp" />
     <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>

@@ -5,7 +5,7 @@
 class UI : public Object
 {
 public:
-	UI(int uiType);
+	UI(int uiType, Object* m_pOwner);
 	virtual ~UI() {}
 
 
@@ -19,7 +19,7 @@ public:
 public:
 
 protected:
-	INT			m_iUIType	= 0;
-	Object*		m_pOwner	= nullptr;
+	INT			m_iUIType;
+	Object*		m_pOwner;
 };
 

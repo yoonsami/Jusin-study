@@ -49,6 +49,15 @@
     <Filter Include="01.Object\01.UI\01.JumpChargeBar">
       <UniqueIdentifier>{0ac1fb28-fb3c-4963-a44c-6c682d0cd43e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Object\01.UI\02.ShootingChargeBar">
+      <UniqueIdentifier>{16ab2ed3-d303-498e-a402-ab2f45c5c191}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Design\01.Memento">
+      <UniqueIdentifier>{e0605273-6632-457e-9e64-3df6e4174eab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Design\01.Memento\00.CareTaker">
+      <UniqueIdentifier>{df32b4ad-cb90-41bd-a580-5a5d2f770b6d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="framework.h">
@@ -111,6 +120,15 @@
     <ClInclude Include="JumpChargeBar.h">
       <Filter>01.Object\01.UI\01.JumpChargeBar</Filter>
     </ClInclude>
+    <ClInclude Include="ShootingChargeBar.h">
+      <Filter>01.Object\01.UI\02.ShootingChargeBar</Filter>
+    </ClInclude>
+    <ClInclude Include="Memento.h">
+      <Filter>02.Design\01.Memento</Filter>
+    </ClInclude>
+    <ClInclude Include="CareTaker.h">
+      <Filter>02.Design\01.Memento\00.CareTaker</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="3rd month.cpp">
@@ -145,6 +163,15 @@
     </ClCompile>
     <ClCompile Include="JumpChargeBar.cpp">
       <Filter>01.Object\01.UI\01.JumpChargeBar</Filter>
+    </ClCompile>
+    <ClCompile Include="ShootingChargeBar.cpp">
+      <Filter>01.Object\01.UI\02.ShootingChargeBar</Filter>
+    </ClCompile>
+    <ClCompile Include="Memento.cpp">
+      <Filter>02.Design\01.Memento</Filter>
+    </ClCompile>
+    <ClCompile Include="CareTaker.cpp">
+      <Filter>02.Design\01.Memento\00.CareTaker</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

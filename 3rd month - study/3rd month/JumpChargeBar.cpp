@@ -2,9 +2,9 @@
 #include "JumpChargeBar.h"
 #include "Player.h"
 
-JumpChargeBar::JumpChargeBar(Object* Owner) :UI(UT_JUMPCHABAR)
+JumpChargeBar::JumpChargeBar(Object* Owner) :UI(UT_HPBAR, Owner)
 {
-    m_pOwner = Owner;
+    
 }
 
 void JumpChargeBar::Init()
@@ -26,15 +26,14 @@ void JumpChargeBar::Late_Update()
 
 void JumpChargeBar::Render(HDC hDC)
 {
-	if (dynamic_cast<Player*>(m_pOwner)->IsSpacePressed())
+	if (dynamic_cast<Player*>(m_pOwner)->IsJumpCharging())
 	{
 		Rectangle(hDC, m_tRect.left, m_tRect.top, m_tRect.right, m_tRect.bottom);
-		FLOAT a = m_tPos.fCX * (1.f - m_pOwner->Get_Stat().Get_HpRatio());
 		HBRUSH hNewBrush = CreateSolidBrush(RGB(0, 255, 255));
 		HBRUSH hOldBrush = (HBRUSH)SelectObject(hDC, hNewBrush);
 		Rectangle(hDC, m_tRect.left,
 			m_tRect.top,
-			m_tRect.left + static_cast<INT>(m_tPos.fCX * dynamic_cast<Player*>(m_pOwner)->Get_JumpCharge()),
+			m_tRect.left + static_cast<INT>(m_tPos.fCX * dynamic_cast<Player*>(m_pOwner)->Get_JumpChargeRatio()),
 			m_tRect.bottom);
 		hNewBrush = (HBRUSH)::SelectObject(hDC, hOldBrush);
 		::DeleteObject(hNewBrush);

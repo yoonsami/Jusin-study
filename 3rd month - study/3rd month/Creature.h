@@ -4,7 +4,8 @@ class Creature : public Object
 {
 
 public:
-	Creature();
+	Creature(INT _CreatureType);
+	Creature(const Creature& player);
 	virtual ~Creature();
 
 public:
@@ -17,13 +18,13 @@ public:
 
 public:
 	BOOL				Is_Dead() { return m_tStat.fHp <= 0; }
-	virtual void		OnAttacked(Object& Attacker);
+	INT					Get_CreatureType() { return m_iCreatureType; }
+
+	void				Draw_Figure(HDC hDC);
 
 protected:
-	
-	float		m_fSpeed = 0.f;
-	bool		m_bDead = false;
-	bool		m_bInvincible = false;
+	INT					m_iCreatureType;
+	float				m_fSpeed = 0.f;
 	vector<Object*>		m_Ui = {};
 	
 };
