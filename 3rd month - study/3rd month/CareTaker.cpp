@@ -47,11 +47,21 @@ void CareTaker::Set_PlayingIter()
 	{
 		--NowPlayingIter;
 		if (NowPlayingIter == m_MementoList.begin())
-		 ++NowPlayingIter;
+		{
+			++NowPlayingIter;
+			CareTakerState = CS_STOP;
+		}
+
 	}
 	if (CareTakerState == CS_PLAY)
 	{
 		 ++NowPlayingIter;
-		 if (NowPlayingIter == m_MementoList.end()) --NowPlayingIter;
+		 if (NowPlayingIter == m_MementoList.end()) 
+		 {
+			 --NowPlayingIter;
+			 CareTakerState = CS_STOP;
+		 }
+
 	}
+
 }

@@ -12,7 +12,7 @@ public:
 	void Push_back(Memento* memento) { m_MementoList.push_back(memento); }
 	void Key_Input();
 	void Set_PlayingIter();
-	void Init() {NowPlayingIter = m_MementoList.begin();	}
+	void Init() {NowPlayingIter = --m_MementoList.end();	}
 
 public:
 
