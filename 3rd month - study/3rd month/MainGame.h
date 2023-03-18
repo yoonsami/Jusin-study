@@ -28,7 +28,6 @@ private:
 	TCHAR			m_szFPS[32];
 	CareTaker		caretaker;
 	bool			PlayerDead = false;
-
 	list<Object*>*	NowObjList;
 };
 

@@ -25,6 +25,7 @@ void MainGame::Init()
 
 	m_objList[CT_MONSTER].push_back(AbstractFactory<Monster>::Create());
 	dynamic_cast<Monster*>(m_objList[CT_MONSTER].back())->Set_Bullet(&m_objList[CT_BULLET]);
+	
 }
 
 void MainGame::Update()
@@ -99,16 +100,14 @@ void MainGame::Late_Update()
 					if (dynamic_cast<Player*>(m_objList[CT_PLAYER].front())->Is_Dead())
 					{
 						PlayerDead = true;
-
 					}
 				}
 			}
 		}
 
-		if (m_dwTime1 + 500 < GetTickCount64())
-		{
-			caretaker.Push_back(CreateMemento());
-		}
+		
+		caretaker.Push_back(CreateMemento());
+
 
 		if(PlayerDead)
 		{

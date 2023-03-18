@@ -31,8 +31,10 @@ public:
 	Vec2&		Get_Vel() { return _Vel; }
 	DIRECTION	Get_Direction() { return m_eDir; }
 	BOOL		IS_Invincible() { return m_bInvincible; }
+
 protected:
 	void				Update_Rect();
+
 protected:
 	INT			m_iObjectType;
 	STATINFO	m_tStat{ "",1,100,100,10 };
