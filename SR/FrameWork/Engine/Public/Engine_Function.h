@@ -1,36 +1,40 @@
 #pragma once
 
-template<typename T>
-ULONG Safe_AddRef(T& pInstance)
+namespace Engine
 {
-	ULONG dwRefCount = 0;
-	if (pInstance != nullptr)
+	template<typename T>
+	unsigned long Safe_AddRef(T& pInstance)
 	{
-		dwRefCount = pInstance->AddRef();
+		ULONG dwRefCount = 0;
+		if (pInstance != nullptr)
+		{
+			dwRefCount = pInstance->AddRef();
+		}
+
+		return dwRefCount;
 	}
 
-	return dwRefCount;
-}
-
-template<typename T>
-ULONG Safe_Release(T& pInstance)
-{
-	ULONG dwRefCount = 0;
-	if (pInstance != nullptr)
+	template<typename T>
+	unsigned long Safe_Release(T& pInstance)
 	{
-		dwRefCount = pInstance->Release();
-		if (dwRefCount == 0)
-			pInstance = nullptr;
+		ULONG dwRefCount = 0;
+		if (pInstance != nullptr)
+		{
+			dwRefCount = pInstance->Release();
+			if (dwRefCount == 0)
+				pInstance = nullptr;
+		}
+		return dwRefCount;
 	}
-	return dwRefCount;
-}
 
-template<typename T>
-void Safe_Delete(T& pPointer)
-{
-	if (pPointer != nullptr)
+	template<typename T>
+	void Safe_Delete(T& pPointer)
 	{
-		delete pPointer;
-		pPointer = nullptr;
+		if (pPointer != nullptr)
+		{
+			delete pPointer;
+			pPointer = nullptr;
+		}
 	}
+
 }

@@ -4,22 +4,22 @@
 
 BEGIN(Engine)
 
-class ENGINE_DLL CDevice :public CBase
+class ENGINE_DLL CGraphicDevice :public CBase
 {
-	DECLARE_SINGLETON(CDevice);
+	DECLARE_SINGLETON(CGraphicDevice)
 
 private:
-	CDevice();
-	virtual ~CDevice() = default;
+	CGraphicDevice();
+	virtual ~CGraphicDevice() = default;
 
 public:
 
 
 public:
-	HRESULT		Create_Device(const GRAPHICDESC& graphicDesc, LPDIRECT3DDEVICE9* ppDevice);
-	void		Render_Begin(void);
-	void		Render_End();
-	virtual void Free() override;
+	HRESULT			Ready_GraphicDev(const GRAPHICDESC& graphicDesc, LPDIRECT3DDEVICE9* ppDevice);
+	void			Render_Begin(void);
+	void			Render_End();
+	virtual void	Free() override;
 
 	
 private:

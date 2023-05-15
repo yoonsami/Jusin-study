@@ -4,12 +4,12 @@ CBase::CBase()
 {
 }
 
-ULONG CBase::AddRef()
+_ulong CBase::AddRef()
 {
 	return ++m_dwRefCount;
 }
 
-ULONG CBase::Release()
+_ulong CBase::Release()
 {
 	if (m_dwRefCount == 0)
 	{

@@ -2,6 +2,8 @@
 
 #include "Engine_Define.h"
 
+BEGIN(Engine)
+
 class ENGINE_DLL CBase abstract
 {
 protected:
@@ -19,3 +21,4 @@ private:
 	ULONG m_dwRefCount = 0;
 };
 
+END

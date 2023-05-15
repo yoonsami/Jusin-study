@@ -64,12 +64,15 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 			}
         }
 
-        pMainApp->Update();
+        pMainApp->Tick(0.f);
         pMainApp->Render();
 
     }
 
-    pMainApp->Release();
+    if (Safe_Release(pMainApp))
+    {
+        MSG_BOX("MainApp Memory Leak");
+    }
     return (int) msg.wParam;
 }
 

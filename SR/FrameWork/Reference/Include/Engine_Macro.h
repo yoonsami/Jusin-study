@@ -15,7 +15,7 @@ ClassName& operator=(const ClassName&) = delete;
 		NO_COPY(ClassName)								\
 public :												\
 	static ClassName* GetInstance();					\
-	static void		  DestroyInstance();				\
+	static ULONG	  DestroyInstance();				\
 private:												\
 	static ClassName* m_pInstance;
 
@@ -27,9 +27,13 @@ ClassName* ClassName::GetInstance()						\
 		m_pInstance = new ClassName;					\
 	return m_pInstance;									\
 }														\
-void ClassName::DestroyInstance()						\
+ULONG ClassName::DestroyInstance()						\
 {														\
-	Safe_Release(m_pInstance);							\
+	return Safe_Release(m_pInstance);					\
 }
 
 #define MSG_BOX(MESSAGE)		MessageBox(0, TEXT(MESSAGE), TEXT("System Error"), MB_OK)
+
+#define BEGIN(NAME)		namespace NAME{
+
+#define END				}

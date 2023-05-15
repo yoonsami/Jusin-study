@@ -1,15 +1,24 @@
 #include "pch.h"
 #include "MainApp.h"
-#include "Device.h"
+#include "GameInstance.h"
 
 CMainApp::CMainApp()
 {
-
+    m_pGameInstance = CGameInstance::GetInstance();
+    Safe_AddRef(m_pGameInstance);
 }
 
 HRESULT CMainApp::Init()
 {
-    if (FAILED(CDevice::GetInstance()->Create(g_hWnd)))
+	GRAPHICDESC			GraphicDesc;
+	ZeroMemory(&GraphicDesc, sizeof GraphicDesc);
+
+	GraphicDesc.hWnd = g_hWnd;
+	GraphicDesc.iSizeX = g_iWinSizeX;
+	GraphicDesc.iSizeY = g_iWinSizeY;
+	GraphicDesc.eWinMode = GRAPHICDESC::WINMODE_WIN;
+
+    if (FAILED(m_pGameInstance->Initialize_Engine(GraphicDesc,&m_pGraphic_Device)))
     {
         return E_FAIL;
     }
@@ -17,16 +26,21 @@ HRESULT CMainApp::Init()
     return S_OK;
 }
 
-void CMainApp::Update()
+void CMainApp::Tick(_float deltaTime)
 {
 
 }
 
-void CMainApp::Render()
+HRESULT CMainApp::Render()
 {
-    CDevice::GetInstance()->Render_Begin();
+	if (nullptr == m_pGameInstance)
+		return E_FAIL;
 
-    CDevice::GetInstance()->Render_End();
+    m_pGameInstance->Render_Begin();
+
+    m_pGameInstance->Render_End();
+
+    return S_OK;
 }
 
 CMainApp* CMainApp::Create()
@@ -44,5 +58,8 @@ CMainApp* CMainApp::Create()
 
 void CMainApp::Free()
 {
-    CDevice::DestroyInstance();
+    Safe_Release(m_pGraphic_Device);
+    Safe_Release(m_pGameInstance);
+
+    CGameInstance::DestroyInstance();
 }
