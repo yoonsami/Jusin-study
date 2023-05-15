@@ -3,6 +3,11 @@
 class CKeyInputMgr
 {
 public:
+
+
+
+
+
 	static BOOL			m_bSpacePressed;
 	static BOOL			m_bRightPressed;
 	static BOOL			m_bLeftPressed;

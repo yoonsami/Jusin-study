@@ -13,12 +13,10 @@ public:
     virtual void Release() override;
     void		Key_Input();
     void        Set_Player_Aim();
-    void        MovePlayer();
     
 public:
 
 private:
-    CObject* m_pHammer = nullptr;
-    POINT    m_tHangingMouse = {};
+
 };
 

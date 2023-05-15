@@ -37,17 +37,14 @@
     <Filter Include="02.Object\00.Player">
       <UniqueIdentifier>{33e59baf-5226-46e3-b796-d2990637a75a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Design\03.KeyInputMgr">
-      <UniqueIdentifier>{ea217fbe-3f4e-4060-8c2c-21ba06caf411}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01.Design\04.LineMgr">
       <UniqueIdentifier>{5de9b9cf-b672-4b8f-ad8a-17a9b0f161bb}</UniqueIdentifier>
     </Filter>
     <Filter Include="01.Design\04.LineMgr\00.Line">
       <UniqueIdentifier>{634e8988-199b-4844-b513-12f182011797}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.Object\01.Hammer">
-      <UniqueIdentifier>{5890d285-038f-4068-8d7e-6c208f126014}</UniqueIdentifier>
+    <Filter Include="01.Design\03.KeyMgr">
+      <UniqueIdentifier>{ea217fbe-3f4e-4060-8c2c-21ba06caf411}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -100,7 +97,7 @@
       <Filter>02.Object\00.Player</Filter>
     </ClInclude>
     <ClInclude Include="KeyInputMgr.h">
-      <Filter>01.Design\03.KeyInputMgr</Filter>
+      <Filter>01.Design\03.KeyMgr</Filter>
     </ClInclude>
     <ClInclude Include="Line.h">
       <Filter>01.Design\04.LineMgr\00.Line</Filter>
@@ -108,8 +105,8 @@
     <ClInclude Include="LineMgr.h">
       <Filter>01.Design\04.LineMgr</Filter>
     </ClInclude>
-    <ClInclude Include="Hammer.h">
-      <Filter>02.Object\01.Hammer</Filter>
+    <ClInclude Include="KeyMgr.h">
+      <Filter>01.Design\03.KeyMgr</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -135,7 +132,7 @@
       <Filter>02.Object\00.Player</Filter>
     </ClCompile>
     <ClCompile Include="KeyInputMgr.cpp">
-      <Filter>01.Design\03.KeyInputMgr</Filter>
+      <Filter>01.Design\03.KeyMgr</Filter>
     </ClCompile>
     <ClCompile Include="Line.cpp">
       <Filter>01.Design\04.LineMgr\00.Line</Filter>
@@ -143,8 +140,8 @@
     <ClCompile Include="LineMgr.cpp">
       <Filter>01.Design\04.LineMgr</Filter>
     </ClCompile>
-    <ClCompile Include="Hammer.cpp">
-      <Filter>02.Object\01.Hammer</Filter>
+    <ClCompile Include="KeyMgr.cpp">
+      <Filter>01.Design\03.KeyMgr</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

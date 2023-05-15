@@ -38,6 +38,7 @@ protected:
 	Vec2		m_tAcceleration = {};
 	BOOL		m_bOnGround = false;
 	BOOL		m_bOnLine = false;
+	BOOL		m_bSliding = false;
 	CLine*		m_pNowLine = nullptr;
 	Vec2		m_tAim = {};
 };

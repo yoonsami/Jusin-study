@@ -36,61 +36,81 @@ void CObject::Accelarate()
 			m_tForwarding_Dir = { 1.f,0.f };
 		else
 		{
-			if(m_pNowLine)
-			m_tForwarding_Dir = { cosf(m_pNowLine->Get_Theta()),sinf(m_pNowLine->Get_Theta()) };
+			if (m_pNowLine)
+				m_tForwarding_Dir = { cosf(m_pNowLine->Get_Theta()),sinf(m_pNowLine->Get_Theta()) };
 		}
 
-		Vec2 NormalAcceleration = { GRAVITY * m_tForwarding_Dir.Get_UnitVec().vX * m_tForwarding_Dir.Get_UnitVec().vY, -GRAVITY * m_tForwarding_Dir.Get_UnitVec().vX * m_tForwarding_Dir.Get_UnitVec().vX };
+		//Vec2 NormalAcceleration = { GRAVITY * m_tForwarding_Dir.Get_UnitVec().vX * m_tForwarding_Dir.Get_UnitVec().vY, -GRAVITY * m_tForwarding_Dir.Get_UnitVec().vX * m_tForwarding_Dir.Get_UnitVec().vX };
+		Vec2 NormalAcceleration = { 0.f, - GRAVITY };
 		m_tAcceleration += NormalAcceleration;
 
-		Vec2 FrictionAcceleration;
 		// 마찰력
-		if (Is_OnGround())
-		{
-			if(fabsf(GRAVITY * m_tForwarding_Dir.vY) > fabsf(tanf(PI / 3.f) * GRAVITY * m_tForwarding_Dir.vX))
-			{
-				// 외력이 정지마찰력 이상일 때,
-				FrictionAcceleration = { GRAVITY * m_tForwarding_Dir.Get_UnitVec().vX * m_tForwarding_Dir.Get_UnitVec().vX, GRAVITY * m_tForwarding_Dir.Get_UnitVec().vX * m_tForwarding_Dir.Get_UnitVec().vY };
-				m_tAcceleration += FrictionAcceleration * 1.f;
-				m_tVelocity += m_tAcceleration;
-			}
-			else
-			{
-				if (fabsf(m_tVelocity.Get_Theta()- m_tForwarding_Dir.Get_Theta()) <= 0.00001f && m_tVelocity.Get_Size() != 0.f)
-				{
-					FrictionAcceleration = { -GRAVITY * m_tForwarding_Dir.Get_UnitVec().vX * m_tForwarding_Dir.Get_UnitVec().vX, GRAVITY * m_tForwarding_Dir.Get_UnitVec().vX * m_tForwarding_Dir.Get_UnitVec().vY };
-					m_tAcceleration += FrictionAcceleration * 1.5f;
-					m_tVelocity += m_tAcceleration;
-					if ((fabsf(m_tVelocity.Get_Theta() - m_tForwarding_Dir.Get_Theta() - PI) <= 0.0001f))
-						m_tVelocity = {};
-				}
-				else if ((fabsf(m_tVelocity.Get_Theta()- m_tForwarding_Dir.Get_Theta() - PI) <=0.0001f ) && m_tVelocity.Get_Size() != 0.f)
-				{
-					FrictionAcceleration = { GRAVITY * m_tForwarding_Dir.Get_UnitVec().vX * m_tForwarding_Dir.Get_UnitVec().vX, GRAVITY * m_tForwarding_Dir.Get_UnitVec().vX * m_tForwarding_Dir.Get_UnitVec().vY };
-					m_tAcceleration += FrictionAcceleration * 1.5f;
-					m_tVelocity += m_tAcceleration;
-					if (fabsf(m_tVelocity.Get_Theta() - m_tForwarding_Dir.Get_Theta()) <= 0.0001f)
-						m_tVelocity = {};
-				}
-				else if (m_tForwarding_Dir.Get_Theta() == 0.f && m_tVelocity.Get_Size() != 0.f)
-				{
-					if (m_tVelocity.vX < 0)
-					{
-						m_tAcceleration += Vec2{ GRAVITY, 0.f } *1.5f;
-						m_tVelocity += m_tAcceleration;
-						if (m_tVelocity.vX > 0) m_tVelocity = {};
-					}
-					else if (m_tVelocity.vX > 0)
-					{
-						m_tAcceleration += Vec2{ -GRAVITY, 0.f } *1.5f;
-						m_tVelocity += m_tAcceleration;
-						if (m_tVelocity.vX < 0) m_tVelocity = {};
-					}
-				}
-			}
-		}
+		//Vec2 FrictionAcceleration;
+		//if (Is_OnGround())
+		//{
+		//	if(fabsf(GRAVITY * m_tForwarding_Dir.vY) > fabsf(tanf(PI / 3.f) * GRAVITY * m_tForwarding_Dir.vX))
+		//	{
+		//		// 외력이 정지마찰력 이상일 때,
+		//		FrictionAcceleration = { GRAVITY * m_tForwarding_Dir.Get_UnitVec().vX * m_tForwarding_Dir.Get_UnitVec().vX, GRAVITY * m_tForwarding_Dir.Get_UnitVec().vX * m_tForwarding_Dir.Get_UnitVec().vY };
+		//		m_tAcceleration += FrictionAcceleration * 1.f;
+		//		m_tVelocity += m_tAcceleration;
+		//		m_bSliding = true;
+		//	}
+		//	else
+		//	{
+		//		if (fabsf(m_tVelocity.Get_Theta()- m_tForwarding_Dir.Get_Theta()) <= 0.001f && m_tVelocity.Get_Size() != 0.f)
+		//		{
+		//			FrictionAcceleration = { -GRAVITY * m_tForwarding_Dir.Get_UnitVec().vX * m_tForwarding_Dir.Get_UnitVec().vX, GRAVITY * m_tForwarding_Dir.Get_UnitVec().vX * m_tForwarding_Dir.Get_UnitVec().vY };
+		//			m_tAcceleration += FrictionAcceleration * 1.5f;
+		//			m_tVelocity += m_tAcceleration;
+		//			m_bSliding = true;
+		//			if ((fabsf(m_tVelocity.Get_Theta() - m_tForwarding_Dir.Get_Theta() <=PI + 0.001f)))
+		//			{
+		//				m_tVelocity = {};
+		//				m_bSliding = false;
+		//			}
+		//		}
+		//		else if ((m_tForwarding_Dir.vX * m_tVelocity.vX < 0 ) && m_tVelocity.Get_Size() != 0.f)
+		//		{
+		//			FrictionAcceleration = { GRAVITY * m_tForwarding_Dir.Get_UnitVec().vX * m_tForwarding_Dir.Get_UnitVec().vX, GRAVITY * m_tForwarding_Dir.Get_UnitVec().vX * m_tForwarding_Dir.Get_UnitVec().vY };
+		//			m_tAcceleration += FrictionAcceleration * 1.5f;
+		//			m_tVelocity += m_tAcceleration;
+		//			m_bSliding = true;
+		//			if (fabsf(m_tVelocity.Get_Theta() - m_tForwarding_Dir.Get_Theta()) <= 0.001f)
+		//			{
+		//				m_tVelocity = {};
+		//				m_bSliding = false;
+		//			}
+		//		}
+		//		else if (m_tForwarding_Dir.Get_Theta() == 0.f && m_tVelocity.Get_Size() != 0.f)
+		//		{
+		//			if (m_tVelocity.vX < 0)
+		//			{
+		//				m_tAcceleration += Vec2{ GRAVITY, 0.f } *1.5f;
+		//				m_tVelocity += m_tAcceleration;
+		//				m_bSliding = true;
+		//				if (m_tVelocity.vX > 0) 
+		//				{
+		//					m_tVelocity = {};
+		//					m_bSliding = false;
+		//				}
+		//			}
+		//			else if (m_tVelocity.vX > 0)
+		//			{
+		//				m_tAcceleration += Vec2{ -GRAVITY, 0.f } *1.5f;
+		//				m_tVelocity += m_tAcceleration;
+		//				m_bSliding = true;
+		//				if (m_tVelocity.vX < 0)
+		//				{
+		//					m_tVelocity = {};
+		//					m_bSliding = false;
+		//				}
+		//			}
+		//		}
+		//	}
+		//}
+
 	}
-	else
 		m_tVelocity += m_tAcceleration;
 
 	if(Is_OnGround())
@@ -113,7 +133,7 @@ void CObject::Accelarate()
 		m_tVelocity.vY += m_tAcceleration.vY * Ratio;
 		m_tInfo.fY = WINCY - m_tInfo.fCY * 0.5f;
 
-		m_tVelocity.vY *= -0.f ;
+		m_tVelocity = m_tVelocity * 0.f ;
 
 		m_tVelocity.vY -= m_tAcceleration.vY * (1 - Ratio);
 		if (Is_OnGround())
@@ -129,9 +149,10 @@ void CObject::Accelarate()
 
 	if(m_pNowLine)
 	{
-		if (CCollisionMgr::Is_UnderLine(POINTF(m_tInfo.fX, m_tInfo.fY+ m_tInfo.fCY * 0.7f), m_pNowLine))
+		if (CCollisionMgr::Is_UnderLine(POINTF(m_tInfo.fX, m_tInfo.fY+ m_tInfo.fCY * 0.5f), m_pNowLine))
 		{
 			m_tInfo.fY = m_pNowLine->Get_YPos(m_tInfo.fX) - m_tInfo.fCY*0.5f;
+			m_tVelocity = m_tVelocity * 0.f;
 		}
 	}
 
@@ -142,12 +163,14 @@ void CObject::Accelarate()
 		m_tInfo.fX = WINCX - m_tInfo.fCX * 0.5f;
 		m_tVelocity.vX *= -0.f;
 	}
+
 	// 왼쪽 넘어갔을 때
 	if (m_tInfo.fX - m_tInfo.fCX * 0.5f < 0)
 	{
 		m_tInfo.fX = 0 + m_tInfo.fCX * 0.5f;
 		m_tVelocity.vX *= -0.f;
 	}
+
 	if (m_tVelocity.vY == 0 && m_tInfo.fY == WINCY - (m_tInfo.fCY * 0.5f))
 		m_bOnGround = true;
 	else	m_bOnGround = false;
