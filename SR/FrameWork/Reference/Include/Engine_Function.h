@@ -3,7 +3,7 @@
 namespace Engine
 {
 	template<typename T>
-	ULONG Safe_AddRef(T& pInstance)
+	unsigned long Safe_AddRef(T& pInstance)
 	{
 		ULONG dwRefCount = 0;
 		if (pInstance != nullptr)
@@ -15,7 +15,7 @@ namespace Engine
 	}
 
 	template<typename T>
-	ULONG Safe_Release(T& pInstance)
+	unsigned long Safe_Release(T& pInstance)
 	{
 		ULONG dwRefCount = 0;
 		if (pInstance != nullptr)

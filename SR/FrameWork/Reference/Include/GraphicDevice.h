@@ -6,7 +6,7 @@ BEGIN(Engine)
 
 class ENGINE_DLL CGraphicDevice :public CBase
 {
-	DECLARE_SINGLETON(CGraphicDevice);
+	DECLARE_SINGLETON(CGraphicDevice)
 
 private:
 	CGraphicDevice();
@@ -16,10 +16,10 @@ public:
 
 
 public:
-	HRESULT		Ready_GraphicDev(const GRAPHICDESC& graphicDesc, LPDIRECT3DDEVICE9* ppDevice);
-	void		Render_Begin(void);
-	void		Render_End();
-	virtual void Free() override;
+	HRESULT			Ready_GraphicDev(const GRAPHICDESC& graphicDesc, LPDIRECT3DDEVICE9* ppDevice);
+	void			Render_Begin(void);
+	void			Render_End();
+	virtual void	Free() override;
 
 	
 private:

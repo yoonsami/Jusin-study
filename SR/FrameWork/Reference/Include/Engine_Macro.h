@@ -14,8 +14,8 @@ ClassName& operator=(const ClassName&) = delete;
 #define DECLARE_SINGLETON(ClassName)					\
 		NO_COPY(ClassName)								\
 public :												\
-	static ClassName* GetInstance();					\
-	static ULONG	  DestroyInstance();				\
+	static ClassName*		GetInstance();				\
+	static unsigned long	DestroyInstance();			\
 private:												\
 	static ClassName* m_pInstance;
 
@@ -27,7 +27,7 @@ ClassName* ClassName::GetInstance()						\
 		m_pInstance = new ClassName;					\
 	return m_pInstance;									\
 }														\
-ULONG ClassName::DestroyInstance()						\
+unsigned long ClassName::DestroyInstance()				\
 {														\
 	return Safe_Release(m_pInstance);					\
 }
@@ -37,3 +37,5 @@ ULONG ClassName::DestroyInstance()						\
 #define BEGIN(NAME)		namespace NAME{
 
 #define END				}
+
+#define VK_MAX 0xff

@@ -37,3 +37,5 @@ unsigned long ClassName::DestroyInstance()				\
 #define BEGIN(NAME)		namespace NAME{
 
 #define END				}
+
+#define VK_MAX 0xff

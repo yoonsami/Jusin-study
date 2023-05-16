@@ -11,14 +11,14 @@ protected:
 	virtual ~CBase() = default;
 
 public:
-	ULONG AddRef();
-	ULONG Release();
+	_ulong AddRef();
+	_ulong Release();
 
 
 	virtual void Free() = 0;
 
 private:
-	ULONG m_dwRefCount = 0;
+	_ulong m_dwRefCount = 0;
 };
 
 END
