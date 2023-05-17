@@ -22,8 +22,9 @@ public: // for GraphicDevice
 
 private:
 
-    CGraphicDevice* m_pDevice = nullptr;
+    CGraphicDevice* m_pGraphic_Device = nullptr;
 public:
+    static void Release_Engine();
     virtual void Free() override;
 };
 

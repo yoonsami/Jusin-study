@@ -34,36 +34,36 @@ HRESULT CGraphicDevice::Ready_GraphicDev(const GRAPHICDESC& graphicDesc, LPDIREC
 
 	SetParameters(d3dpp, graphicDesc);
 
-	if (FAILED(m_pSDK->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, graphicDesc.hWnd, vp, &d3dpp, &m_pDevice)))
+	if (FAILED(m_pSDK->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, graphicDesc.hWnd, vp, &d3dpp, &m_pGraphicDev)))
 	{
 		MSG_BOX("CreateDevice Failed");
 		return E_FAIL;  
 	}
 
-	*ppDevice = m_pDevice;
-	Safe_AddRef(m_pDevice);
+	*ppDevice = m_pGraphicDev;
+	Safe_AddRef(m_pGraphicDev);
 
 	return S_OK;
 }
 
 void CGraphicDevice::Render_Begin()
 {
-	m_pDevice->Clear(0, nullptr,
+	m_pGraphicDev->Clear(0, nullptr,
 		D3DCLEAR_STENCIL | D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER,
 		D3DCOLOR_ARGB(255, 125, 125, 125), 1.f, 0);
 
-	m_pDevice->BeginScene();
+	m_pGraphicDev->BeginScene();
 }
 
 void CGraphicDevice::Render_End()
 {
-	m_pDevice->EndScene();
-	m_pDevice->Present(nullptr, nullptr, nullptr, nullptr);
+	m_pGraphicDev->EndScene();
+	m_pGraphicDev->Present(nullptr, nullptr, nullptr, nullptr);
 }
 
 void CGraphicDevice::Free()
 {
-	Safe_Release(m_pDevice);
+	Safe_Release(m_pGraphicDev);
 	Safe_Release(m_pSDK);
 }
 
