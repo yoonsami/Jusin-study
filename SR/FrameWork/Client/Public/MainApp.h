@@ -24,6 +24,9 @@ private:
 
 	CGameInstance*      m_pGameInstance = { nullptr };
 
+private:
+    HRESULT Open_Level(LEVEL eLevel);
+
 public:
     static CMainApp* Create();
     virtual void Free() override;

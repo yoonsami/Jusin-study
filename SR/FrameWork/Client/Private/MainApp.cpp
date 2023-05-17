@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "MainApp.h"
 #include "GameInstance.h"
+#include "Level_Loading.h"
 
 CMainApp::CMainApp()
 {
@@ -19,9 +20,10 @@ HRESULT CMainApp::Init()
 	GraphicDesc.eWinMode = GRAPHICDESC::WINMODE_WIN;
 
     if (FAILED(m_pGameInstance->Initialize_Engine(GraphicDesc,&m_pGraphic_Device)))
-    {
         return E_FAIL;
-    }
+
+    if (FAILED(Open_Level(LEVEL_LOGO)))
+        return E_FAIL;
 
     return S_OK;
 }
@@ -45,6 +47,17 @@ HRESULT CMainApp::Render()
     return S_OK;
 }
 
+HRESULT CMainApp::Open_Level(LEVEL eLevel)
+{
+    if (!m_pGameInstance)
+        return E_FAIL;
+
+    if (FAILED(m_pGameInstance->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pGraphic_Device, eLevel))))
+        return E_FAIL;
+
+    return S_OK;
+}
+
 CMainApp* CMainApp::Create()
 {
     CMainApp* pMainApp = new CMainApp();
@@ -63,5 +76,7 @@ void CMainApp::Free()
     Safe_Release(m_pGraphic_Device);
     Safe_Release(m_pGameInstance);
 
-    CGameInstance::DestroyInstance();
+    CGameInstance::Release_Engine();
 }
+
+

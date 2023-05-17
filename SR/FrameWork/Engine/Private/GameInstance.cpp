@@ -35,8 +35,13 @@ void CGameInstance::Tick_Engine(_float fDeltaTime)
 {
 	if (m_pInputMgr)
 		m_pInputMgr->Tick();
-	if(m_pLevelMgr)
+	if (m_pLevelMgr)
+	{
 		m_pLevelMgr->Tick(fDeltaTime);
+		m_pLevelMgr->Late_Tick(fDeltaTime);
+	}
+
+	
 }
 
 void CGameInstance::Render_Begin()

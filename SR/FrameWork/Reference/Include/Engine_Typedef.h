@@ -17,6 +17,9 @@ namespace Engine
 	using _float = float;
 	using _double = double;
 
+	using _bool = bool;
+	using _tchar = wchar_t;
+
 	using _float2 = D3DXVECTOR2;
 	using _float3 = D3DXVECTOR3;
 	using _float4 = D3DXVECTOR4;

@@ -1,8 +1,11 @@
 #include "pch.h"
 #include "Loader.h"
 
-CLoader::CLoader(LPDIRECT3DDEVICE9 pGraphic_Device) : m_pGraphic_Device(pGraphic_Device)
+CLoader::CLoader(LPDIRECT3DDEVICE9 pGraphic_Device)
+	: m_pGraphic_Device(pGraphic_Device)
+	, m_hThread(0)
 {
+	Safe_AddRef(m_pGraphic_Device);
 }
 
 unsigned int APIENTRY ThreadEntry(void* pArg)
@@ -50,11 +53,67 @@ HRESULT CLoader::LoadingForNextLevel()
 
 HRESULT CLoader::Loading_ForLogo()
 {
+	lstrcpy(m_szLoading, TEXT("텍스쳐를 로딩 중입니다."));
+	for (_uint i = 0; i < 999999999; ++i)
+	{
+		int a = 10;
+	}
+
+	lstrcpy(m_szLoading, TEXT("모델을 로딩 중입니다."));
+	for (_uint i = 0; i < 999999999; ++i)
+	{
+		int a = 10;
+	}
+
+	lstrcpy(m_szLoading, TEXT("셰이더를 로딩 중입니다."));
+	for (_uint i = 0; i < 999999999; ++i)
+	{
+		int a = 10;
+	}
+
+	lstrcpy(m_szLoading, TEXT("객체원형 로딩 중입니다."));
+	for (_uint i = 0; i < 999999999; ++i)
+	{
+		int a = 10;
+	}
+
+	lstrcpy(m_szLoading, TEXT("로딩이 완료되었습니다."));
+
+	m_bFinished = true;
+
 	return S_OK;
 }
 
 HRESULT CLoader::Loading_ForGamePlay()
 {
+	lstrcpy(m_szLoading, TEXT("텍스쳐를 로딩 중입니다."));
+	for (_uint i = 0; i < 999999999; ++i)
+	{
+		int a = 10;
+	}
+
+	lstrcpy(m_szLoading, TEXT("모델을 로딩 중입니다."));
+	for (_uint i = 0; i < 999999999; ++i)
+	{
+		int a = 10;
+	}
+
+	lstrcpy(m_szLoading, TEXT("셰이더를 로딩 중입니다."));
+	for (_uint i = 0; i < 999999999; ++i)
+	{
+		int a = 10;
+	}
+
+	lstrcpy(m_szLoading, TEXT("객체원형 로딩 중입니다."));
+	for (_uint i = 0; i < 999999999; ++i)
+	{
+		int a = 10;
+	}
+
+	lstrcpy(m_szLoading, TEXT("로딩이 완료되었습니다."));
+
+	m_bFinished = true;
+
 	return S_OK;
 }
 

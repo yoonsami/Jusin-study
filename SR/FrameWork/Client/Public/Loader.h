@@ -11,15 +11,21 @@ private:
 	virtual	~CLoader() = default;
 
 public:
+	const _tchar* Get_LoadingText() const { return m_szLoading; }
+	_bool Is_Finished() const { return m_bFinished; }
+
+public:
 	HRESULT Initialize(LEVEL eNextLevel);
-	
 	HRESULT LoadingForNextLevel();
 
 private:
-	LEVEL				m_eNextLevel = LEVEL_END;
 	LPDIRECT3DDEVICE9	m_pGraphic_Device = nullptr;
-	HANDLE				m_hThread = nullptr;
+	HANDLE				m_hThread = 0;
 	CRITICAL_SECTION	m_CriticalSection{};
+	LEVEL				m_eNextLevel = LEVEL_END;
+
+	_bool				m_bFinished = false;
+	_tchar				m_szLoading[MAX_PATH] = TEXT("");
 
 private:
 	HRESULT Loading_ForLogo();
