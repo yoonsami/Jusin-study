@@ -28,7 +28,7 @@ HRESULT CMainApp::Init()
 
 void CMainApp::Tick(_float deltaTime)
 {
-
+    m_pGameInstance->Tick_Engine(deltaTime);
 }
 
 HRESULT CMainApp::Render()
@@ -37,6 +37,8 @@ HRESULT CMainApp::Render()
 		return E_FAIL;
 
     m_pGameInstance->Render_Begin();
+
+
 
     m_pGameInstance->Render_End();
 

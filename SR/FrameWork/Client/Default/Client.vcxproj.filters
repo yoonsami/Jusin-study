@@ -22,6 +22,9 @@
     <Filter Include="01.Levels\Loading">
       <UniqueIdentifier>{0694e4a8-83d2-4c0a-a407-01d88c499bbf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Levels\Loading\Loader">
+      <UniqueIdentifier>{c9a493f2-dd1d-4192-9aa0-d85d29805951}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Client_Defines.h">
@@ -54,6 +57,9 @@
     <ClInclude Include="..\Public\Level_GamePlay.h">
       <Filter>01.Levels\GamePlay</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\Loader.h">
+      <Filter>01.Levels\Loading\Loader</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -73,6 +79,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\Level_Logo.cpp">
       <Filter>01.Levels\Logo</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Loader.cpp">
+      <Filter>01.Levels\Loading\Loader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

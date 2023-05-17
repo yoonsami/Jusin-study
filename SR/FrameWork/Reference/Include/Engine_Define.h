@@ -24,5 +24,8 @@
 #endif
 #endif // _DEBUG
 
+#include <vector>
+
+using namespace std;
 
 using namespace Engine;

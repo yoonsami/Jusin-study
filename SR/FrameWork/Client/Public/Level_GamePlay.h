@@ -1,6 +1,8 @@
 #pragma once
+#include "Client_Defines.h"
 #include "Level.h"
 
+BEGIN(Client)
 class CLevel_GamePlay final : public CLevel
 {
 private:
@@ -18,3 +20,4 @@ public:
 	virtual void Free() override;
 };
 
+END

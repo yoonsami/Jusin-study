@@ -6,10 +6,14 @@ CLevel_Loading::CLevel_Loading(LPDIRECT3DDEVICE9 pGraphic_Device)
 {
 }
 
-HRESULT CLevel_Loading::Initialize()
+HRESULT CLevel_Loading::Initialize(LEVEL eNextLevel)
 {
+	m_eNextLevel = eNextLevel;
+
 	if (FAILED(__super::Initialize()))
 		return E_FAIL;
+
+
 
 	return S_OK;
 }
@@ -35,11 +39,11 @@ HRESULT CLevel_Loading::Render()
 	return S_OK;
 }
 
-CLevel_Loading* CLevel_Loading::Create(LPDIRECT3DDEVICE9 pGraphic_Device)
+CLevel_Loading* CLevel_Loading::Create(LPDIRECT3DDEVICE9 pGraphic_Device, LEVEL eNextLevel)
 {
 	CLevel_Loading* pInstance = new CLevel_Loading(pGraphic_Device);
 
-	if (FAILED(pInstance->Initialize()))
+	if (FAILED(pInstance->Initialize(eNextLevel)))
 	{
 		Safe_Release(pInstance);
 		MSG_BOX("Failed to Created : CLevel_Loading");

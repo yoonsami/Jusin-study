@@ -1,44 +1,16 @@
 #pragma once
 #include "Base.h"
 
-enum class KEY_TYPE
-{
-	UP = VK_UP,
-	DOWN = VK_DOWN,
-	LEFT = VK_LEFT,
-	RIGHT = VK_RIGHT,
-
-	W = 'W',
-	A = 'A',
-	S = 'S',
-	D = 'D',
-	Q = 'Q',
-	E = 'E',
-	Z = 'Z',
-	C = 'C',
+BEGIN(Engine)
 
 
-	KEY_1 = '1',
-	KEY_2 = '2',
-	KEY_3 = '3',
-	KEY_4 = '4',
-
-	SPACE = VK_SPACE,
-	ESC = VK_ESCAPE,
-	ENTER = VK_RETURN,
-	LCTRL = VK_LCONTROL,
-	LSHIFT = VK_LSHIFT,
-
-	LBUTTON = VK_LBUTTON,
-	RBUTTON = VK_RBUTTON,
-};
 
 enum class KEY_STATE
 {
 	NONE,
-	PRESS,
-	DOWN,
-	UP,
+	HOLD,
+	TAP,
+	AWAY,
 	KEYSTATE_END
 };
 
@@ -58,13 +30,27 @@ private:
     CInputMgr();
     virtual ~CInputMgr() = default;
 
+public:
 	void Ready_InputMgr(HWND hWnd);
 
 	void Tick();
 
+	bool GetButtonHold(KEY_TYPE key) { return GetState(key) == KEY_STATE::HOLD; }
+	bool GetButtonTap(KEY_TYPE key) { return GetState(key) == KEY_STATE::TAP; }
+	bool GetButtonAway(KEY_TYPE key) { return GetState(key) == KEY_STATE::AWAY; }
+
+	const POINT& GetMousePos() { return m_ptMousePos; }
+
 public:
 	virtual void Free() override;
 
+private:
+	inline KEY_STATE GetState(KEY_TYPE key) { return m_vecKeyStates[static_cast<_uchar>(key)]; }
 
+private:
+	HWND				m_hWnd = nullptr;
+	vector<KEY_STATE>	m_vecKeyStates;
+	POINT				m_ptMousePos{};
 };
 
+END
