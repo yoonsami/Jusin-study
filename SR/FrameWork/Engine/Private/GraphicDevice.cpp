@@ -13,9 +13,7 @@ HRESULT CGraphicDevice::Ready_GraphicDev(const GRAPHICDESC& graphicDesc, LPDIREC
 	D3DCAPS9	DeviceCaps;
 	ZeroMemory(&DeviceCaps, sizeof(D3DCAPS9));
 
-	if (FAILED(m_pSDK->GetDeviceCaps(D3DADAPTER_DEFAULT, // 정보를 얻으려는 기본 그래픽 카드를 의미
-		D3DDEVTYPE_HAL,
-		&DeviceCaps)))
+	if (FAILED(m_pSDK->GetDeviceCaps(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, &DeviceCaps)))
 	{
 		MSG_BOX("GetDeviceCaps Failed");
 		return E_FAIL;

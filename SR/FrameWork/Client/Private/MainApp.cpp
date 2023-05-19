@@ -11,8 +11,7 @@ CMainApp::CMainApp()
 
 HRESULT CMainApp::Init()
 {
-	GRAPHICDESC			GraphicDesc;
-	ZeroMemory(&GraphicDesc, sizeof GraphicDesc);
+    GRAPHICDESC			GraphicDesc{};
 
 	GraphicDesc.hWnd = g_hWnd;
 	GraphicDesc.iSizeX = g_iWinSizeX;

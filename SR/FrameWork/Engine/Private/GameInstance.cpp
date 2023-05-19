@@ -23,9 +23,17 @@ HRESULT CGameInstance::Initialize_Engine(const GRAPHICDESC& GraphicDesc, LPDIREC
 		return E_FAIL;
 
 	if (FAILED(m_pGraphic_Device->Ready_GraphicDev(GraphicDesc, ppOut)))
+	{
+		MSG_BOX("Failed : Ready_GraphicDev");
 		return E_FAIL;
+	}
 
-	if(m_pInputMgr)
+	if (!m_pInputMgr)
+	{
+		MSG_BOX("Failed : Ready_InputMgr");
+		return E_FAIL;
+	}
+	else
 		m_pInputMgr->Ready_InputMgr(GraphicDesc.hWnd);
 
 	return S_OK;
@@ -66,31 +74,23 @@ HRESULT CGameInstance::Open_Level(_uint iLevelIndex, CLevel* pLevel)
 
 bool CGameInstance::GetButtonHold(KEY_TYPE key)
 {
-	if (m_pInputMgr)
-		return m_pInputMgr->GetButtonHold(key);
-	
-	return false;
+	return m_pInputMgr->GetButtonHold(key);
 }
 
 bool CGameInstance::GetButtonTap(KEY_TYPE key)
 {
-	if (m_pInputMgr)
-		return m_pInputMgr->GetButtonTap(key);
-	return false;
+	return m_pInputMgr->GetButtonTap(key);
 }
 
 bool CGameInstance::GetButtonAway(KEY_TYPE key)
 {
-	if (m_pInputMgr)
-		return m_pInputMgr->GetButtonAway(key);
-	return false;
+	return m_pInputMgr->GetButtonAway(key);
+	
 }
 
 const POINT& CGameInstance::GetMousePos()
 {
-	if (m_pInputMgr)
-		return m_pInputMgr->GetMousePos();
-	return { 0,0 };
+	return m_pInputMgr->GetMousePos();
 }
 
 void CGameInstance::Free()
