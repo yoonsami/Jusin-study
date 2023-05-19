@@ -1,5 +1,7 @@
 #include "pch.h"
 #include "Loader.h"
+#include "GameInstance.h"
+#include "BackGround.h"
 
 CLoader::CLoader(LPDIRECT3DDEVICE9 pGraphic_Device)
 	: m_pGraphic_Device(pGraphic_Device)
@@ -53,10 +55,20 @@ HRESULT CLoader::LoadingForNextLevel()
 
 HRESULT CLoader::Loading_ForLogo()
 {
-	
+	CGameInstance* gameInstance = CGameInstance::GetInstance();
+	Safe_AddRef(gameInstance);
+
+	CBackGround* tmp = CBackGround::Create(m_pGraphic_Device);
+	if (FAILED(gameInstance->Add_Prototype(L"BackGround", tmp)))
+	{
+		Safe_Release(tmp);
+		MSG_BOX("Add_Prototype Failed : CLoader");
+		return E_FAIL;
+	}
+
 
 	m_bFinished = true;
-
+	Safe_Release(gameInstance);
 	return S_OK;
 }
 

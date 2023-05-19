@@ -2,6 +2,11 @@
 #pragma warning (disable : 4005)
 #include <d3d9.h>
 #include <d3dx9.h>
+#include <string>
+#include <vector>
+#include <map>
+#include <list>
+#include <algorithm>
 
 #pragma comment(lib, "d3d9.lib")
 #pragma comment(lib, "d3dx9.lib")
@@ -23,8 +28,6 @@
 
 #endif
 #endif // _DEBUG
-
-#include <vector>
 
 using namespace std;
 

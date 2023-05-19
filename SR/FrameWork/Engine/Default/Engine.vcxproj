@@ -151,6 +151,7 @@ call "$(SolutionDir)UpdateEngine.bat"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Base.h" />
+    <ClInclude Include="..\Public\GameObject.h" />
     <ClInclude Include="..\Public\GraphicDevice.h" />
     <ClInclude Include="..\Public\Engine_Define.h" />
     <ClInclude Include="..\Public\Engine_Function.h" />
@@ -159,16 +160,21 @@ call "$(SolutionDir)UpdateEngine.bat"</Command>
     <ClInclude Include="..\Public\Engine_Typedef.h" />
     <ClInclude Include="..\public\GameInstance.h" />
     <ClInclude Include="..\public\InputMgr.h" />
+    <ClInclude Include="..\Public\Layer.h" />
     <ClInclude Include="..\Public\Level.h" />
     <ClInclude Include="..\Public\LevelMgr.h" />
+    <ClInclude Include="..\Public\ObjectMgr.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp" />
+    <ClCompile Include="..\Private\GameObject.cpp" />
     <ClCompile Include="..\Private\GraphicDevice.cpp" />
     <ClCompile Include="..\private\GameInstance.cpp" />
     <ClCompile Include="..\private\InputMgr.cpp" />
+    <ClCompile Include="..\Private\Layer.cpp" />
     <ClCompile Include="..\Private\Level.cpp" />
     <ClCompile Include="..\Private\LevelMgr.cpp" />
+    <ClCompile Include="..\Private\ObjectMgr.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

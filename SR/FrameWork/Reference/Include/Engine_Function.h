@@ -37,4 +37,13 @@ namespace Engine
 		}
 	}
 
+	template <typename T>
+	void Safe_Delete_Array(T& pPointer)
+	{
+		if (nullptr != pPointer)
+		{
+			delete[] pPointer;
+			pPointer = nullptr;
+		}
+	}
 }

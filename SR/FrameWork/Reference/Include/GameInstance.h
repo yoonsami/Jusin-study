@@ -1,15 +1,14 @@
 #pragma once
 #include "Base.h"
 
-namespace Engine { class CLevel; }
-
-namespace Engine { class CLevelMgr; }
-
-namespace Engine { class CInputMgr; }
-
-namespace Engine { class CGraphicDevice; }
-
 BEGIN(Engine)
+
+class CLevel;
+class CObjectMgr;
+class CLevelMgr;
+class CInputMgr;
+class CGraphicDevice;
+class CGameObject;
 
 class ENGINE_DLL CGameInstance final :
     public CBase
@@ -20,7 +19,7 @@ private:
     virtual ~CGameInstance() = default;
 
 public: // for Engine
-    HRESULT Initialize_Engine(const GRAPHICDESC& GraphicDesc, LPDIRECT3DDEVICE9* ppOut);
+    HRESULT Initialize_Engine(_uint iNumLevels, const GRAPHICDESC& GraphicDesc, LPDIRECT3DDEVICE9* ppOut);
 
     void Tick_Engine(_float fDeltaTime);
 
@@ -38,10 +37,15 @@ public: // for InputMgr
 public: // for LevelMgr
     HRESULT Open_Level(_uint iLevelIndex, CLevel* pLevel);
 
+public: // for ObjMgr
+	HRESULT Add_Prototype(const wstring& strPrototypeTag, CGameObject* pPrototype);
+	HRESULT Clone_GameObject(const wstring& strGameObjectTag, _uint iLevel);
+
 
 private:
     CInputMgr* m_pInputMgr = nullptr;
     CLevelMgr* m_pLevelMgr = nullptr;
+    CObjectMgr* m_pObjectMgr = nullptr;
     CGraphicDevice* m_pGraphic_Device = nullptr;
 
 public:

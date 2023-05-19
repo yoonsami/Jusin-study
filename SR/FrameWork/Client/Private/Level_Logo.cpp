@@ -28,6 +28,11 @@ void CLevel_Logo::Tick(_float fTimeDelta)
 	CGameInstance* pGameInstance = CGameInstance::GetInstance();
 	Safe_AddRef(pGameInstance);
 
+	if (pGameInstance->GetButtonTap(KEY_TYPE::A))
+	{
+		pGameInstance->Clone_GameObject(L"BackGround", LEVEL_LOGO);
+	}
+
 	if (pGameInstance->GetButtonTap(KEY_TYPE::SPACE))
 	{
 		if (FAILED(pGameInstance->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pGraphic_Device, LEVEL_GAMEPLAY))))

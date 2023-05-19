@@ -18,7 +18,7 @@ HRESULT CMainApp::Init()
 	GraphicDesc.iSizeY = g_iWinSizeY;
 	GraphicDesc.eWinMode = GRAPHICDESC::WINMODE_WIN;
 
-    if (FAILED(m_pGameInstance->Initialize_Engine(GraphicDesc,&m_pGraphic_Device)))
+    if (FAILED(m_pGameInstance->Initialize_Engine(LEVEL_END, GraphicDesc,&m_pGraphic_Device)))
         return E_FAIL;
 
     if (FAILED(Open_Level(LEVEL_LOGO)))
