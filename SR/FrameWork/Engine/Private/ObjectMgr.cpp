@@ -15,7 +15,6 @@ HRESULT CObjectMgr::Reserve_ObjMgr(_uint iNumLevels)
 		MSG_BOX("ObjMgr Already Reserved");
 		return E_FAIL;
 	}
-
 	m_iNumLevels = iNumLevels;
 
 	m_pLayer = new LAYERS[m_iNumLevels];
@@ -25,7 +24,7 @@ HRESULT CObjectMgr::Reserve_ObjMgr(_uint iNumLevels)
 
 HRESULT CObjectMgr::Add_Prototype(const wstring& strPrototypeTag, CGameObject* pPrototype)
 {
-	// map üũ
+	// map 
 	if (Find_Prototype(strPrototypeTag) != nullptr)
 	{
 		MSG_BOX("Failed Add_Prototype : CObjectMgr");
@@ -41,7 +40,7 @@ HRESULT CObjectMgr::Clone_GameObject(const wstring& strGameObjectTag, _uint iLev
 {
 	CGameObject* prototype = Find_Prototype(strGameObjectTag);
 
-	// prototype map üũ
+	// prototype map 검색
 	if (!prototype)
 	{
 		MSG_BOX("Failed Clone_GameObject : CObjectMgr");
