@@ -9,6 +9,7 @@ class CLevelMgr;
 class CInputMgr;
 class CGraphicDevice;
 class CGameObject;
+class CTimeMgr;
 
 class ENGINE_DLL CGameInstance final :
     public CBase

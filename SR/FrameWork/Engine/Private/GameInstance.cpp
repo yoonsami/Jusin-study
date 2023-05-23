@@ -4,6 +4,7 @@
 #include "LevelMgr.h"
 #include "ObjectMgr.h"
 #include "GameObject.h"
+#include "TimeMgr.h"
 
 IMPLEMENT_SINGLETON(CGameInstance)
 
@@ -20,6 +21,8 @@ CGameInstance::CGameInstance()
 
 	m_pObjectMgr = CObjectMgr::GetInstance();
 	Safe_AddRef(m_pObjectMgr);
+
+
 }
 
 HRESULT CGameInstance::Initialize_Engine(_uint iNumLevels, const GRAPHICDESC& GraphicDesc, LPDIRECT3DDEVICE9* ppOut)
@@ -45,6 +48,7 @@ HRESULT CGameInstance::Initialize_Engine(_uint iNumLevels, const GRAPHICDESC& Gr
 		return E_FAIL;
 	}
 
+	//ObjMgr
 	if (FAILED(m_pObjectMgr->Reserve_ObjMgr(iNumLevels)))
 	{
 		MSG_BOX("Failed : Reserve_ObjMgr");
@@ -56,10 +60,11 @@ HRESULT CGameInstance::Initialize_Engine(_uint iNumLevels, const GRAPHICDESC& Gr
 
 void CGameInstance::Tick_Engine(_float fDeltaTime)
 {
-	if (!m_pInputMgr || !m_pLevelMgr || !m_pObjectMgr)
+	if (!m_pLevelMgr || !m_pObjectMgr)
 		return;
 
 	m_pInputMgr->Tick();
+
 	m_pLevelMgr->Tick(fDeltaTime);
 	m_pObjectMgr->Tick(fDeltaTime);
 

@@ -5,6 +5,7 @@
 #include "framework.h"
 #include "Client.h"
 #include "MainApp.h"
+#include "TimeMgr.h"
 
 #define MAX_LOADSTRING 100
 
@@ -50,7 +51,6 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
 
     CMainApp* pMainApp = CMainApp::Create();
-   
 
     MSG msg;
 
@@ -69,7 +69,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 			}
         }
 
-        pMainApp->Tick(0.f);
+        pMainApp->Tick(static_cast<_float>(CTimeMgr::GetInstance()->GetDeltaTime()));
         pMainApp->Render();
 
     }
@@ -77,6 +77,11 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     if (Safe_Release(pMainApp))
     {
         MSG_BOX("MainApp Memory Leak");
+    }
+
+    if (CTimeMgr::DestroyInstance())
+    {
+        MSG_BOX("TimeMgr Memory Leak");
     }
 
     return (int) msg.wParam;

@@ -31,6 +31,12 @@
     <Filter Include="02.GameObjects\00.BackGround">
       <UniqueIdentifier>{01a97a0b-f489-4dff-80e3-df1b9de21aa8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\NewFilter1">
+      <UniqueIdentifier>{7a7d4b87-f79f-443c-a125-ba0721c980f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="97.Test">
+      <UniqueIdentifier>{75fc5a83-c008-46d6-9b2b-df659c327bf5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Client_Defines.h">
@@ -69,6 +75,9 @@
     <ClInclude Include="..\Public\BackGround.h">
       <Filter>02.GameObjects\00.BackGround</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\TestObj.h">
+      <Filter>97.Test</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Client.cpp">
@@ -94,6 +103,9 @@
     </ClCompile>
     <ClCompile Include="..\Private\BackGround.cpp">
       <Filter>02.GameObjects\00.BackGround</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\TestObj.cpp">
+      <Filter>97.Test</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
