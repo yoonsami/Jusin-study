@@ -62,7 +62,9 @@ void CGameInstance::Tick_Engine(_float fDeltaTime)
 	m_pInputMgr->Tick();
 	m_pLevelMgr->Tick(fDeltaTime);
 	m_pObjectMgr->Tick(fDeltaTime);
+
 	m_pLevelMgr->Late_Tick(fDeltaTime);	
+	m_pObjectMgr->Late_Tick(fDeltaTime);
 }
 
 void CGameInstance::Render_Begin()
@@ -94,12 +96,12 @@ HRESULT CGameInstance::Add_Prototype(const wstring& strPrototypeTag, CGameObject
 	return m_pObjectMgr->Add_Prototype(strPrototypeTag,pPrototype);
 }
 
-HRESULT CGameInstance::Clone_GameObject(const wstring& strGameObjectTag, _uint iLevel)
+HRESULT CGameInstance::Add_GameObject(const wstring& strPrototypeTag, const wstring& strLayerTag, _uint iLevel, void* pArg)
 {
 	if (!m_pObjectMgr)
 		return E_FAIL;
 
-	return m_pObjectMgr->Clone_GameObject(strGameObjectTag, iLevel);
+	return m_pObjectMgr->Add_GameObject(strPrototypeTag, strLayerTag, iLevel, pArg);
 }
 
 #pragma region InputMgr

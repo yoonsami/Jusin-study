@@ -19,19 +19,24 @@ HRESULT CLevel_Logo::Initialize()
 	if (FAILED(__super::Initialize()))
 		return E_FAIL;
 
+	if (FAILED(Ready_Layer_BackGround(TEXT("Layer_BackGround"))))
+		return E_FAIL;
+
 	return S_OK;
 }
 
 void CLevel_Logo::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
+	
+}
+
+void CLevel_Logo::Late_Tick(_float fTimeDelta)
+{
+	__super::Late_Tick(fTimeDelta);
+
 	CGameInstance* pGameInstance = CGameInstance::GetInstance();
 	Safe_AddRef(pGameInstance);
-
-	if (pGameInstance->GetButtonTap(KEY_TYPE::A))
-	{
-		pGameInstance->Clone_GameObject(L"BackGround", LEVEL_LOGO);
-	}
 
 	if (pGameInstance->GetButtonTap(KEY_TYPE::SPACE))
 	{
@@ -43,11 +48,7 @@ void CLevel_Logo::Tick(_float fTimeDelta)
 	}
 
 	Safe_Release(pGameInstance);
-}
 
-void CLevel_Logo::Late_Tick(_float fTimeDelta)
-{
-	__super::Late_Tick(fTimeDelta);
 	SetWindowText(g_hWnd, TEXT("로고레벨입니다."));
 }
 
@@ -56,6 +57,20 @@ HRESULT CLevel_Logo::Render()
 	if (FAILED(__super::Render()))
 		return E_FAIL;
 
+	return S_OK;
+}
+
+HRESULT CLevel_Logo::Ready_Layer_BackGround(const wstring& strLayerTag)
+{
+	CGameInstance* pGameInstance = CGameInstance::GetInstance();
+	Safe_AddRef(pGameInstance);
+
+	/* For.BackGround */
+	if (FAILED(pGameInstance->Add_GameObject(
+		TEXT("Prototype_GameObject_BackGround"), L"BackGround", LEVEL_LOGO)))
+		return E_FAIL;
+
+	Safe_Release(pGameInstance);
 	return S_OK;
 }
 

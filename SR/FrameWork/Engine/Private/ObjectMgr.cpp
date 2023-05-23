@@ -36,20 +36,34 @@ HRESULT CObjectMgr::Add_Prototype(const wstring& strPrototypeTag, CGameObject* p
 	return S_OK;
 }
 
-HRESULT CObjectMgr::Clone_GameObject(const wstring& strGameObjectTag, _uint iLevel)
+HRESULT CObjectMgr::Add_GameObject(const wstring& strPrototypeTag, const wstring& strLayerTag, _uint iLevel, void* pArg)
 {
-	CGameObject* prototype = Find_Prototype(strGameObjectTag);
+	CGameObject* prototype = Find_Prototype(strPrototypeTag);
 
 	// prototype map 검색
 	if (!prototype)
 	{
-		MSG_BOX("Failed Clone_GameObject : CObjectMgr");
+		MSG_BOX("Failed Add_GameObject : CObjectMgr");
 		return E_FAIL;
 	}
 	
-	CLayer* pLayer = Find_Layer(strGameObjectTag, iLevel);
+	CGameObject* gameObject = prototype->Clone(pArg);
+	if (!gameObject)
+		return E_FAIL;
+
+	CLayer* pLayer = Find_Layer(strLayerTag, iLevel);
 	
-	pLayer->Add_GameObject(prototype->Clone());
+	if (!pLayer)
+	{
+		pLayer = CLayer::Create();
+		if (!pLayer)
+			return E_FAIL;
+
+		pLayer->Add_GameObject(gameObject);
+		m_pLayer[iLevel].emplace(strLayerTag, pLayer);
+	}
+	else
+		pLayer->Add_GameObject(gameObject);
 
 	return S_OK;
 }
@@ -58,11 +72,26 @@ HRESULT CObjectMgr::Clone_GameObject(const wstring& strGameObjectTag, _uint iLev
 
 void CObjectMgr::Tick(_float fDeltaTime)
 {
-	int a = 10;
+	for (_uint i = 0; i < m_iNumLevels; ++i)
+	{
+		for (auto& Pair : m_pLayer[i])
+		{
+			if(Pair.second)
+				Pair.second->Tick(fDeltaTime);
+		}
+	}
 }
 
 void CObjectMgr::Late_Tick(_float fDeltaTime)
 {
+	for (_uint i = 0; i < m_iNumLevels; ++i)
+	{
+		for (auto& Pair : m_pLayer[i])
+		{
+			if (Pair.second)
+				Pair.second->Late_Tick(fDeltaTime);
+		}
+	}
 }
 
 CGameObject* CObjectMgr::Find_Prototype(const wstring& strPrototypeTag)
@@ -75,19 +104,16 @@ CGameObject* CObjectMgr::Find_Prototype(const wstring& strPrototypeTag)
 	return iter->second;
 }
 
-CLayer* CObjectMgr::Find_Layer(const wstring& strGameObjectTag, _uint iLevel)
+CLayer* CObjectMgr::Find_Layer(const wstring& strLayerTag, _uint iLevel)
 {
-	auto iter = m_pLayer[iLevel].find(strGameObjectTag);
+	if (iLevel >= m_iNumLevels)
+		return nullptr;
+
+	auto iter = m_pLayer[iLevel].find(strLayerTag);
 
 	if (iter == m_pLayer[iLevel].end())
-	{
-		CLayer* pLayer = CLayer::Create();
-		m_pLayer[iLevel].emplace(strGameObjectTag, pLayer);
-		return pLayer;
-	}
+		return nullptr;
 
-	if (iter->second == nullptr)
-		iter->second = CLayer::Create();
 
 	return iter->second;
 }

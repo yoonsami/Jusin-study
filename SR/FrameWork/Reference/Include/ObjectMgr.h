@@ -14,7 +14,7 @@ private:
 public:
 	HRESULT Reserve_ObjMgr(_uint iNumLevels);
 	HRESULT Add_Prototype(const wstring& strPrototypeTag, CGameObject* pPrototype);
-	HRESULT Clone_GameObject(const wstring& strGameObjectTag, _uint iLevel);
+	HRESULT Add_GameObject(const wstring& strPrototypeTag,const wstring& strLayerTag, _uint iLevel, void* pArg);
 
 	void Tick(_float fDeltaTime);
 	void Late_Tick(_float fDeltaTime);

@@ -38,9 +38,16 @@ void CLevel_Loading::Tick(_float fTimeDelta)
 {
 	__super::Tick(fTimeDelta);
 
+	
+}
+
+void CLevel_Loading::Late_Tick(_float fTimeDelta)
+{
+	__super::Late_Tick(fTimeDelta);
+
 	CGameInstance* pGameInstance = CGameInstance::GetInstance();
 	Safe_AddRef(pGameInstance);
-	
+
 	if (pGameInstance->GetButtonTap(KEY_TYPE::ENTER))
 	{
 		if (!m_pLoader->Is_Finished())
@@ -68,11 +75,7 @@ void CLevel_Loading::Tick(_float fTimeDelta)
 		}
 	}
 	Safe_Release(pGameInstance);
-}
 
-void CLevel_Loading::Late_Tick(_float fTimeDelta)
-{
-	__super::Late_Tick(fTimeDelta);
 	SetWindowText(g_hWnd, m_pLoader->Get_LoadingText());
 }
 

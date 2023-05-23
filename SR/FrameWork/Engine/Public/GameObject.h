@@ -11,17 +11,17 @@ protected:
 
 public:
 	virtual HRESULT Initialize_Prototype();
-	virtual HRESULT Initialize();
+	virtual HRESULT Initialize(void* pArg);
 	virtual void Tick(_float fDeltaTime);
 	virtual void Late_Tick(_float fDeltaTime);
-	virtual HRESULT Render(_float fDeltaTime);
+	virtual HRESULT Render();
 
 protected:
 	LPDIRECT3DDEVICE9 m_pGraphic_Device = nullptr;
 
 
 public:
-	virtual CGameObject* Clone() = 0;
+	virtual CGameObject* Clone(void* pArg) = 0;
 	virtual void Free() override;
 
 };

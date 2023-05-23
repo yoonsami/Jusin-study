@@ -12,6 +12,9 @@ private:
 public:
 	void Add_GameObject(CGameObject* gameObject) { m_GameObject.push_back(gameObject); }
 
+	void Tick(_float fDeltaTime);
+	void Late_Tick(_float fDeltaTime);
+
 private:
 	list<CGameObject*>		m_GameObject;
 

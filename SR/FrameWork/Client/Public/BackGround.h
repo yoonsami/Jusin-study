@@ -12,15 +12,15 @@ private:
 	virtual ~CBackGround() = default;
 
 public:
-	virtual HRESULT Initialize_Prototype();
-	virtual HRESULT Initialize();
-	virtual void Tick(_float fDeltaTime);
-	virtual void Late_Tick(_float fDeltaTime);
-	virtual HRESULT Render(_float fDeltaTime);
+	virtual HRESULT Initialize_Prototype() override;
+	virtual HRESULT Initialize(void* pArg) override;
+	virtual void Tick(_float fDeltaTime) override;
+	virtual void Late_Tick(_float fDeltaTime) override;
+	virtual HRESULT Render() override;
 
 public:
 	static CBackGround* Create(LPDIRECT3DDEVICE9 pGrahpic_Device);
-	virtual CGameObject* Clone() override;
+	virtual CGameObject* Clone(void* pArg) override;
 	virtual void Free() override;
 
 };

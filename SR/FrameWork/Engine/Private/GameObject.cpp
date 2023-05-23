@@ -17,7 +17,7 @@ HRESULT CGameObject::Initialize_Prototype()
 	return S_OK;
 }
 
-HRESULT CGameObject::Initialize()
+HRESULT CGameObject::Initialize(void* pArg)
 {
 	return S_OK;
 }
@@ -30,7 +30,7 @@ void CGameObject::Late_Tick(_float fDeltaTime)
 {
 }
 
-HRESULT CGameObject::Render(_float fDeltaTime)
+HRESULT CGameObject::Render()
 {
 	return S_OK;
 }

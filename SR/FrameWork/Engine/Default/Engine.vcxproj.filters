@@ -37,6 +37,15 @@
     <Filter Include="01.Utility\02.GameObject\Manager\Layer">
       <UniqueIdentifier>{f283493b-e951-41ae-91d1-3ffcf1eb9141}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\03.Component">
+      <UniqueIdentifier>{b5ffd209-0074-4f08-92d2-b3b8a8a9d1ab}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Component\00.VIBuffer">
+      <UniqueIdentifier>{acc01b49-c781-4453-bfb6-87b7d32cef5c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Component\00.VIBuffer\00.Rect">
+      <UniqueIdentifier>{eb1530dd-d0e4-4217-90ea-49f3190825a4}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Engine_Define.h">
@@ -81,6 +90,15 @@
     <ClInclude Include="..\Public\Layer.h">
       <Filter>01.Utility\02.GameObject\Manager\Layer</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\Component.h">
+      <Filter>01.Utility\03.Component</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\VIBuffer.h">
+      <Filter>01.Utility\03.Component\00.VIBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="..\public\VIBuffer_Rect.h">
+      <Filter>01.Utility\03.Component\00.VIBuffer\00.Rect</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -109,6 +127,15 @@
     </ClCompile>
     <ClCompile Include="..\Private\Layer.cpp">
       <Filter>01.Utility\02.GameObject\Manager\Layer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Component.cpp">
+      <Filter>01.Utility\03.Component</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\VIBuffer.cpp">
+      <Filter>01.Utility\03.Component\00.VIBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\VIBuffer_Rect.cpp">
+      <Filter>01.Utility\03.Component\00.VIBuffer\00.Rect</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

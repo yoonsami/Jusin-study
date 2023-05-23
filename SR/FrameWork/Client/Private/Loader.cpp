@@ -55,20 +55,33 @@ HRESULT CLoader::LoadingForNextLevel()
 
 HRESULT CLoader::Loading_ForLogo()
 {
-	CGameInstance* gameInstance = CGameInstance::GetInstance();
-	Safe_AddRef(gameInstance);
+	CGameInstance* pGameInstance = CGameInstance::GetInstance();
+	Safe_AddRef(pGameInstance);
 
-	CBackGround* tmp = CBackGround::Create(m_pGraphic_Device);
-	if (FAILED(gameInstance->Add_Prototype(L"BackGround", tmp)))
-	{
-		Safe_Release(tmp);
-		MSG_BOX("Add_Prototype Failed : CLoader");
+	lstrcpy(m_szLoading, TEXT("텍스쳐를 로딩 중입니다."));
+
+
+	lstrcpy(m_szLoading, TEXT("모델을 로딩 중입니다."));
+
+
+	lstrcpy(m_szLoading, TEXT("셰이더를 로딩 중입니다."));
+
+
+	lstrcpy(m_szLoading, TEXT("객체원형 로딩 중입니다."));
+
+	/* For.Prototype_GameObject_BackGround */
+	if (FAILED(pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_BackGround"),
+		CBackGround::Create(m_pGraphic_Device))))
 		return E_FAIL;
-	}
 
+
+
+	lstrcpy(m_szLoading, TEXT("로딩이 완료되었습니다."));
+
+	Safe_Release(pGameInstance);
 
 	m_bFinished = true;
-	Safe_Release(gameInstance);
+
 	return S_OK;
 }
 

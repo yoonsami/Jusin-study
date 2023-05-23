@@ -16,7 +16,7 @@ HRESULT CBackGround::Initialize_Prototype()
 	return S_OK;
 }
 
-HRESULT CBackGround::Initialize()
+HRESULT CBackGround::Initialize(void* pArg)
 {
 	return S_OK;
 }
@@ -29,7 +29,7 @@ void CBackGround::Late_Tick(_float fDeltaTime)
 {
 }
 
-HRESULT CBackGround::Render(_float fDeltaTime)
+HRESULT CBackGround::Render()
 {
 	return S_OK;
 }
@@ -45,11 +45,11 @@ CBackGround* CBackGround::Create(LPDIRECT3DDEVICE9 pGrahpic_Device)
 	return pInstance;
 }
 
-CGameObject* CBackGround::Clone()
+CGameObject* CBackGround::Clone(void* pArg)
 {
 	CBackGround* pInstance = new CBackGround(*this);
 
-	if (FAILED(pInstance->Initialize()))
+	if (FAILED(pInstance->Initialize(pArg)))
 	{
 		Safe_Release(pInstance);
 		MSG_BOX("Failed to Clone : CBackGround");
@@ -59,5 +59,6 @@ CGameObject* CBackGround::Clone()
 
 void CBackGround::Free()
 {
+	__super::Free();
 }
 

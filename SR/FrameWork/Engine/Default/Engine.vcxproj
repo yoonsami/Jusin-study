@@ -151,6 +151,7 @@ call "$(SolutionDir)UpdateEngine.bat"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Base.h" />
+    <ClInclude Include="..\public\Component.h" />
     <ClInclude Include="..\Public\GameObject.h" />
     <ClInclude Include="..\Public\GraphicDevice.h" />
     <ClInclude Include="..\Public\Engine_Define.h" />
@@ -164,9 +165,12 @@ call "$(SolutionDir)UpdateEngine.bat"</Command>
     <ClInclude Include="..\Public\Level.h" />
     <ClInclude Include="..\Public\LevelMgr.h" />
     <ClInclude Include="..\Public\ObjectMgr.h" />
+    <ClInclude Include="..\public\VIBuffer.h" />
+    <ClInclude Include="..\public\VIBuffer_Rect.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp" />
+    <ClCompile Include="..\private\Component.cpp" />
     <ClCompile Include="..\Private\GameObject.cpp" />
     <ClCompile Include="..\Private\GraphicDevice.cpp" />
     <ClCompile Include="..\private\GameInstance.cpp" />
@@ -175,6 +179,8 @@ call "$(SolutionDir)UpdateEngine.bat"</Command>
     <ClCompile Include="..\Private\Level.cpp" />
     <ClCompile Include="..\Private\LevelMgr.cpp" />
     <ClCompile Include="..\Private\ObjectMgr.cpp" />
+    <ClCompile Include="..\private\VIBuffer.cpp" />
+    <ClCompile Include="..\private\VIBuffer_Rect.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
