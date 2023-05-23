@@ -18,7 +18,6 @@ CLevel_Loading::CLevel_Loading(LPDIRECT3DDEVICE9 pGraphic_Device)
 
 HRESULT CLevel_Loading::Initialize(LEVEL eNextLevel)
 {
-	m_eNextLevel = eNextLevel;
 
 	if (FAILED(__super::Initialize()))
 		return E_FAIL;

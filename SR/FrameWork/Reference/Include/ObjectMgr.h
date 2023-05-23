@@ -19,6 +19,7 @@ public:
 	void Tick(_float fDeltaTime);
 	void Late_Tick(_float fDeltaTime);
 
+	void Clear(_uint iLevelIndex);
 
 private: // 객체 원형 저장
 	map<wstring, CGameObject*>			m_Prototypes;

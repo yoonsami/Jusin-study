@@ -94,6 +94,17 @@ void CObjectMgr::Late_Tick(_float fDeltaTime)
 	}
 }
 
+void CObjectMgr::Clear(_uint iLevelIndex)
+{
+	if (iLevelIndex >= m_iNumLevels)
+		return;
+
+	for (auto& Pair : m_pLayer[iLevelIndex])
+		Safe_Release(Pair.second);
+
+	m_pLayer[iLevelIndex].clear();
+}
+
 CGameObject* CObjectMgr::Find_Prototype(const wstring& strPrototypeTag)
 {
 	auto iter = m_Prototypes.find(strPrototypeTag);

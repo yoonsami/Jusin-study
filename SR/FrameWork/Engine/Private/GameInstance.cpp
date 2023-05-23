@@ -109,6 +109,14 @@ HRESULT CGameInstance::Add_GameObject(const wstring& strPrototypeTag, const wstr
 	return m_pObjectMgr->Add_GameObject(strPrototypeTag, strLayerTag, iLevel, pArg);
 }
 
+void CGameInstance::Clear(_uint iLevelIndex)
+{
+	if (nullptr == m_pObjectMgr)
+		return;
+
+	m_pObjectMgr->Clear(iLevelIndex);
+}
+
 #pragma region InputMgr
 bool CGameInstance::GetButtonHold(KEY_TYPE key)
 {
