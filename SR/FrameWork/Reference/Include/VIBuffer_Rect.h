@@ -13,8 +13,6 @@ public:
 	HRESULT Initialize_Prototype();
 	HRESULT Initialize(void* pArg);
 
-
-
 public:
 	static CVIBuffer_Rect* Create(LPDIRECT3DDEVICE9 pGraphic_Device);
 	virtual CComponent* Clone(void* pArg) override;
