@@ -1,6 +1,5 @@
 #pragma once
 #include "Base.h"
-
 BEGIN(Engine)
 class ENGINE_DLL CGameObject abstract : public CBase
 {
@@ -16,6 +15,7 @@ public:
 	virtual void Late_Tick(_float fDeltaTime);
 	virtual HRESULT Render();
 
+
 protected:
 	LPDIRECT3DDEVICE9 m_pGraphic_Device = nullptr;
 
@@ -23,7 +23,6 @@ protected:
 public:
 	virtual CGameObject* Clone(void* pArg) = 0;
 	virtual void Free() override;
-
 };
 
 END

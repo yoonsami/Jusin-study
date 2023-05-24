@@ -18,7 +18,6 @@ public:
 
 	void Tick(_float fDeltaTime);
 	void Late_Tick(_float fDeltaTime);
-	void Render();
 	void Clear(_uint iLevelIndex);
 
 private: // 객체 원형 저장

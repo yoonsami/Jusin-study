@@ -159,9 +159,3 @@ void CGameInstance::Release_Engine()
 
 	CGraphicDevice::DestroyInstance();
 }
-
-void Engine::CGameInstance::RenderObj()
-{
-	m_pObjectMgr->Render();
-}
-
