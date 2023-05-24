@@ -1,5 +1,5 @@
-#include "Layer.h"
 #include "ObjectMgr.h"
+#include "Layer.h"
 #include "GameObject.h"
 
 IMPLEMENT_SINGLETON(CObjectMgr)
@@ -24,7 +24,7 @@ HRESULT CObjectMgr::Reserve_ObjMgr(_uint iNumLevels)
 
 HRESULT CObjectMgr::Add_Prototype(const wstring& strPrototypeTag, CGameObject* pPrototype)
 {
-
+	// map 
 	if (Find_Prototype(strPrototypeTag) != nullptr)
 	{
 		MSG_BOX("Failed Add_Prototype : CObjectMgr");
@@ -40,7 +40,7 @@ HRESULT CObjectMgr::Add_GameObject(const wstring& strPrototypeTag, const wstring
 {
 	CGameObject* prototype = Find_Prototype(strPrototypeTag);
 
-
+	// prototype map 검색
 	if (!prototype)
 	{
 		MSG_BOX("Failed Add_GameObject : CObjectMgr");
@@ -148,4 +148,16 @@ void CObjectMgr::Free()
 
 	m_Prototypes.clear();
 
+}
+
+void Engine::CObjectMgr::Render()
+{
+	for (_uint i = 0; i < m_iNumLevels; ++i)
+	{
+		for (auto& Pair : m_pLayer[i])
+		{
+			if (Pair.second)
+				Pair.second->Render();
+		}
+	}
 }

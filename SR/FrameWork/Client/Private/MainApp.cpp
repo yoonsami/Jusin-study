@@ -45,6 +45,8 @@ HRESULT CMainApp::Render()
 
     m_pGameInstance->Render_Begin();
 
+    m_pGameInstance->RenderObj();
+
     m_pGameInstance->Render_End();
 
     return S_OK;

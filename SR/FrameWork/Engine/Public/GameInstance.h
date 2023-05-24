@@ -42,6 +42,8 @@ public: // for ObjMgr
 	HRESULT Add_Prototype(const wstring& strPrototypeTag, CGameObject* pPrototype);
 	HRESULT Add_GameObject(const wstring& strPrototypeTag, const wstring& strLayerTag, _uint iLevel, void* pArg = nullptr);
     void Clear(_uint iLevelIndex);
+
+    void RenderObj();
 private:
 
 private:

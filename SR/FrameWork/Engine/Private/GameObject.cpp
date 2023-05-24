@@ -1,5 +1,4 @@
 #include "GameObject.h"
-#include "Component.h"
 
 CGameObject::CGameObject(LPDIRECT3DDEVICE9 pGraphic_Device)
 	: m_pGraphic_Device(pGraphic_Device)
