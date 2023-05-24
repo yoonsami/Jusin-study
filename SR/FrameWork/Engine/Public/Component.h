@@ -11,8 +11,8 @@ protected:
     virtual ~CComponent() = default;
 
 public:
-    HRESULT Initialize_Prototype();
-    HRESULT Initialize(void* pArg);
+    virtual HRESULT Initialize_Prototype();
+    virtual HRESULT Initialize(void* pArg);
 
 
 

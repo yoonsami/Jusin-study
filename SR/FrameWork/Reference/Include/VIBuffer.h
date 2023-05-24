@@ -11,8 +11,8 @@ protected:
 	virtual ~CVIBuffer() = default;
 
 public:
-	HRESULT Initialize_Prototype();
-	HRESULT Initialize(void* pArg);
+	virtual	HRESULT Initialize_Prototype() override;
+	virtual	HRESULT Initialize(void* pArg) override;
 
 protected:
 	LPDIRECT3DVERTEXBUFFER9 m_pVB = nullptr;

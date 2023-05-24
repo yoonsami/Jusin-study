@@ -14,7 +14,7 @@ public:
 
 	void Tick(_float fDeltaTime);
 	void Late_Tick(_float fDeltaTime);
-
+	void Render();
 private:
 	list<CGameObject*>		m_GameObject;
 

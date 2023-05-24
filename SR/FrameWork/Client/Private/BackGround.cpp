@@ -9,10 +9,12 @@ CBackGround::CBackGround(LPDIRECT3DDEVICE9 pGraphic_Device)
 CBackGround::CBackGround(const CBackGround& rhs)
 	:CGameObject(rhs)
 {
+	
 }
 
 HRESULT CBackGround::Initialize_Prototype()
 {
+	
 	return S_OK;
 }
 

@@ -149,3 +149,15 @@ void CObjectMgr::Free()
 	m_Prototypes.clear();
 
 }
+
+void Engine::CObjectMgr::Render()
+{
+	for (_uint i = 0; i < m_iNumLevels; ++i)
+	{
+		for (auto& Pair : m_pLayer[i])
+		{
+			if (Pair.second)
+				Pair.second->Render();
+		}
+	}
+}

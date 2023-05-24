@@ -32,3 +32,10 @@ void CLayer::Free()
 		Safe_Release(pGameObject);
 }
 
+void Engine::CLayer::Render()
+{
+	for (auto& gameObject : m_GameObject)
+		if (gameObject)
+			gameObject->Render();
+}
+

@@ -10,8 +10,8 @@ private:
 	virtual ~CVIBuffer_Rect() = default;
 
 public:
-	HRESULT Initialize_Prototype();
-	HRESULT Initialize(void* pArg);
+	virtual	HRESULT Initialize_Prototype() override;
+	virtual	HRESULT Initialize(void* pArg) override;
 
 public:
 	static CVIBuffer_Rect* Create(LPDIRECT3DDEVICE9 pGraphic_Device);

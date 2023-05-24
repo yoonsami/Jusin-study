@@ -44,4 +44,10 @@ namespace Engine
 		LBUTTON = VK_LBUTTON,
 		RBUTTON = VK_RBUTTON,
 	};
+
+	struct CUSTOMVERTEX
+	{
+		_float x, y, z, w;
+		_ulong	color;
+	};
 }
