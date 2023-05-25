@@ -8,7 +8,7 @@ CObjectMgr::CObjectMgr()
 {
 }
 
-HRESULT CObjectMgr::Reserve_ObjMgr(_uint iNumLevels)
+HRESULT CObjectMgr::Reserve_Manager(_uint iNumLevels)
 {
 	if (m_pLayer)
 	{
@@ -36,7 +36,7 @@ HRESULT CObjectMgr::Add_Prototype(const wstring& strPrototypeTag, CGameObject* p
 	return S_OK;
 }
 
-HRESULT CObjectMgr::Add_GameObject(const wstring& strPrototypeTag, const wstring& strLayerTag, _uint iLevel, void* pArg)
+HRESULT CObjectMgr::Add_GameObject(_uint iLevel, const wstring& strPrototypeTag, const wstring& strLayerTag, void* pArg)
 {
 	CGameObject* prototype = Find_Prototype(strPrototypeTag);
 

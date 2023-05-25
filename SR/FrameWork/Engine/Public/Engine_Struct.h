@@ -50,4 +50,10 @@ namespace Engine
 		_float x, y, z, w;
 		_ulong	color;
 	};
+
+	struct VTXPOSTEX
+	{
+		D3DXVECTOR3			vPosition;
+		D3DXVECTOR2			vTexcoord;
+	};
 }

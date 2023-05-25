@@ -12,9 +12,9 @@ private:
 	virtual ~CObjectMgr() = default;
 
 public:
-	HRESULT Reserve_ObjMgr(_uint iNumLevels);
+	HRESULT Reserve_Manager(_uint iNumLevels);
 	HRESULT Add_Prototype(const wstring& strPrototypeTag, CGameObject* pPrototype);
-	HRESULT Add_GameObject(const wstring& strPrototypeTag,const wstring& strLayerTag, _uint iLevel, void* pArg);
+	HRESULT Add_GameObject(_uint iLevel, const wstring& strPrototypeTag,const wstring& strLayerTag, void* pArg);
 
 	void Tick(_float fDeltaTime);
 	void Late_Tick(_float fDeltaTime);

@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "BackGround.h"
+#include "GameInstance.h"
 
 CBackGround::CBackGround(LPDIRECT3DDEVICE9 pGraphic_Device)
 	:CGameObject(pGraphic_Device)
@@ -62,5 +63,6 @@ CGameObject* CBackGround::Clone(void* pArg)
 void CBackGround::Free()
 {
 	__super::Free();
+
 }
 

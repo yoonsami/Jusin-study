@@ -2,6 +2,10 @@
 #include "Client_Defines.h"
 #include "GameObject.h"
 
+BEGIN(Engine)
+class CComponent;
+END
+
 BEGIN(Client)
 
 class CBackGround final : public CGameObject
@@ -23,6 +27,8 @@ public:
 	virtual CGameObject* Clone(void* pArg) override;
 	virtual void Free() override;
 
+private:
+	list<CComponent*> m_Components;
 
 };
 

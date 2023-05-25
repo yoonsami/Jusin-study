@@ -22,7 +22,8 @@ CGameInstance::CGameInstance()
 	m_pObjectMgr = CObjectMgr::GetInstance();
 	Safe_AddRef(m_pObjectMgr);
 
-
+	m_pComponentMgr = CComponentMgr::GetInstance();
+	Safe_AddRef(m_pComponentMgr);
 }
 
 HRESULT CGameInstance::Initialize_Engine(_uint iNumLevels, const GRAPHICDESC& GraphicDesc, LPDIRECT3DDEVICE9* ppOut)
@@ -49,9 +50,15 @@ HRESULT CGameInstance::Initialize_Engine(_uint iNumLevels, const GRAPHICDESC& Gr
 	}
 
 	//ObjMgr
-	if (FAILED(m_pObjectMgr->Reserve_ObjMgr(iNumLevels)))
+	if (FAILED(m_pObjectMgr->Reserve_Manager(iNumLevels)))
 	{
-		MSG_BOX("Failed : Reserve_ObjMgr");
+		MSG_BOX("Failed to Reserve_Manager : ObjMgr");
+		return E_FAIL;
+	}
+
+	if (FAILED(m_pComponentMgr->Reserve_Manager(iNumLevels)))
+	{
+		MSG_BOX("Failed : Reserve_Manager : ComponentMgr");
 		return E_FAIL;
 	}
 
@@ -101,12 +108,12 @@ HRESULT CGameInstance::Add_Prototype(const wstring& strPrototypeTag, CGameObject
 	return m_pObjectMgr->Add_Prototype(strPrototypeTag,pPrototype);
 }
 
-HRESULT CGameInstance::Add_GameObject(const wstring& strPrototypeTag, const wstring& strLayerTag, _uint iLevel, void* pArg)
+HRESULT CGameInstance::Add_GameObject(_uint iLevel, const wstring& strPrototypeTag, const wstring& strLayerTag,void* pArg)
 {
 	if (!m_pObjectMgr)
 		return E_FAIL;
 
-	return m_pObjectMgr->Add_GameObject(strPrototypeTag, strLayerTag, iLevel, pArg);
+	return m_pObjectMgr->Add_GameObject(iLevel, strPrototypeTag, strLayerTag,  pArg);
 }
 
 void CGameInstance::Clear(_uint iLevelIndex)
@@ -115,6 +122,21 @@ void CGameInstance::Clear(_uint iLevelIndex)
 		return;
 
 	m_pObjectMgr->Clear(iLevelIndex);
+}
+
+HRESULT CGameInstance::Add_Prototypes(_uint iLevelInex, const wstring& strPrototypeTag, CComponent* pPrototype)
+{
+	if (!m_pComponentMgr)
+		return E_FAIL;
+	
+	return m_pComponentMgr->Add_Prototypes(iLevelInex, strPrototypeTag, pPrototype);
+}
+
+CComponent* CGameInstance::Clone_Component(_uint iLevelIndex, const wstring& strPrototypeTag, void* pArg)
+{
+	if (!m_pComponentMgr)
+		return nullptr;
+	return m_pComponentMgr->Clone_Component(iLevelIndex,strPrototypeTag,pArg);
 }
 
 #pragma region InputMgr
@@ -145,6 +167,7 @@ void CGameInstance::Free()
 {
 	Safe_Release(m_pInputMgr);
 	Safe_Release(m_pObjectMgr);
+	Safe_Release(m_pComponentMgr);
 	Safe_Release(m_pLevelMgr);
 	Safe_Release(m_pGraphic_Device);
 }
@@ -155,6 +178,7 @@ void CGameInstance::Release_Engine()
 
 	CInputMgr::DestroyInstance();
 	CObjectMgr::DestroyInstance();
+	CComponentMgr::DestroyInstance();
 	CLevelMgr::DestroyInstance();
 
 	CGraphicDevice::DestroyInstance();

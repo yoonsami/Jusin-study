@@ -1,5 +1,5 @@
 #pragma once
-#include "Base.h"
+#include "ComponentMgr.h"
 
 BEGIN(Engine)
 
@@ -40,16 +40,22 @@ public: // for LevelMgr
 
 public: // for ObjMgr
 	HRESULT Add_Prototype(const wstring& strPrototypeTag, CGameObject* pPrototype);
-	HRESULT Add_GameObject(const wstring& strPrototypeTag, const wstring& strLayerTag, _uint iLevel, void* pArg = nullptr);
+	HRESULT Add_GameObject(_uint iLevel, const wstring& strPrototypeTag, const wstring& strLayerTag,void* pArg = nullptr);
     void Clear(_uint iLevelIndex);
 
+public: // for ComponentMgr
+	HRESULT Add_Prototypes(_uint iLevelInex, const wstring& strPrototypeTag, CComponent* pPrototype);
+	CComponent* Clone_Component(_uint iLevelIndex, const wstring& strPrototypeTag, void* pArg);
+
+
 private:
 
 private:
-    CInputMgr* m_pInputMgr = nullptr;
-    CLevelMgr* m_pLevelMgr = nullptr;
-    CObjectMgr* m_pObjectMgr = nullptr;
-    CGraphicDevice* m_pGraphic_Device = nullptr;
+	CInputMgr*          m_pInputMgr = nullptr;
+	CLevelMgr*          m_pLevelMgr = nullptr;
+    CObjectMgr*         m_pObjectMgr = nullptr;
+    CComponentMgr*      m_pComponentMgr = nullptr;
+    CGraphicDevice*     m_pGraphic_Device = nullptr;
 
 public:
     static void Release_Engine();

@@ -49,6 +49,9 @@
     <Filter Include="01.Utility\05.InputMgr">
       <UniqueIdentifier>{0b3bbc31-737d-4ff9-ad7a-ff009f913de7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\03.Component\Manager">
+      <UniqueIdentifier>{6bd2a43a-16c7-4428-9f7c-7edd0f19aede}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Engine_Define.h">
@@ -105,6 +108,9 @@
     <ClInclude Include="..\public\TimeMgr.h">
       <Filter>01.Utility\04.TimeMgr</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\ComponentMgr.h">
+      <Filter>01.Utility\03.Component\Manager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -145,6 +151,9 @@
     </ClCompile>
     <ClCompile Include="..\private\TimeMgr.cpp">
       <Filter>01.Utility\04.TimeMgr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\ComponentMgr.cpp">
+      <Filter>01.Utility\03.Component\Manager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
