@@ -24,6 +24,12 @@ HRESULT CMainApp::Init()
         return E_FAIL;
     }
 
+    if (FAILED(Ready_Prototype_Static_Component()))
+    {
+		MSG_BOX("Failed : Ready_Prototype_Static_Component");
+		return E_FAIL;
+    }
+
     if (FAILED(Open_Level(LEVEL_LOGO)))
     {
         MSG_BOX("Open_Level Failed : LEVEL_LOGO");
@@ -56,6 +62,24 @@ HRESULT CMainApp::Open_Level(LEVEL eLevel)
         return E_FAIL;
 
     if (FAILED(m_pGameInstance->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pGraphic_Device, eLevel))))
+        return E_FAIL;
+
+    return S_OK;
+}
+
+HRESULT CMainApp::Ready_Prototype_Static_Component()
+{
+    if (!m_pGameInstance)
+        return E_FAIL;
+        
+	// for Prototype_Component_Renderer
+	if (FAILED(m_pGameInstance->Add_Prototypes(LEVEL_STATIC, TEXT("Prototype_Component_Renderer"),
+		CRenderer::Create(m_pGraphic_Device))))
+		return E_FAIL;
+
+    // for Prototype_Component_VIBuffer_Rect
+    if (FAILED(m_pGameInstance->Add_Prototypes(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Rect"), 
+        CVIBuffer_Rect::Create(m_pGraphic_Device))))
         return E_FAIL;
 
     return S_OK;

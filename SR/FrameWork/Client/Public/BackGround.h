@@ -3,7 +3,8 @@
 #include "GameObject.h"
 
 BEGIN(Engine)
-class CComponent;
+class CVIBuffer_Rect;
+class CRenderer;
 END
 
 BEGIN(Client)
@@ -22,13 +23,18 @@ public:
 	virtual void Late_Tick(_float fDeltaTime) override;
 	virtual HRESULT Render() override;
 
+private:
+	CVIBuffer_Rect* m_pVIBufferCom = nullptr;
+	CRenderer*		m_pRenderer = nullptr;
+
+private:
+	HRESULT Add_Components();
+
 public:
 	static CBackGround* Create(LPDIRECT3DDEVICE9 pGrahpic_Device);
 	virtual CGameObject* Clone(void* pArg) override;
 	virtual void Free() override;
 
-private:
-	list<CComponent*> m_Components;
 
 };
 

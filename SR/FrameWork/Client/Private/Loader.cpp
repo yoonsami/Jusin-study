@@ -74,9 +74,6 @@ HRESULT CLoader::Loading_ForLogo()
 		CBackGround::Create(m_pGraphic_Device))))
 		return E_FAIL;
 
-	if (FAILED(pGameInstance->Add_Prototypes(LEVEL_LOGO, TEXT("Prototype_Component_VIBuffer_Rect"), CVIBuffer_Rect::Create(m_pGraphic_Device))))
-		return E_FAIL;
-
 	lstrcpy(m_szLoading, TEXT("로딩이 완료되었습니다."));
 
 	Safe_Release(pGameInstance);

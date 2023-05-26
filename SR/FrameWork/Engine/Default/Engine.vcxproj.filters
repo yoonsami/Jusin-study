@@ -52,6 +52,9 @@
     <Filter Include="01.Utility\03.Component\Manager">
       <UniqueIdentifier>{6bd2a43a-16c7-4428-9f7c-7edd0f19aede}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\03.Component\01.Renderer">
+      <UniqueIdentifier>{eeb99a8d-19f1-46e5-b96e-da3826964b7e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Engine_Define.h">
@@ -111,6 +114,9 @@
     <ClInclude Include="..\public\ComponentMgr.h">
       <Filter>01.Utility\03.Component\Manager</Filter>
     </ClInclude>
+    <ClInclude Include="..\public\Renderer.h">
+      <Filter>01.Utility\03.Component\01.Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -154,6 +160,9 @@
     </ClCompile>
     <ClCompile Include="..\private\ComponentMgr.cpp">
       <Filter>01.Utility\03.Component\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\private\Renderer.cpp">
+      <Filter>01.Utility\03.Component\01.Renderer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

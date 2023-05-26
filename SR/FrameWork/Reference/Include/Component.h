@@ -2,6 +2,7 @@
 #include "Base.h"
 
 BEGIN(Engine)
+class CComponent;
 
 class ENGINE_DLL CComponent abstract : public CBase
 {
@@ -13,8 +14,6 @@ protected:
 public:
     virtual HRESULT Initialize_Prototype();
     virtual HRESULT Initialize(void* pArg);
-
-
 
 protected:
     LPDIRECT3DDEVICE9 m_pGraphic_Device = nullptr;

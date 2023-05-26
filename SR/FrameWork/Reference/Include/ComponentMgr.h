@@ -2,6 +2,7 @@
 
 
 #include "VIBuffer_Rect.h"
+#include "Renderer.h"
 
 
 BEGIN(Engine)

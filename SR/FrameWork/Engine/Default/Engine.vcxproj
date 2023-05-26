@@ -166,6 +166,7 @@ call "$(SolutionDir)UpdateEngine.bat"</Command>
     <ClInclude Include="..\Public\Level.h" />
     <ClInclude Include="..\Public\LevelMgr.h" />
     <ClInclude Include="..\Public\ObjectMgr.h" />
+    <ClInclude Include="..\public\Renderer.h" />
     <ClInclude Include="..\public\TimeMgr.h" />
     <ClInclude Include="..\public\VIBuffer.h" />
     <ClInclude Include="..\public\VIBuffer_Rect.h" />
@@ -182,6 +183,7 @@ call "$(SolutionDir)UpdateEngine.bat"</Command>
     <ClCompile Include="..\Private\Level.cpp" />
     <ClCompile Include="..\Private\LevelMgr.cpp" />
     <ClCompile Include="..\Private\ObjectMgr.cpp" />
+    <ClCompile Include="..\private\Renderer.cpp" />
     <ClCompile Include="..\private\TimeMgr.cpp" />
     <ClCompile Include="..\private\VIBuffer.cpp" />
     <ClCompile Include="..\private\VIBuffer_Rect.cpp" />
