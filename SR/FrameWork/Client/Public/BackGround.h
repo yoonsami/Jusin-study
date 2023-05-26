@@ -25,7 +25,7 @@ public:
 
 private:
 	CVIBuffer_Rect* m_pVIBufferCom = nullptr;
-	CRenderer*		m_pRenderer = nullptr;
+	CRenderer*		m_pRendererCom = nullptr;
 
 private:
 	HRESULT Add_Components();

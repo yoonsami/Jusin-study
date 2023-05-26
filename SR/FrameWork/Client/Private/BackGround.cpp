@@ -29,10 +29,15 @@ HRESULT CBackGround::Initialize(void* pArg)
 
 void CBackGround::Tick(_float fDeltaTime)
 {
+	__super::Tick(fDeltaTime);
 }
 
 void CBackGround::Late_Tick(_float fDeltaTime)
 {
+	__super::Late_Tick(fDeltaTime);
+
+	m_pRendererCom->Add_RenderGroup(CRenderer::RENDER_PRIORITY, this);
+
 }
 
 HRESULT CBackGround::Render()
@@ -40,6 +45,7 @@ HRESULT CBackGround::Render()
 	if (!m_pVIBufferCom)
 		return E_FAIL;
 	
+	m_pVIBufferCom->Render();
 	
 	return S_OK;
 }
@@ -47,7 +53,7 @@ HRESULT CBackGround::Render()
 HRESULT CBackGround::Add_Components()
 {
 	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Renderer"),
-		TEXT("Com_Renderer"), (CComponent**)&m_pRenderer)))
+		TEXT("Com_Renderer"), (CComponent**)&m_pRendererCom)))
 		return E_FAIL;
 
 	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Rect"),
@@ -83,7 +89,7 @@ CGameObject* CBackGround::Clone(void* pArg)
 void CBackGround::Free()
 {
 	__super::Free();
-	Safe_Release(m_pRenderer);
+	Safe_Release(m_pRendererCom);
 	Safe_Release(m_pVIBufferCom);
 
 }

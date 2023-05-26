@@ -51,6 +51,8 @@ HRESULT CMainApp::Render()
 
     m_pGameInstance->Render_Begin();
 
+    m_pRenderer->Draw_RenderGroup();
+
     m_pGameInstance->Render_End();
 
     return S_OK;
@@ -74,8 +76,10 @@ HRESULT CMainApp::Ready_Prototype_Static_Component()
         
 	// for Prototype_Component_Renderer
 	if (FAILED(m_pGameInstance->Add_Prototypes(LEVEL_STATIC, TEXT("Prototype_Component_Renderer"),
-		CRenderer::Create(m_pGraphic_Device))))
+		m_pRenderer = CRenderer::Create(m_pGraphic_Device))))
 		return E_FAIL;
+
+    Safe_AddRef(m_pRenderer);
 
     // for Prototype_Component_VIBuffer_Rect
     if (FAILED(m_pGameInstance->Add_Prototypes(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Rect"), 
@@ -100,6 +104,7 @@ CMainApp* CMainApp::Create()
 
 void CMainApp::Free()
 {
+    Safe_Release(m_pRenderer);
     Safe_Release(m_pGraphic_Device);
     Safe_Release(m_pGameInstance);
 
