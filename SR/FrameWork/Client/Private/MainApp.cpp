@@ -46,7 +46,8 @@ void CMainApp::Tick(_float deltaTime)
 
 HRESULT CMainApp::Render()
 {
-	if (nullptr == m_pGameInstance)
+	if (!m_pGameInstance ||
+        !m_pRenderer)
 		return E_FAIL;
 
     m_pGameInstance->Render_Begin();

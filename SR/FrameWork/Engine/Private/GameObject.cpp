@@ -16,8 +16,10 @@ CGameObject::CGameObject(const CGameObject& rhs)
 CComponent* CGameObject::Find_Component(const wstring& strComTag)
 {
 	auto iter = m_Components.find(strComTag);
+
 	if (iter == m_Components.end())
 		return nullptr;
+
 	return iter->second;
 }
 
@@ -54,7 +56,7 @@ HRESULT CGameObject::Add_Component(_uint iLevelIndex, const wstring& strPrototyp
 
 	CComponent* pClone  = pGameInstance->Clone_Component(iLevelIndex, strPrototypeTag, pArg);
 
-	if (pClone == nullptr)
+	if (!pClone)
 		return E_FAIL;
 
 	m_Components.emplace(strComTag, pClone);
