@@ -3,11 +3,10 @@
 
 #include "VIBuffer_Rect.h"
 #include "Renderer.h"
-
+#include "Texture.h"
 
 BEGIN(Engine)
-class CComponentMgr :
-    public CBase
+class CComponentMgr final : public CBase
 {
     DECLARE_SINGLETON(CComponentMgr)
 

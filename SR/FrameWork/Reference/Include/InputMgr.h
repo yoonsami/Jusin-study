@@ -22,8 +22,7 @@ enum
 };
 
 
-class CInputMgr :
-    public CBase
+class CInputMgr final : public CBase
 {
     DECLARE_SINGLETON(CInputMgr)
 private:

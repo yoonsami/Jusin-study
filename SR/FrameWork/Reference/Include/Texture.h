@@ -3,8 +3,7 @@
 
 BEGIN(Engine)
 
-class CTexture :
-    public CComponent
+class ENGINE_DLL CTexture abstract : public CComponent
 {
 private:
     CTexture(LPDIRECT3DDEVICE9 pGraphic_Device);

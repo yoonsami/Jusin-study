@@ -20,10 +20,10 @@ public:
 
 private:
 	LPDIRECT3DDEVICE9	m_pGraphic_Device = nullptr;
+
 	HANDLE				m_hThread = INVALID_HANDLE_VALUE;
 	CRITICAL_SECTION	m_CriticalSection{};
 	LEVEL				m_eNextLevel = LEVEL_END;
-
 	_bool				m_bFinished = false;
 	_tchar				m_szLoading[MAX_PATH] = TEXT("");
 
