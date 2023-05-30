@@ -27,7 +27,9 @@ private:
 
 	CGameInstance*      m_pGameInstance = { nullptr };
     CRenderer*          m_pRenderer = nullptr;
+
 private:
+    HRESULT Ready_Default_Setting();
     HRESULT Open_Level(LEVEL eLevel);
     HRESULT Ready_Prototype_Static_Component();
 

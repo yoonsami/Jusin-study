@@ -44,7 +44,7 @@ public: // for ObjMgr
     void Clear(_uint iLevelIndex);
 
 public: // for ComponentMgr
-	HRESULT Add_Prototypes(_uint iLevelInex, const wstring& strPrototypeTag, CComponent* pPrototype);
+	HRESULT Add_Prototype(_uint iLevelInex, const wstring& strPrototypeTag, CComponent* pPrototype);
 	CComponent* Clone_Component(_uint iLevelIndex, const wstring& strPrototypeTag, void* pArg = nullptr);
 
 

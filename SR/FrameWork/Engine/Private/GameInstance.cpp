@@ -124,12 +124,12 @@ void CGameInstance::Clear(_uint iLevelIndex)
 	m_pObjectMgr->Clear(iLevelIndex);
 }
 
-HRESULT CGameInstance::Add_Prototypes(_uint iLevelInex, const wstring& strPrototypeTag, CComponent* pPrototype)
+HRESULT CGameInstance::Add_Prototype(_uint iLevelInex, const wstring& strPrototypeTag, CComponent* pPrototype)
 {
 	if (!m_pComponentMgr)
 		return E_FAIL;
 	
-	return m_pComponentMgr->Add_Prototypes(iLevelInex, strPrototypeTag, pPrototype);
+	return m_pComponentMgr->Add_Prototype(iLevelInex, strPrototypeTag, pPrototype);
 }
 
 CComponent* CGameInstance::Clone_Component(_uint iLevelIndex, const wstring& strPrototypeTag, void* pArg)

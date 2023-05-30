@@ -5,6 +5,7 @@
 BEGIN(Engine)
 class CVIBuffer_Rect;
 class CRenderer;
+class CTexture;
 END
 
 BEGIN(Client)
@@ -26,6 +27,7 @@ public:
 private:
 	CVIBuffer_Rect* m_pVIBufferCom = nullptr;
 	CRenderer*		m_pRendererCom = nullptr;
+	CTexture*		m_pTextureCom = nullptr;
 
 private:
 	HRESULT Add_Components();
@@ -35,7 +37,8 @@ public:
 	virtual CGameObject* Clone(void* pArg) override;
 	virtual void Free() override;
 
-
+private:
+	
 };
 
 END

@@ -18,7 +18,7 @@ HRESULT CComponentMgr::Reserve_Manager(_uint iNumLevels)
 	return S_OK;
 }
 
-HRESULT CComponentMgr::Add_Prototypes(_uint iLevelInex, const wstring& strPrototypeTag, CComponent* pPrototype)
+HRESULT CComponentMgr::Add_Prototype(_uint iLevelInex, const wstring& strPrototypeTag, CComponent* pPrototype)
 {
 	if (iLevelInex >= m_iNumLevels)
 		return E_FAIL;

@@ -59,7 +59,11 @@ HRESULT CLoader::Loading_ForLogo()
 	Safe_AddRef(pGameInstance);
 
 	lstrcpy(m_szLoading, TEXT("텍스쳐를 로딩 중입니다."));
-
+	if (FAILED(pGameInstance->Add_Prototype(LEVEL_LOGO, TEXT("Prototype_Component_Texture_BackGround"), CTexture::Create(m_pGraphic_Device, CTexture::TYPE_GENERAL, TEXT("../Bin/Resources/Textures/Default%d.jpg"), 2))))
+	{
+		MSG_BOX("Failed to Add_Prototype : Prototype_Component_Texture_BackGround");
+		return E_FAIL;
+	}
 
 	lstrcpy(m_szLoading, TEXT("모델을 로딩 중입니다."));
 

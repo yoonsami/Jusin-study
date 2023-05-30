@@ -24,6 +24,12 @@ HRESULT CMainApp::Init()
         return E_FAIL;
     }
 
+    if (FAILED(Ready_Default_Setting()))
+    {
+        MSG_BOX("Failed : Ready_Default_Setting");
+        return E_FAIL;
+    }
+
     if (FAILED(Ready_Prototype_Static_Component()))
     {
 		MSG_BOX("Failed : Ready_Prototype_Static_Component");
@@ -59,6 +65,16 @@ HRESULT CMainApp::Render()
     return S_OK;
 }
 
+HRESULT CMainApp::Ready_Default_Setting()
+{
+	if (nullptr == m_pGraphic_Device)
+		return E_FAIL;
+
+	m_pGraphic_Device->SetRenderState(D3DRS_LIGHTING, false);
+
+	return S_OK;
+}
+
 HRESULT CMainApp::Open_Level(LEVEL eLevel)
 {
     if (!m_pGameInstance)
@@ -76,14 +92,14 @@ HRESULT CMainApp::Ready_Prototype_Static_Component()
         return E_FAIL;
         
 	// for Prototype_Component_Renderer
-	if (FAILED(m_pGameInstance->Add_Prototypes(LEVEL_STATIC, TEXT("Prototype_Component_Renderer"),
+	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Renderer"),
 		m_pRenderer = CRenderer::Create(m_pGraphic_Device))))
 		return E_FAIL;
 
     Safe_AddRef(m_pRenderer);
 
     // for Prototype_Component_VIBuffer_Rect
-    if (FAILED(m_pGameInstance->Add_Prototypes(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Rect"), 
+    if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_VIBuffer_Rect"), 
         CVIBuffer_Rect::Create(m_pGraphic_Device))))
         return E_FAIL;
 
