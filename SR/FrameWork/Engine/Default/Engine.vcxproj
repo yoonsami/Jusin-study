@@ -170,6 +170,7 @@ call "$(SolutionDir)UpdateEngine.bat"</Command>
     <ClInclude Include="..\public\Texture.h" />
     <ClInclude Include="..\public\TimeMgr.h" />
     <ClInclude Include="..\public\VIBuffer.h" />
+    <ClInclude Include="..\Public\VIBuffer_Cube.h" />
     <ClInclude Include="..\public\VIBuffer_Rect.h" />
   </ItemGroup>
   <ItemGroup>
@@ -188,6 +189,7 @@ call "$(SolutionDir)UpdateEngine.bat"</Command>
     <ClCompile Include="..\private\Texture.cpp" />
     <ClCompile Include="..\private\TimeMgr.cpp" />
     <ClCompile Include="..\private\VIBuffer.cpp" />
+    <ClCompile Include="..\Private\VIBuffer_Cube.cpp" />
     <ClCompile Include="..\private\VIBuffer_Rect.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -5,6 +5,9 @@ namespace Engine
 	using  _uchar = unsigned char;
 	using  _char = signed char;
 
+	using  _ubyte = unsigned char;
+	using  _byte = signed char;
+
 	using _ushort = unsigned short;
 	using _short = signed short;
 

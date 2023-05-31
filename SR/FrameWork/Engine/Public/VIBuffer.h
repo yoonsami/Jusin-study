@@ -21,14 +21,20 @@ protected:
 	LPDIRECT3DINDEXBUFFER9	m_pIB = nullptr;
 
 protected:
-	_uint								m_iStride = { 0 }; 
+	_uint								m_iVertexStride = { 0 }; 
 	_uint								m_iNumVertices = { 0 };
 	_ulong								m_dwFVF = { 0 };
 	D3DPRIMITIVETYPE					m_PrimitiveType{};
 	_uint								m_iNumPrimitive = { 0 };
 
 protected:
+	_uint								m_iIndexStride = { 0 };
+	_uint								m_iNumIndices = 0;
+	D3DFORMAT							m_eIndexFormat{};
+
+protected:
 	HRESULT Create_VertextBuffer();
+	HRESULT Create_IndexBuffer();
 
 
 
