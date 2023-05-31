@@ -16,18 +16,18 @@ HRESULT CVIBuffer_Rect::Initialize_Prototype()
 		return E_FAIL;
 
 	m_iNumVertices = 4;
-	m_iNumIndices = 6;
 
 	m_iVertexStride = sizeof(VTXPOSTEX);
-	m_iIndexStride = m_iNumVertices > 65535 ? sizeof(_ulong) : sizeof(_ushort);
 
 	m_dwFVF = D3DFVF_XYZ | D3DFVF_TEX1 | D3DFVF_TEXCOORDSIZE2(0);
 	m_PrimitiveType = D3DPT_TRIANGLELIST;
 	m_iNumPrimitive = 2;
 
+	m_iNumIndices = m_iNumPrimitive * 3;
+	m_iIndexStride = m_iNumVertices > 65535 ? sizeof(_ulong) : sizeof(_ushort);
 	m_eIndexFormat = m_iIndexStride == sizeof(_ushort) ? D3DFMT_INDEX16 : D3DFMT_INDEX32;
 
-	if (FAILED(__super::Create_VertextBuffer()))
+	if (FAILED(__super::Create_VertexBuffer()))
 		return E_FAIL;
 
 	

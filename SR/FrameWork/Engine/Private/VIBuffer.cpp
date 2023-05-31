@@ -47,7 +47,7 @@ HRESULT CVIBuffer::Render()
 	return S_OK;
 }
 
-HRESULT CVIBuffer::Create_VertextBuffer()
+HRESULT CVIBuffer::Create_VertexBuffer()
 {
 	if (!m_pGraphic_Device)
 		return E_FAIL;

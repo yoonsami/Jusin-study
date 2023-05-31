@@ -61,6 +61,12 @@
     <Filter Include="01.Utility\03.Component\00.VIBuffer\01.Cube">
       <UniqueIdentifier>{a07c0c7f-028c-46a7-802d-fb29c7dfbc62}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Utility\03.Component\00.VIBuffer\02.Terrain">
+      <UniqueIdentifier>{9093b08c-0a2d-41d1-989f-5ec47330d20f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Utility\03.Component\03.Transform">
+      <UniqueIdentifier>{f8573f2d-33b0-4198-b631-f4c7959987ef}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Engine_Define.h">
@@ -129,6 +135,12 @@
     <ClInclude Include="..\Public\VIBuffer_Cube.h">
       <Filter>01.Utility\03.Component\00.VIBuffer\01.Cube</Filter>
     </ClInclude>
+    <ClInclude Include="..\Public\VIBuffer_Terrain.h">
+      <Filter>01.Utility\03.Component\00.VIBuffer\02.Terrain</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Transform.h">
+      <Filter>01.Utility\03.Component\03.Transform</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp">
@@ -181,6 +193,12 @@
     </ClCompile>
     <ClCompile Include="..\Private\VIBuffer_Cube.cpp">
       <Filter>01.Utility\03.Component\00.VIBuffer\01.Cube</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\VIBuffer_Terrain.cpp">
+      <Filter>01.Utility\03.Component\00.VIBuffer\02.Terrain</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Transform.cpp">
+      <Filter>01.Utility\03.Component\03.Transform</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

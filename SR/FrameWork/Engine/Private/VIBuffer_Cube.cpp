@@ -22,7 +22,7 @@ HRESULT CVIBuffer_Cube::Initialize_Prototype()
 	m_PrimitiveType = D3DPT_TRIANGLELIST;
 	m_iNumPrimitive = 2;
 
-	if (FAILED(__super::Create_VertextBuffer()))
+	if (FAILED(__super::Create_VertexBuffer()))
 		return E_FAIL;
 
 	VTXPOSTEX* pVertices =  nullptr ;

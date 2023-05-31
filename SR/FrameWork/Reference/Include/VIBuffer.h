@@ -33,7 +33,7 @@ protected:
 	D3DFORMAT							m_eIndexFormat{};
 
 protected:
-	HRESULT Create_VertextBuffer();
+	HRESULT Create_VertexBuffer();
 	HRESULT Create_IndexBuffer();
 
 

@@ -2,6 +2,7 @@
 #include "Loader.h"
 #include "GameInstance.h"
 #include "BackGround.h"
+#include "Terrain.h"
 
 CLoader::CLoader(LPDIRECT3DDEVICE9 pGraphic_Device)
 	: m_pGraphic_Device(pGraphic_Device)
@@ -89,7 +90,43 @@ HRESULT CLoader::Loading_ForLogo()
 
 HRESULT CLoader::Loading_ForGamePlay()
 {
-	
+	CGameInstance* pGameInstance = CGameInstance::GetInstance();
+	Safe_AddRef(pGameInstance);
+
+	lstrcpy(m_szLoading, TEXT("텍스쳐를 로딩 중입니다."));
+	/* For.Prototype_Component_Texture_Terrain */
+	if (FAILED(pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_Terrain"), CTexture::Create(m_pGraphic_Device, CTexture::TYPE_GENERAL, TEXT("../Bin/Resources/Textures/Terrain/Tile0.jpg")))))
+	{
+		MSG_BOX("Failed to Add_Prototype : Prototype_Component_Texture_Terrain");
+		return E_FAIL;
+	}
+
+	lstrcpy(m_szLoading, TEXT("모델을 로딩 중입니다."));
+	/* For.Prototype_Component_VIBuffer_Terrain */
+	if(FAILED(pGameInstance->Add_Prototype(LEVEL_GAMEPLAY,TEXT("Prototype_Component_VIBuffer_Terrain"),
+		CVIBuffer_Terrain::Create(m_pGraphic_Device,100,100))))
+	{
+		MSG_BOX("Failed to Add_Prototype : Prototype_Component_VIBuffer_Terrain");
+		return E_FAIL;
+	}
+
+	lstrcpy(m_szLoading, TEXT("셰이더를 로딩 중입니다."));
+
+
+	lstrcpy(m_szLoading, TEXT("객체원형 로딩 중입니다."));
+
+	/* For.Prototype_GameObject_Terrain*/
+	if (FAILED(pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Terrain"),
+		CTerrain::Create(m_pGraphic_Device))))
+		return E_FAIL;
+
+	lstrcpy(m_szLoading, TEXT("로딩이 완료되었습니다."));
+
+	Safe_Release(pGameInstance);
+
+	m_bFinished = true;
+
+	return S_OK;
 
 	m_bFinished = true;
 

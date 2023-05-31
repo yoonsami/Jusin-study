@@ -1,9 +1,11 @@
 #pragma once
 
 
-#include "VIBuffer_Rect.h"
-#include "Renderer.h"
 #include "Texture.h"
+#include "Renderer.h"
+#include "Transform.h"
+#include "VIBuffer_Rect.h"
+#include "VIBuffer_Terrain.h"
 
 BEGIN(Engine)
 class CComponentMgr final : public CBase
