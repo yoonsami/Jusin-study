@@ -44,14 +44,16 @@ void CLevel_Loading::Late_Tick(_float fTimeDelta)
 {
 	__super::Late_Tick(fTimeDelta);
 
-	CGameInstance* pGameInstance = CGameInstance::GetInstance();
-	Safe_AddRef(pGameInstance);
+	SetWindowText(g_hWnd, m_pLoader->Get_LoadingText());
 
-	if (pGameInstance->GetButtonTap(KEY_TYPE::ENTER))
+	if (!m_pLoader->Is_Finished())
 	{
-		if (!m_pLoader->Is_Finished())
-			return;
+		
+		return;
+	}
 
+	if (GetKeyState(VK_SPACE) & 0x8000)
+	{
 		CLevel* pLevel = nullptr;
 
 		switch (m_eNextLevel)
@@ -67,15 +69,18 @@ void CLevel_Loading::Late_Tick(_float fTimeDelta)
 		if (!pLevel)
 			return;
 
+		CGameInstance* pGameInstance = CGameInstance::GetInstance();
+		Safe_AddRef(pGameInstance);
+
 		if (FAILED(pGameInstance->Open_Level(m_eNextLevel, pLevel)))
 		{
 			Safe_Release(pGameInstance);
 			return;
 		}
+		Safe_Release(pGameInstance);
 	}
-	Safe_Release(pGameInstance);
 
-	SetWindowText(g_hWnd, m_pLoader->Get_LoadingText());
+	
 }
 
 HRESULT CLevel_Loading::Render()

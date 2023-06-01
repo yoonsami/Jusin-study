@@ -10,7 +10,7 @@ CLevelMgr::CLevelMgr()
 
 HRESULT CLevelMgr::Open_Level(_uint iLevelIndex, CLevel* pLevel)
 {
-	if (Safe_Release(m_pCurLevel) != 0)
+	if (Safe_Release(m_pCurLevel))
 	{
 		MSG_BOX("Failed Release Scene : Open_Level , CLevelMgr");
 		return E_FAIL;

@@ -24,27 +24,19 @@ HRESULT CBackGround::Initialize(void* pArg)
 	if(FAILED(Add_Components()))
 		return E_FAIL;
 
+	m_fSizeX = g_iWinSizeX;
+	m_fSizeY = g_iWinSizeY;
+	m_fX = g_iWinSizeX * 0.5f;
+	m_fY = g_iWinSizeY * 0.5f;
 
-	_float4x4 matWorld, matView, matProj, matScale,matTrans;
-	_float fSizeX, fSizeY, fX, fY;
-	fSizeX = g_iWinSizeX;
-	fSizeY = g_iWinSizeY;
-	fX = 0.f + fSizeX * 0.5f;
-	fY = 0.f + fSizeY * 0.5f;
+	_float4x4		Scaling, Translation;
 
-	matWorld = *D3DXMatrixScaling(&matScale, fSizeX, fSizeY, 1.f) * *D3DXMatrixTranslation(&matTrans, fX - g_iWinSizeX * 0.5f, -fY + g_iWinSizeY * 0.5f, 0.f);
+	m_WorldMatrix = *D3DXMatrixScaling(&Scaling, m_fSizeX, m_fSizeY, 1.f) *
+		*D3DXMatrixTranslation(&Translation, m_fX - g_iWinSizeX * 0.5f, -m_fY + g_iWinSizeY * 0.5f, 0.f);
 
-	D3DXMatrixIdentity(&matView);
-	//D3DXMatrixIdentity(&matProj);
-	
-	//D3DXMatrixLookAtLH(&matView, &_float3(0.f, 0.f, -5.f), &_float3(0.f, 0.f, 0.f), &_float3(0.f, 1.f, 0.f));
-	//D3DXMatrixPerspectiveFovLH(&matProj, D3DXToRadian(60.f), (_float)g_iWinSizeX / g_iWinSizeY, 0.2f, 300.f);
+	m_ViewMatrix = *D3DXMatrixIdentity(&m_ViewMatrix);
 
-	D3DXMatrixOrthoLH(&matProj, g_iWinSizeX, g_iWinSizeY, 0.f, 1.f);
-
-	m_pGraphic_Device->SetTransform(D3DTS_WORLD, &matWorld);
-	m_pGraphic_Device->SetTransform(D3DTS_VIEW, &matView);
-	m_pGraphic_Device->SetTransform(D3DTS_PROJECTION, &matProj);
+	D3DXMatrixOrthoLH(&m_ProjMatrix, g_iWinSizeX, g_iWinSizeY, 0.0f, 1.f);
 
 	return S_OK;
 }
@@ -67,6 +59,10 @@ HRESULT CBackGround::Render()
 	if (!m_pVIBufferCom)
 		return E_FAIL;
 	
+	m_pGraphic_Device->SetTransform(D3DTS_WORLD, &m_WorldMatrix);
+	m_pGraphic_Device->SetTransform(D3DTS_VIEW, &m_ViewMatrix);
+	m_pGraphic_Device->SetTransform(D3DTS_PROJECTION, &m_ProjMatrix);
+
 	if (FAILED(m_pTextureCom->Bind_OnGraphicDevice(0)))
 		return E_FAIL;
 
@@ -120,6 +116,5 @@ void CBackGround::Free()
 	Safe_Release(m_pRendererCom);
 	Safe_Release(m_pVIBufferCom);
 	Safe_Release(m_pTextureCom);
-
 }
 

@@ -35,19 +35,19 @@ void CLevel_Logo::Late_Tick(_float fTimeDelta)
 {
 	__super::Late_Tick(fTimeDelta);
 
-	CGameInstance* pGameInstance = CGameInstance::GetInstance();
-	Safe_AddRef(pGameInstance);
-
-	if (pGameInstance->GetButtonTap(KEY_TYPE::SPACE))
+	if (GetKeyState(VK_RETURN) & 0x8000)
 	{
+		CGameInstance* pGameInstance = CGameInstance::GetInstance();
+		Safe_AddRef(pGameInstance);
+
 		if (FAILED(pGameInstance->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pGraphic_Device, LEVEL_GAMEPLAY))))
 		{
 			Safe_Release(pGameInstance);
 			return;
 		}
-	}
 
-	Safe_Release(pGameInstance);
+		Safe_Release(pGameInstance);
+	}
 
 	SetWindowText(g_hWnd, TEXT("로고레벨입니다."));
 }
@@ -67,7 +67,7 @@ HRESULT CLevel_Logo::Ready_Layer_BackGround(const wstring& strLayerTag)
 
 	/* For.BackGround */
 	if (FAILED(pGameInstance->Add_GameObject(LEVEL_LOGO,
-		TEXT("Prototype_GameObject_BackGround"), L"BackGround")))
+		TEXT("Prototype_GameObject_BackGround"), strLayerTag)))
 		return E_FAIL;
 
 	Safe_Release(pGameInstance);

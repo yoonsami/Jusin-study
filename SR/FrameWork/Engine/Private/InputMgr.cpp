@@ -59,6 +59,14 @@ void CInputMgr::Tick()
 
 	::GetCursorPos(&m_ptMousePos);
 	::ScreenToClient(m_hWnd, &m_ptMousePos);
+
+
+	POINT center = { 640,360 };
+	m_MouseDir.x =_float( m_ptMousePos.x - center.x);
+	m_MouseDir.y = _float(m_ptMousePos.y - center.y);
+
+	ClientToScreen(m_hWnd, &center);
+	SetCursorPos(center.x,center.y);
 }
 
 void CInputMgr::Free()

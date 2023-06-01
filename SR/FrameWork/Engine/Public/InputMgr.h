@@ -22,7 +22,7 @@ enum
 };
 
 
-class CInputMgr final : public CBase
+class ENGINE_DLL CInputMgr final : public CBase
 {
     DECLARE_SINGLETON(CInputMgr)
 private:
@@ -39,6 +39,7 @@ public:
 	bool GetButtonAway(KEY_TYPE key) { return GetState(key) == KEY_STATE::AWAY; }
 
 	const POINT& GetMousePos() { return m_ptMousePos; }
+	const _float2& GetMouseDir() { return m_MouseDir; }
 
 public:
 	virtual void Free() override;
@@ -50,6 +51,8 @@ private:
 	HWND				m_hWnd = nullptr;
 	vector<KEY_STATE>	m_vecKeyStates;
 	POINT				m_ptMousePos{};
+	POINT				m_ptPrevMousePos{};
+	_float2				m_MouseDir{};
 };
 
 END

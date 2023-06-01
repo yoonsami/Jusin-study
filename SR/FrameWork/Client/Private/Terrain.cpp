@@ -50,21 +50,10 @@ HRESULT CTerrain::Render()
 
 	m_pGraphic_Device->SetTransform(D3DTS_WORLD, &m_pTransformCom->Get_WorldMatrix());
 
-	/* 한번셋팅하면 다시 셋팅할때까지 안바뀐다. */
-	/*m_pGraphic_Device->SetTransform(D3DTS_VIEW, D3DXMatrixLookAtLH(&ViewMatrix, 
-	&_float3(50.f, 50.f, -45.f), &_float3(50.f, 0.f, 50.f), &_float3(0.f, 1.f, 0.f)));
-	m_pGraphic_Device->SetTransform(D3DTS_PROJECTION, D3DXMatrixPerspectiveFovLH(&ProjMatrix, D3DXToRadian(60.0f), g_iWinSizeX / (_float)g_iWinSizeY, 0.2f, 300.f));*/
-
-	
-	/* 장치에 텍스쳐를 바인딩한다. */
 	if (FAILED(m_pTextureCom->Bind_OnGraphicDevice(0)))
 		return E_FAIL;	
 
-	m_pGraphic_Device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
-
 	m_pVIBufferCom->Render();
-
-	m_pGraphic_Device->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 
 	return S_OK;
 }
@@ -86,15 +75,13 @@ HRESULT CTerrain::Add_Components()
 		TEXT("Com_Texture"), (CComponent**)&m_pTextureCom)))
 		return E_FAIL;
 	
-	/* For.Com_Transform */
-	/* 각 객체들이 트랜스폼을 복제하여 객체안에 보관할 때! 객체가 움직, 회전해야한ㄴ 속도를 저장할 것이다. */
-	//CTransform::TRANSFORMDESC		TransformDesc;
-	//TransformDesc.fSpeedPerSec = ;
-	//TransformDesc.fRotationPerSec = ;
-	//
-	//if (FAILED(__super::Add_Component(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Transform"),
-	//	TEXT("Com_Transform"), (CComponent**)&m_pTransformCom, &TransformDesc)))
-	//	return E_FAIL;
+	CTransform::TRANSFORMDESC		TransformDesc;
+	TransformDesc.fSpeedPerSec = 10.f;
+	TransformDesc.fRotationPerSec = D3DXToRadian(90.0f);
+	
+	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Transform"),
+		TEXT("Com_Transform"), (CComponent**)&m_pTransformCom, &TransformDesc)))
+		return E_FAIL;
 
 
 	return S_OK;
@@ -130,6 +117,7 @@ void CTerrain::Free()
 {
 	__super::Free();
 
+	Safe_Release(m_pTransformCom);
 	Safe_Release(m_pTextureCom);
 	Safe_Release(m_pRendererCom);
 	Safe_Release(m_pVIBufferCom);	
