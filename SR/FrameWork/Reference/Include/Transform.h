@@ -40,17 +40,15 @@ public:
 	virtual HRESULT Initialize(void* pArg) override;
 
 public:
-	// m_vPos += normalize(m_vDir) * Speed * TimeDelta
 	void Go_Straight(_float fTimeDelta);
 	void Go_Left(_float fTimeDelta);
 	void Go_Right(_float fTimeDelta);
 	void Go_Backward(_float fTimeDelta);
-	void Turn(_float fTimeDelta);
-	void Rotation();
+	void Turn(const _float3& vAxis,_float fTimeDelta);
+	void Rotation(const _float3& vAxis,  _float fRadian);
 	void Scaling();
 
 private:
-	/* 크 * 자 * 이 * 공 * 부 */
 	_float4x4			m_WorldMatrix;
 	TRANSFORMDESC		m_TransformDesc;
 

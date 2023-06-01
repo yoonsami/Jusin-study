@@ -66,12 +66,16 @@ void CTransform::Go_Backward(_float fTimeDelta)
 	Set_State(STATE_POSITION, vPosition);
 }
 
-void CTransform::Turn(_float fTimeDelta)
+void CTransform::Turn(const _float3& vAxis, _float fTimeDelta)
 {
+	_float4x4 matRotation = *D3DXMatrixRotationAxis(&matRotation, &vAxis, m_TransformDesc.fRotationPerSec * fTimeDelta);
+
 }
 
-void CTransform::Rotation()
+void CTransform::Rotation(const _float3& vAxis, _float fRadian)
 {
+	_float4x4 matRotation = *D3DXMatrixRotationAxis(&matRotation, &vAxis, fRadian);
+
 }
 
 void CTransform::Scaling()

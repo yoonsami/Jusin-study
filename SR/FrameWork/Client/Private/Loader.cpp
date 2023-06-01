@@ -59,22 +59,21 @@ HRESULT CLoader::Loading_ForLogo()
 	CGameInstance* pGameInstance = CGameInstance::GetInstance();
 	Safe_AddRef(pGameInstance);
 
-	lstrcpy(m_szLoading, TEXT("텍스쳐를 로딩 중입니다."));
+	//lstrcpy(m_szLoading, TEXT("텍스쳐를 로딩 중입니다."));
+
 	if (FAILED(pGameInstance->Add_Prototype(LEVEL_LOGO, TEXT("Prototype_Component_Texture_BackGround"), CTexture::Create(m_pGraphic_Device, CTexture::TYPE_GENERAL, TEXT("../Bin/Resources/Textures/Default%d.jpg"), 2))))
 	{
 		MSG_BOX("Failed to Add_Prototype : Prototype_Component_Texture_BackGround");
 		return E_FAIL;
 	}
 
-	lstrcpy(m_szLoading, TEXT("모델을 로딩 중입니다."));
+//	lstrcpy(m_szLoading, TEXT("모델을 로딩 중입니다."));
 
 
-	lstrcpy(m_szLoading, TEXT("셰이더를 로딩 중입니다."));
+	//lstrcpy(m_szLoading, TEXT("셰이더를 로딩 중입니다."));
 
 
-	lstrcpy(m_szLoading, TEXT("객체원형 로딩 중입니다."));
-
-	/* For.Prototype_GameObject_BackGround */
+	//lstrcpy(m_szLoading, TEXT("객체원형 로딩 중입니다."));
 	if (FAILED(pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_BackGround"),
 		CBackGround::Create(m_pGraphic_Device))))
 		return E_FAIL;
@@ -93,16 +92,14 @@ HRESULT CLoader::Loading_ForGamePlay()
 	CGameInstance* pGameInstance = CGameInstance::GetInstance();
 	Safe_AddRef(pGameInstance);
 
-	lstrcpy(m_szLoading, TEXT("텍스쳐를 로딩 중입니다."));
-	/* For.Prototype_Component_Texture_Terrain */
+	//lstrcpy(m_szLoading, TEXT("텍스쳐를 로딩 중입니다."));
 	if (FAILED(pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_Terrain"), CTexture::Create(m_pGraphic_Device, CTexture::TYPE_GENERAL, TEXT("../Bin/Resources/Textures/Terrain/Tile0.jpg")))))
 	{
 		MSG_BOX("Failed to Add_Prototype : Prototype_Component_Texture_Terrain");
 		return E_FAIL;
 	}
 
-	lstrcpy(m_szLoading, TEXT("모델을 로딩 중입니다."));
-	/* For.Prototype_Component_VIBuffer_Terrain */
+	//lstrcpy(m_szLoading, TEXT("모델을 로딩 중입니다."));
 	if(FAILED(pGameInstance->Add_Prototype(LEVEL_GAMEPLAY,TEXT("Prototype_Component_VIBuffer_Terrain"),
 		CVIBuffer_Terrain::Create(m_pGraphic_Device,100,100))))
 	{
@@ -110,12 +107,10 @@ HRESULT CLoader::Loading_ForGamePlay()
 		return E_FAIL;
 	}
 
-	lstrcpy(m_szLoading, TEXT("셰이더를 로딩 중입니다."));
+	//lstrcpy(m_szLoading, TEXT("셰이더를 로딩 중입니다."));
 
 
-	lstrcpy(m_szLoading, TEXT("객체원형 로딩 중입니다."));
-
-	/* For.Prototype_GameObject_Terrain*/
+	//lstrcpy(m_szLoading, TEXT("객체원형 로딩 중입니다."));
 	if (FAILED(pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Terrain"),
 		CTerrain::Create(m_pGraphic_Device))))
 		return E_FAIL;
