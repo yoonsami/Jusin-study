@@ -52,7 +52,7 @@ HRESULT CLevel_GamePlay::Ready_Layer_Camera(const wstring& strLayerTag)
 
 	CameraFreeDesc.iData = 10;
 	CameraFreeDesc.CameraDesc.iLevelIndex = LEVEL_STATIC;
-	CameraFreeDesc.CameraDesc.strTransformTag = TEXT("Prototype_Component_Transform");
+	CameraFreeDesc.CameraDesc.strTranformTag = TEXT("Prototype_Component_Transform");
 	CameraFreeDesc.CameraDesc.vEye = _float3(0.f, 10.f, -7.f);
 	CameraFreeDesc.CameraDesc.vAt = _float3(0.f, 0.f, 0.f);
 	CameraFreeDesc.CameraDesc.fFovy = D3DXToRadian(60.0f);
@@ -62,10 +62,13 @@ HRESULT CLevel_GamePlay::Ready_Layer_Camera(const wstring& strLayerTag)
 	CameraFreeDesc.CameraDesc.TransformDesc.fSpeedPerSec = 10.0f;
 	CameraFreeDesc.CameraDesc.TransformDesc.fRotationPerSec = D3DXToRadian(90.0f);
 
-	if (FAILED(pGameInstance->Add_GameObject(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_Camera_Free"), strLayerTag, &CameraFreeDesc)))
+	/* For.Camera */
+	if (FAILED(pGameInstance->Add_GameObject(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_Camera_Free"),
+		strLayerTag, &CameraFreeDesc)))
 		return E_FAIL;
 
 	Safe_Release(pGameInstance);
+
 	return S_OK;
 }
 

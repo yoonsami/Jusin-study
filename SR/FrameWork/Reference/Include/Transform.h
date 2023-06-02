@@ -20,11 +20,10 @@ protected:
 	virtual ~CTransform() = default;
 
 public:
-	_float3& Get_State(STATE eState) const {
+	_float3 Get_State(STATE eState) const {
 		return *(_float3*)&m_WorldMatrix.m[eState][0];
 	}
-
-	_float3 Get_Scale() const;
+	_float3 Get_Scaled() const;
 	_float4x4 Get_WorldMatrix() {
 		return m_WorldMatrix;
 	}
@@ -46,10 +45,11 @@ public:
 	void Go_Left(_float fTimeDelta);
 	void Go_Right(_float fTimeDelta);
 	void Go_Backward(_float fTimeDelta);
-	void Turn(const _float3& vAxis,_float fTimeDelta);
-	void Rotation(const _float3& vAxis,  _float fRadian);
+	void Turn(const _float3& vAxis, _float fTimeDelta);
+	void Rotation(const _float3& vAxis, _float fRadian ); 
 	void Scaling(const _float3& vScale);
 	void LookAt(const _float3& vAt);
+	
 
 private:
 	_float4x4			m_WorldMatrix;

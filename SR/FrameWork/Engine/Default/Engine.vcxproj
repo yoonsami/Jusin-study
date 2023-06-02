@@ -151,7 +151,7 @@ call "$(SolutionDir)UpdateEngine.bat"</Command>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Base.h" />
-    <ClInclude Include="..\Public\Camera.h" />
+    <ClInclude Include="..\public\Camera.h" />
     <ClInclude Include="..\public\Component.h" />
     <ClInclude Include="..\public\ComponentMgr.h" />
     <ClInclude Include="..\Public\GameObject.h" />
@@ -178,7 +178,7 @@ call "$(SolutionDir)UpdateEngine.bat"</Command>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Private\Base.cpp" />
-    <ClCompile Include="..\Private\Camera.cpp" />
+    <ClCompile Include="..\private\Camera.cpp" />
     <ClCompile Include="..\private\Component.cpp" />
     <ClCompile Include="..\private\ComponentMgr.cpp" />
     <ClCompile Include="..\Private\GameObject.cpp" />

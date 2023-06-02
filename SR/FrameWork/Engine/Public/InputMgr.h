@@ -31,7 +31,7 @@ private:
 
 public:
 	void Ready_InputMgr(HWND hWnd);
-
+	_float2& GetMouseDir() { return m_vMouseDir; }
 	void Tick();
 
 	bool GetButtonHold(KEY_TYPE key) { return GetState(key) == KEY_STATE::HOLD; }
@@ -39,7 +39,6 @@ public:
 	bool GetButtonAway(KEY_TYPE key) { return GetState(key) == KEY_STATE::AWAY; }
 
 	const POINT& GetMousePos() { return m_ptMousePos; }
-	const _float2& GetMouseDir() { return m_MouseDir; }
 
 public:
 	virtual void Free() override;
@@ -51,8 +50,8 @@ private:
 	HWND				m_hWnd = nullptr;
 	vector<KEY_STATE>	m_vecKeyStates;
 	POINT				m_ptMousePos{};
-	POINT				m_ptPrevMousePos{};
-	_float2				m_MouseDir{};
+
+	_float2				m_vMouseDir{};
 };
 
 END

@@ -61,7 +61,11 @@ void CGraphicDevice::Render_End()
 
 void CGraphicDevice::Free()
 {
-	Safe_Release(m_pGraphicDev);
+	if (Safe_Release(m_pGraphicDev))
+	{
+		MSG_BOX("º´½Å");
+	}
+
 	Safe_Release(m_pSDK);
 }
 

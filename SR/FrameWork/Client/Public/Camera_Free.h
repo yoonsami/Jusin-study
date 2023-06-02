@@ -1,5 +1,4 @@
 #pragma once
-
 #include "Client_Defines.h"
 #include "Camera.h"
 
@@ -8,14 +7,15 @@ class CTransform;
 END
 
 BEGIN(Client)
-class CCamera_Free final :    public CCamera
+
+class CCamera_Free final : public CCamera
 {
 public:
-	struct CAMERAFREEDESC
+	typedef struct tagCameraFreeDesc
 	{
-		_int iData;
-		CCamera::CAMERADESC CameraDesc;
-	};
+		_int					iData; 
+		CCamera::CAMERADESC		CameraDesc;	
+	}CAMERAFREEDESC;
 
 protected:
 	CCamera_Free(LPDIRECT3DDEVICE9 pGraphic_Device);
@@ -35,7 +35,6 @@ public:
 	static CCamera_Free* Create(LPDIRECT3DDEVICE9 pGraphic_Device);
 	virtual CGameObject* Clone(void* pArg);
 	virtual void Free() override;
-
 };
 
 END

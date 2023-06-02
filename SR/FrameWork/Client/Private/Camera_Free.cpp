@@ -1,15 +1,19 @@
 #include "pch.h"
 #include "Camera_Free.h"
+
+#include "GameInstance.h"
 #include "InputMgr.h"
 
 CCamera_Free::CCamera_Free(LPDIRECT3DDEVICE9 pGraphic_Device)
-	:CCamera(pGraphic_Device)
+	: CCamera(pGraphic_Device)
 {
+
 }
 
 CCamera_Free::CCamera_Free(const CCamera_Free& rhs)
-	:CCamera(rhs)
+	: CCamera(rhs)
 {
+
 }
 
 HRESULT CCamera_Free::Initialize_Prototype()
@@ -33,43 +37,32 @@ void CCamera_Free::Tick(_float fTimeDelta)
 {
 	if (GetKeyState('W') & 0x8000)
 	{
-		m_pTransformCom->Go_Straight(fTimeDelta);
+		m_pTransform->Go_Straight(fTimeDelta);
 	}
 	if (GetKeyState('S') & 0x8000)
 	{
-		m_pTransformCom->Go_Backward(fTimeDelta);
+		m_pTransform->Go_Backward(fTimeDelta);
 	}
 
 	if (GetKeyState('A') & 0x8000)
 	{
-		m_pTransformCom->Go_Left(fTimeDelta);
+		m_pTransform->Go_Left(fTimeDelta);
 	}
 
 	if (GetKeyState('D') & 0x8000)
 	{
-		m_pTransformCom->Go_Right(fTimeDelta);
+		m_pTransform->Go_Right(fTimeDelta);
 	}
 
-	_float2 mouseDir = CInputMgr::GetInstance()->GetMouseDir();
+	const _float2& mouseDir = CInputMgr::GetInstance()->GetMouseDir();
 
-	if (mouseDir.x < 0)
-	{
-		m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), fTimeDelta * -1.f);
-	}
+	if(mouseDir.x)
+		m_pTransform->Turn(_float3(0.f,1.f,0.f), fTimeDelta * mouseDir.x);
 
-	if (mouseDir.x > 0)
-	{
-		m_pTransformCom->Turn(_float3(0.f, 1.f, 0.f), fTimeDelta * 1.f);
-	}
+	if(mouseDir.y)
+		m_pTransform->Turn(m_pTransform->Get_State(CTransform::STATE_RIGHT), fTimeDelta * mouseDir.y);
 
-	if (mouseDir.y < 0)
-	{
-		m_pTransformCom->Turn(m_pTransformCom->Get_State(CTransform::STATE_RIGHT), fTimeDelta * -1.f);
-	}
-	if (mouseDir.y > 0)
-	{
-		m_pTransformCom->Turn(m_pTransformCom->Get_State(CTransform::STATE_RIGHT), fTimeDelta * 1.f);
-	}
+
 	__super::Set_Transform();
 
 }
@@ -77,6 +70,7 @@ void CCamera_Free::Tick(_float fTimeDelta)
 void CCamera_Free::Late_Tick(_float fTimeDelta)
 {
 	__super::Late_Tick(fTimeDelta);
+
 }
 
 CCamera_Free* CCamera_Free::Create(LPDIRECT3DDEVICE9 pGraphic_Device)
@@ -108,4 +102,7 @@ CGameObject* CCamera_Free::Clone(void* pArg)
 void CCamera_Free::Free()
 {
 	__super::Free();
+
+
+
 }

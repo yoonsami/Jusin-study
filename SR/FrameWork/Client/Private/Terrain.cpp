@@ -77,8 +77,8 @@ HRESULT CTerrain::Add_Components()
 	
 	CTransform::TRANSFORMDESC		TransformDesc;
 	TransformDesc.fSpeedPerSec = 10.f;
-	TransformDesc.fRotationPerSec = D3DXToRadian(90.0f);
-	
+	TransformDesc.fRotationPerSec = D3DXToRadian(90.f);
+
 	if (FAILED(__super::Add_Component(LEVEL_STATIC, TEXT("Prototype_Component_Transform"),
 		TEXT("Com_Transform"), (CComponent**)&m_pTransformCom, &TransformDesc)))
 		return E_FAIL;
