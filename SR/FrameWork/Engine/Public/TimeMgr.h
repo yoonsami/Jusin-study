@@ -18,9 +18,9 @@ public:
 	_uint	GetFPS() { return m_iFps; }
 
 private:
-	LARGE_INTEGER m_llFrequency{};
-	LARGE_INTEGER m_llPrevCount{};
-	LARGE_INTEGER m_llCurrCount{};
+	LARGE_INTEGER m_lIFrequency{};
+	LARGE_INTEGER m_lIPrevCount{};
+	LARGE_INTEGER m_lICurrCount{};
 	_double  m_dDeltaTime = 0.;
 	_double  m_dTimeScale = 0.;
 

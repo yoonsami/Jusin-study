@@ -22,7 +22,7 @@ enum
 };
 
 
-class CInputMgr final : public CBase
+class ENGINE_DLL CInputMgr final : public CBase
 {
     DECLARE_SINGLETON(CInputMgr)
 private:
@@ -31,7 +31,7 @@ private:
 
 public:
 	void Ready_InputMgr(HWND hWnd);
-
+	_float2& GetMouseDir() { return m_vMouseDir; }
 	void Tick();
 
 	bool GetButtonHold(KEY_TYPE key) { return GetState(key) == KEY_STATE::HOLD; }
@@ -50,6 +50,8 @@ private:
 	HWND				m_hWnd = nullptr;
 	vector<KEY_STATE>	m_vecKeyStates;
 	POINT				m_ptMousePos{};
+
+	_float2				m_vMouseDir{};
 };
 
 END

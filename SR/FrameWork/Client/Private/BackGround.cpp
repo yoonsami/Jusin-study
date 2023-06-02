@@ -35,10 +35,6 @@ HRESULT CBackGround::Initialize(void* pArg)
 	matWorld = *D3DXMatrixScaling(&matScale, fSizeX, fSizeY, 1.f) * *D3DXMatrixTranslation(&matTrans, fX - g_iWinSizeX * 0.5f, -fY + g_iWinSizeY * 0.5f, 0.f);
 
 	D3DXMatrixIdentity(&matView);
-	//D3DXMatrixIdentity(&matProj);
-	
-	//D3DXMatrixLookAtLH(&matView, &_float3(0.f, 0.f, -5.f), &_float3(0.f, 0.f, 0.f), &_float3(0.f, 1.f, 0.f));
-	//D3DXMatrixPerspectiveFovLH(&matProj, D3DXToRadian(60.f), (_float)g_iWinSizeX / g_iWinSizeY, 0.2f, 300.f);
 
 	D3DXMatrixOrthoLH(&matProj, g_iWinSizeX, g_iWinSizeY, 0.f, 1.f);
 

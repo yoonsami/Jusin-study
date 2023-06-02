@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "Level_GamePlay.h"
 #include "GameInstance.h"
+#include "Camera_Free.h"
 
 CLevel_GamePlay::CLevel_GamePlay(LPDIRECT3DDEVICE9 pGraphic_Device)
 	: CLevel(pGraphic_Device)
@@ -10,6 +11,9 @@ CLevel_GamePlay::CLevel_GamePlay(LPDIRECT3DDEVICE9 pGraphic_Device)
 HRESULT CLevel_GamePlay::Initialize()
 {
 	if (FAILED(__super::Initialize()))
+		return E_FAIL;
+
+	if (FAILED(Ready_Layer_Camera(TEXT("Layer_Camera"))))
 		return E_FAIL;
 
 	if(FAILED(Ready_Layer_BackGround(TEXT("Layer_BackGround"))))
@@ -35,6 +39,35 @@ HRESULT CLevel_GamePlay::Render()
 {
 	if (FAILED(__super::Render()))
 		return E_FAIL;
+
+	return S_OK;
+}
+
+HRESULT CLevel_GamePlay::Ready_Layer_Camera(const wstring& strLayerTag)
+{
+	CGameInstance* pGameInstance = CGameInstance::GetInstance();
+	Safe_AddRef(pGameInstance);
+
+	CCamera_Free::CAMERAFREEDESC		CameraFreeDesc;
+
+	CameraFreeDesc.iData = 10;
+	CameraFreeDesc.CameraDesc.iLevelIndex = LEVEL_STATIC;
+	CameraFreeDesc.CameraDesc.strTranformTag = TEXT("Prototype_Component_Transform");
+	CameraFreeDesc.CameraDesc.vEye = _float3(0.f, 10.f, -7.f);
+	CameraFreeDesc.CameraDesc.vAt = _float3(0.f, 0.f, 0.f);
+	CameraFreeDesc.CameraDesc.fFovy = D3DXToRadian(60.0f);
+	CameraFreeDesc.CameraDesc.fAspect = (_float)g_iWinSizeX / g_iWinSizeY;
+	CameraFreeDesc.CameraDesc.fNear = 0.2f;
+	CameraFreeDesc.CameraDesc.fFar = 300.f;
+	CameraFreeDesc.CameraDesc.TransformDesc.fSpeedPerSec = 10.0f;
+	CameraFreeDesc.CameraDesc.TransformDesc.fRotationPerSec = D3DXToRadian(90.0f);
+
+	/* For.Camera */
+	if (FAILED(pGameInstance->Add_GameObject(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_Camera_Free"),
+		strLayerTag, &CameraFreeDesc)))
+		return E_FAIL;
+
+	Safe_Release(pGameInstance);
 
 	return S_OK;
 }

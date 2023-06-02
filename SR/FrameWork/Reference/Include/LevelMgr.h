@@ -12,6 +12,7 @@ private:
 	virtual ~CLevelMgr() = default;
 
 public:
+
 	HRESULT Open_Level(_uint iLevelIndex, CLevel* pLevel);
 
 	void Tick(_float fDeltaTime);

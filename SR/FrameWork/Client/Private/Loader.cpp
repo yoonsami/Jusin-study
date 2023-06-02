@@ -3,6 +3,7 @@
 #include "GameInstance.h"
 #include "BackGround.h"
 #include "Terrain.h"
+#include "Camera_Free.h"
 
 CLoader::CLoader(LPDIRECT3DDEVICE9 pGraphic_Device)
 	: m_pGraphic_Device(pGraphic_Device)
@@ -115,13 +116,13 @@ HRESULT CLoader::Loading_ForGamePlay()
 		CTerrain::Create(m_pGraphic_Device))))
 		return E_FAIL;
 
+	if (FAILED(pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Camera_Free"),
+		CCamera_Free::Create(m_pGraphic_Device))))
+		return E_FAIL;
+
 	lstrcpy(m_szLoading, TEXT("로딩이 완료되었습니다."));
 
 	Safe_Release(pGameInstance);
-
-	m_bFinished = true;
-
-	return S_OK;
 
 	m_bFinished = true;
 

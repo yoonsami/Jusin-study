@@ -51,7 +51,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
 
     CMainApp* pMainApp = CMainApp::Create();
-
+    CTimeMgr::GetInstance()->Ready_TimeMgr();
     MSG msg;
 
     // 기본 메시지 루프입니다:
@@ -68,7 +68,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 				DispatchMessage(&msg);
 			}
         }
-
+        CTimeMgr::GetInstance()->Cal_DeltaTime();
         pMainApp->Tick(static_cast<_float>(CTimeMgr::GetInstance()->GetDeltaTime()));
         pMainApp->Render();
 

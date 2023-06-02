@@ -20,6 +20,7 @@ void CInputMgr::Tick()
 	{
 		for (auto& i : m_vecKeyStates)
 			i = KEY_STATE::NONE;
+		m_vMouseDir = { 0.f,0.f };
 		return;
 	}
 
@@ -59,6 +60,26 @@ void CInputMgr::Tick()
 
 	::GetCursorPos(&m_ptMousePos);
 	::ScreenToClient(m_hWnd, &m_ptMousePos);
+
+	if(GetButtonHold(KEY_TYPE::LCTRL))
+	{
+		m_vMouseDir = { 0.f,0.f };
+	}
+	else
+	{
+
+		RECT tmp{};
+		GetClientRect(hWnd, &tmp);
+
+		POINT center = { (tmp.right - tmp.left) / 2, (tmp.bottom - tmp.top) / 2 };
+
+		m_vMouseDir.x = _float(m_ptMousePos.x - center.x);
+		m_vMouseDir.y = _float(m_ptMousePos.y - center.y);
+
+		ClientToScreen(hWnd, &center);
+		SetCursorPos(center.x, center.y);
+	}
+
 }
 
 void CInputMgr::Free()
