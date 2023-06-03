@@ -9,7 +9,7 @@ class CLevelMgr;
 class CInputMgr;
 class CGraphicDevice;
 class CGameObject;
-class CTimeMgr;
+class CTimerMgr;
 
 class ENGINE_DLL CGameInstance final :
     public CBase
@@ -33,7 +33,8 @@ public: // for InputMgr
 	bool GetButtonHold(KEY_TYPE key);
 	bool GetButtonTap(KEY_TYPE key);
 	bool GetButtonAway(KEY_TYPE key);
-    const POINT& GetMousePos();
+	const POINT& GetMousePos();
+	const _float2& GetMouseDir();
 
 public: // for LevelMgr
     HRESULT Open_Level(_uint iLevelIndex, CLevel* pLevel);
@@ -47,12 +48,17 @@ public: // for ComponentMgr
 	HRESULT Add_Prototype(_uint iLevelInex, const wstring& strPrototypeTag, CComponent* pPrototype);
 	CComponent* Clone_Component(_uint iLevelIndex, const wstring& strPrototypeTag, void* pArg = nullptr);
 
+public: // for TimerMgr
+	HRESULT Add_Timer(const wstring& strTimerTag);
+	_float Compute_TimeDelta(const wstring& strTimerTag);
+
 
 private:
 
 private:
 	CInputMgr*          m_pInputMgr = nullptr;
 	CLevelMgr*          m_pLevelMgr = nullptr;
+    CTimerMgr*          m_pTimerMgr = nullptr;
     CObjectMgr*         m_pObjectMgr = nullptr;
     CComponentMgr*      m_pComponentMgr = nullptr;
     CGraphicDevice*     m_pGraphic_Device = nullptr;

@@ -35,20 +35,20 @@ void CLevel_Logo::Late_Tick(_float fTimeDelta)
 {
 	__super::Late_Tick(fTimeDelta);
 
-	if (GetKeyState(VK_RETURN) & 0x8000)
+	CGameInstance* pGameInstance = CGameInstance::GetInstance();
+	Safe_AddRef(pGameInstance);
+
+	if (pGameInstance->GetButtonTap(KEY_TYPE::ENTER))
 	{
-		CGameInstance* pGameInstance = CGameInstance::GetInstance();
-		Safe_AddRef(pGameInstance);
 
 		if (FAILED(pGameInstance->Open_Level(LEVEL_LOADING, CLevel_Loading::Create(m_pGraphic_Device, LEVEL_GAMEPLAY))))
 		{
 			Safe_Release(pGameInstance);
 			return;
 		}
-
-		Safe_Release(pGameInstance);
 	}
 
+	Safe_Release(pGameInstance);
 	SetWindowText(g_hWnd, TEXT("로고레벨입니다."));
 }
 

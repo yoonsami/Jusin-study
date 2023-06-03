@@ -70,6 +70,7 @@ HRESULT CMainApp::Ready_Default_Setting()
 	if (nullptr == m_pGraphic_Device)
 		return E_FAIL;
 
+    // Á¶¸í¿¬»ê ²¨³ùÀ½
 	m_pGraphic_Device->SetRenderState(D3DRS_LIGHTING, false);
 
 	return S_OK;
@@ -103,6 +104,7 @@ HRESULT CMainApp::Ready_Prototype_Static_Component()
         CVIBuffer_Rect::Create(m_pGraphic_Device))))
         return E_FAIL;
 
+    // for Prototype_Component_Transform
 	if (FAILED(m_pGameInstance->Add_Prototype(LEVEL_STATIC, TEXT("Prototype_Component_Transform"),
 		CTransform::Create(m_pGraphic_Device))))
 		return E_FAIL;

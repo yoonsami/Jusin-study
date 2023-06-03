@@ -5,7 +5,8 @@
 #include "framework.h"
 #include "Client.h"
 #include "MainApp.h"
-#include "TimeMgr.h"
+#include "GameInstance.h"
+
 
 #define MAX_LOADSTRING 100
 
@@ -51,8 +52,20 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     HACCEL hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_CLIENT));
 
     CMainApp* pMainApp = CMainApp::Create();
-    CTimeMgr::GetInstance()->Ready_TimeMgr();
+    if (!pMainApp)
+        return FALSE;
+
     MSG msg;
+
+    CGameInstance* pGameInstance = CGameInstance::GetInstance();
+    Safe_AddRef(pGameInstance);
+
+    if (FAILED(pGameInstance->Add_Timer(TEXT("Timer_Default"))))
+        return E_FAIL;
+    if (FAILED(pGameInstance->Add_Timer(TEXT("Timer_60"))))
+        return E_FAIL;
+
+    _float fTimeAcc = 0.f;
 
     // 기본 메시지 루프입니다:
     while (true)
@@ -68,20 +81,22 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
 				DispatchMessage(&msg);
 			}
         }
-        CTimeMgr::GetInstance()->Cal_DeltaTime();
-        pMainApp->Tick(static_cast<_float>(CTimeMgr::GetInstance()->GetDeltaTime()));
-        pMainApp->Render();
 
+        fTimeAcc += pGameInstance->Compute_TimeDelta(TEXT("Timer_Default"));
+
+        if (fTimeAcc > 1.f / 60.f)
+        {
+            fTimeAcc = 0.f;
+			pMainApp->Tick(pGameInstance->Compute_TimeDelta(TEXT("Timer_60")));
+			pMainApp->Render();
+        }
     }
+
+    Safe_Release(pGameInstance);
 
     if (Safe_Release(pMainApp))
     {
         MSG_BOX("MainApp Memory Leak");
-    }
-
-    if (CTimeMgr::DestroyInstance())
-    {
-        MSG_BOX("TimeMgr Memory Leak");
     }
 
     return (int) msg.wParam;

@@ -1,21 +1,20 @@
-#include "TimeMgr.h"
+#include "Timer.h"
 
-IMPLEMENT_SINGLETON(CTimeMgr)
-
-CTimeMgr::CTimeMgr()
+CTimer::CTimer()
 {
 }
 
-HRESULT CTimeMgr::Ready_TimeMgr()
+HRESULT CTimer::Initialize()
 {
 	::QueryPerformanceFrequency(&m_lIFrequency);
 	::QueryPerformanceCounter(&m_lIPrevCount);
+
 	m_dTimeScale = 1. / m_lIFrequency.QuadPart;
 
 	return S_OK;
 }
 
-void CTimeMgr::Cal_DeltaTime()
+void CTimer::Cal_DeltaTime()
 {
 	::QueryPerformanceCounter(&m_lICurrCount);
 
@@ -32,7 +31,19 @@ void CTimeMgr::Cal_DeltaTime()
 	}
 }
 
-void CTimeMgr::Free()
+CTimer* CTimer::Create()
+{
+	CTimer* pInstance = new CTimer();
+
+	if (FAILED(pInstance->Initialize()))
+	{
+		Safe_Release(pInstance);
+		MSG_BOX("Failed to Created : CTimer");
+	}
+	return pInstance;
+}
+
+void CTimer::Free()
 {
 
 }

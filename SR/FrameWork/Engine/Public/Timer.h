@@ -2,19 +2,19 @@
 #include "Base.h"
 
 BEGIN(Engine)
-class ENGINE_DLL CTimeMgr final :
-    public CBase
+class CTimer final : public CBase
 {
-    DECLARE_SINGLETON(CTimeMgr)
 private:
-    CTimeMgr();
-    virtual ~CTimeMgr() = default;
+    CTimer();
+    virtual ~CTimer() = default;
 
 public:
-    HRESULT Ready_TimeMgr();
+	_double GetDeltaTime() { return m_dDeltaTime; }
+
+public:
+    HRESULT Initialize();
     void Cal_DeltaTime();
 
-	_double GetDeltaTime() { return m_dDeltaTime; }
 	_uint	GetFPS() { return m_iFps; }
 
 private:
@@ -30,6 +30,7 @@ private:
 	_uint m_iFps = 0;
 
 public:
+	static CTimer* Create();
 	virtual void Free() override;
 };
 

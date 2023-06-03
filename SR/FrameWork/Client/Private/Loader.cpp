@@ -74,11 +74,13 @@ HRESULT CLoader::Loading_ForLogo()
 	Safe_AddRef(pGameInstance);
 
 	lstrcpy(m_szLoading, TEXT("텍스쳐를 로딩 중입니다."));
+	// LEVEL_LOGO : Prototype_Component_Texture_BackGround
 	if (FAILED(pGameInstance->Add_Prototype(LEVEL_LOGO, TEXT("Prototype_Component_Texture_BackGround"),
 		CTexture::Create(m_pGraphic_Device, CTexture::TYPE_GENERAL, TEXT("../Bin/Resources/Textures/Default%d.jpg"), 2))))
 		return E_FAIL;
 	
 	lstrcpy(m_szLoading, TEXT("객체원형 로딩 중입니다."));
+	// Prototype_GameObject_BackGround 
 	if (FAILED(pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_BackGround"),
 		CBackGround::Create(m_pGraphic_Device))))
 		return E_FAIL;

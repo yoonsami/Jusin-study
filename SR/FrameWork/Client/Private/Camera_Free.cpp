@@ -2,7 +2,6 @@
 #include "Camera_Free.h"
 
 #include "GameInstance.h"
-#include "InputMgr.h"
 
 CCamera_Free::CCamera_Free(LPDIRECT3DDEVICE9 pGraphic_Device)
 	: CCamera(pGraphic_Device)
@@ -35,26 +34,30 @@ HRESULT CCamera_Free::Initialize(void* pArg)
 
 void CCamera_Free::Tick(_float fTimeDelta)
 {
-	if (GetKeyState('W') & 0x8000)
+	CGameInstance* pGameInstance = CGameInstance::GetInstance();
+	Safe_AddRef(pGameInstance);
+
+
+	if (pGameInstance->GetButtonHold(KEY_TYPE::W))
 	{
 		m_pTransform->Go_Straight(fTimeDelta);
 	}
-	if (GetKeyState('S') & 0x8000)
+	if (pGameInstance->GetButtonHold(KEY_TYPE::S))
 	{
 		m_pTransform->Go_Backward(fTimeDelta);
 	}
 
-	if (GetKeyState('A') & 0x8000)
+	if (pGameInstance->GetButtonHold(KEY_TYPE::A))
 	{
 		m_pTransform->Go_Left(fTimeDelta);
 	}
 
-	if (GetKeyState('D') & 0x8000)
+	if (pGameInstance->GetButtonHold(KEY_TYPE::D))
 	{
 		m_pTransform->Go_Right(fTimeDelta);
 	}
 
-	const _float2& mouseDir = CInputMgr::GetInstance()->GetMouseDir();
+	const _float2& mouseDir = pGameInstance->GetMouseDir();
 
 	if(mouseDir.x)
 		m_pTransform->Turn(_float3(0.f,1.f,0.f), fTimeDelta * mouseDir.x);
@@ -62,6 +65,8 @@ void CCamera_Free::Tick(_float fTimeDelta)
 	if(mouseDir.y)
 		m_pTransform->Turn(m_pTransform->Get_State(CTransform::STATE_RIGHT), fTimeDelta * mouseDir.y);
 
+
+	Safe_Release(pGameInstance);
 
 	__super::Set_Transform();
 

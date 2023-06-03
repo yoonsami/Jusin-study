@@ -4,7 +4,7 @@
 #include "LevelMgr.h"
 #include "ObjectMgr.h"
 #include "GameObject.h"
-#include "TimeMgr.h"
+#include "TimerMgr.h"
 
 IMPLEMENT_SINGLETON(CGameInstance)
 
@@ -24,6 +24,9 @@ CGameInstance::CGameInstance()
 
 	m_pComponentMgr = CComponentMgr::GetInstance();
 	Safe_AddRef(m_pComponentMgr);
+
+	m_pTimerMgr = CTimerMgr::GetInstance();
+	Safe_AddRef(m_pTimerMgr);
 }
 
 HRESULT CGameInstance::Initialize_Engine(_uint iNumLevels, const GRAPHICDESC& GraphicDesc, LPDIRECT3DDEVICE9* ppOut)
@@ -91,6 +94,8 @@ void CGameInstance::Render_End()
 		m_pGraphic_Device->Render_End();
 }
 
+#pragma region LevelMgr
+
 HRESULT CGameInstance::Open_Level(_uint iLevelIndex, CLevel* pLevel)
 {
 	if (!m_pLevelMgr)
@@ -99,21 +104,25 @@ HRESULT CGameInstance::Open_Level(_uint iLevelIndex, CLevel* pLevel)
 	return m_pLevelMgr->Open_Level(iLevelIndex, pLevel);
 }
 
+#pragma endregion LevelMgr
+
+#pragma region ObjectMgr
+
 HRESULT CGameInstance::Add_Prototype(const wstring& strPrototypeTag, CGameObject* pPrototype)
 {
 	if (!m_pObjectMgr)
 		return E_FAIL;
 
-	
-	return m_pObjectMgr->Add_Prototype(strPrototypeTag,pPrototype);
+
+	return m_pObjectMgr->Add_Prototype(strPrototypeTag, pPrototype);
 }
 
-HRESULT CGameInstance::Add_GameObject(_uint iLevel, const wstring& strPrototypeTag, const wstring& strLayerTag,void* pArg)
+HRESULT CGameInstance::Add_GameObject(_uint iLevel, const wstring& strPrototypeTag, const wstring& strLayerTag, void* pArg)
 {
 	if (!m_pObjectMgr)
 		return E_FAIL;
 
-	return m_pObjectMgr->Add_GameObject(iLevel, strPrototypeTag, strLayerTag,  pArg);
+	return m_pObjectMgr->Add_GameObject(iLevel, strPrototypeTag, strLayerTag, pArg);
 }
 
 void CGameInstance::Clear(_uint iLevelIndex)
@@ -124,11 +133,15 @@ void CGameInstance::Clear(_uint iLevelIndex)
 	m_pObjectMgr->Clear(iLevelIndex);
 }
 
+#pragma endregion ObjectMgr
+
+#pragma region ComponentMgr
+
 HRESULT CGameInstance::Add_Prototype(_uint iLevelInex, const wstring& strPrototypeTag, CComponent* pPrototype)
 {
 	if (!m_pComponentMgr)
 		return E_FAIL;
-	
+
 	return m_pComponentMgr->Add_Prototype(iLevelInex, strPrototypeTag, pPrototype);
 }
 
@@ -136,8 +149,30 @@ CComponent* CGameInstance::Clone_Component(_uint iLevelIndex, const wstring& str
 {
 	if (!m_pComponentMgr)
 		return nullptr;
-	return m_pComponentMgr->Clone_Component(iLevelIndex,strPrototypeTag,pArg);
+	return m_pComponentMgr->Clone_Component(iLevelIndex, strPrototypeTag, pArg);
 }
+
+#pragma endregion ComponentMgr
+
+#pragma region TimerMgr
+
+HRESULT CGameInstance::Add_Timer(const wstring& strTimerTag)
+{
+	if (!m_pTimerMgr)
+		return E_FAIL;
+
+	return m_pTimerMgr->Add_Timer(strTimerTag);
+}
+
+_float CGameInstance::Compute_TimeDelta(const wstring& strTimerTag)
+{
+	if (!m_pTimerMgr)
+		return 0.f;
+
+	return m_pTimerMgr->Compute_TimeDelta(strTimerTag);
+}
+
+#pragma endregion TimerMgr
 
 #pragma region InputMgr
 bool CGameInstance::GetButtonHold(KEY_TYPE key)
@@ -161,10 +196,16 @@ const POINT& CGameInstance::GetMousePos()
 	return m_pInputMgr->GetMousePos();
 }
 
-#pragma endregion
+const _float2& CGameInstance::GetMouseDir()
+{
+	return m_pInputMgr->GetMouseDir();
+}
+
+#pragma endregion InputMgr
 
 void CGameInstance::Free()
 {
+	Safe_Release(m_pTimerMgr);
 	Safe_Release(m_pInputMgr);
 	Safe_Release(m_pObjectMgr);
 	Safe_Release(m_pComponentMgr);
@@ -175,11 +216,10 @@ void CGameInstance::Free()
 void CGameInstance::Release_Engine()
 {
 	CGameInstance::DestroyInstance();
-
+	CTimerMgr::DestroyInstance();
 	CInputMgr::DestroyInstance();
 	CObjectMgr::DestroyInstance();
 	CComponentMgr::DestroyInstance();
 	CLevelMgr::DestroyInstance();
-
 	CGraphicDevice::DestroyInstance();
 }
