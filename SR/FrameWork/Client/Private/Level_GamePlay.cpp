@@ -19,6 +19,12 @@ HRESULT CLevel_GamePlay::Initialize()
 	if(FAILED(Ready_Layer_BackGround(TEXT("Layer_BackGround"))))
 		return E_FAIL;
 
+	if (FAILED(Ready_Layer_Player(TEXT("Layer_Player"))))
+		return E_FAIL;
+
+	if (FAILED(Ready_Layer_Monster(TEXT("Layer_Monster"))))
+		return E_FAIL;
+
 	return S_OK;
 }
 
@@ -66,6 +72,40 @@ HRESULT CLevel_GamePlay::Ready_Layer_Camera(const wstring& strLayerTag)
 	if (FAILED(pGameInstance->Add_GameObject(LEVEL_GAMEPLAY, TEXT("Prototype_GameObject_Camera_Free"),
 		strLayerTag, &CameraFreeDesc)))
 		return E_FAIL;
+
+	Safe_Release(pGameInstance);
+
+	return S_OK;
+}
+
+HRESULT CLevel_GamePlay::Ready_Layer_Player(const wstring& strLayerTag)
+{
+	CGameInstance* pGameInstance = CGameInstance::GetInstance();
+	Safe_AddRef(pGameInstance);
+
+	/* For.Player */
+	if (FAILED(pGameInstance->Add_GameObject(LEVEL_GAMEPLAY,
+		TEXT("Prototype_GameObject_Player"), strLayerTag)))
+		return E_FAIL;
+
+	Safe_Release(pGameInstance);
+
+	return S_OK;
+}
+
+HRESULT CLevel_GamePlay::Ready_Layer_Monster(const wstring& strLayerTag)
+{
+	CGameInstance* pGameInstance = CGameInstance::GetInstance();
+	Safe_AddRef(pGameInstance);
+
+	/* For.Monster */
+	for (size_t i = 0; i < 20; i++)
+	{
+		if (FAILED(pGameInstance->Add_GameObject(LEVEL_GAMEPLAY,
+			TEXT("Prototype_GameObject_Monster"), strLayerTag)))
+			return E_FAIL;
+	}
+
 
 	Safe_Release(pGameInstance);
 

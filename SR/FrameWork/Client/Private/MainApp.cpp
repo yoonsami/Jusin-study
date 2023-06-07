@@ -70,8 +70,18 @@ HRESULT CMainApp::Ready_Default_Setting()
 	if (nullptr == m_pGraphic_Device)
 		return E_FAIL;
 
-    // Á¶¸í¿¬»ê ²¨³ùÀ½
+
+	/* RenderState */
 	m_pGraphic_Device->SetRenderState(D3DRS_LIGHTING, false);
+
+	/* SamplerState : min, mag, mip */
+	m_pGraphic_Device->SetSamplerState(0, D3DSAMP_ADDRESSU, D3DTADDRESS_WRAP);
+	m_pGraphic_Device->SetSamplerState(0, D3DSAMP_ADDRESSV, D3DTADDRESS_WRAP);
+
+	m_pGraphic_Device->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
+	m_pGraphic_Device->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
+	m_pGraphic_Device->SetSamplerState(0, D3DSAMP_MIPFILTER, D3DTEXF_LINEAR);
+
 
 	return S_OK;
 }

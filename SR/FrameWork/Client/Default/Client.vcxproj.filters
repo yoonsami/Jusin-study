@@ -37,6 +37,12 @@
     <Filter Include="02.GameObjects\02.Camera_Free">
       <UniqueIdentifier>{d3be4947-2800-4846-965d-dd2bf83daf70}</UniqueIdentifier>
     </Filter>
+    <Filter Include="02.GameObjects\03.Player">
+      <UniqueIdentifier>{f2a75890-fa6d-48c2-bc4e-407a3309be56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.GameObjects\04.Monster">
+      <UniqueIdentifier>{eacca53d-e231-42af-855f-65c2a0ee3d23}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Public\Client_Defines.h">
@@ -56,9 +62,6 @@
     </ClInclude>
     <ClInclude Include="targetver.h">
       <Filter>98.Default</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Public\MainApp.h">
-      <Filter>00.MainApp</Filter>
     </ClInclude>
     <ClInclude Include="..\Public\Level_Loading.h">
       <Filter>01.Levels\Loading</Filter>
@@ -80,6 +83,15 @@
     </ClInclude>
     <ClInclude Include="..\public\Camera_Free.h">
       <Filter>02.GameObjects\02.Camera_Free</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\MainApp.h">
+      <Filter>00.MainApp</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Player.h">
+      <Filter>02.GameObjects\03.Player</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Public\Monster.h">
+      <Filter>02.GameObjects\04.Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -112,6 +124,12 @@
     </ClCompile>
     <ClCompile Include="..\private\Camera_Free.cpp">
       <Filter>02.GameObjects\02.Camera_Free</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Player.cpp">
+      <Filter>02.GameObjects\03.Player</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Private\Monster.cpp">
+      <Filter>02.GameObjects\04.Monster</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

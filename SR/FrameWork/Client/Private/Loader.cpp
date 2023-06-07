@@ -1,9 +1,12 @@
 #include "pch.h"
 #include "Loader.h"
 #include "GameInstance.h"
+#include "Camera_Free.h"
 #include "BackGround.h"
 #include "Terrain.h"
-#include "Camera_Free.h"
+#include "Player.h"
+#include "Monster.h"
+
 
 CLoader::CLoader(LPDIRECT3DDEVICE9 pGraphic_Device)
 	: m_pGraphic_Device(pGraphic_Device)
@@ -100,15 +103,22 @@ HRESULT CLoader::Loading_ForGamePlay()
 	Safe_AddRef(pGameInstance);
 
 	lstrcpy(m_szLoading, TEXT("텍스쳐를 로딩 중입니다."));
+
+	/* For.Prototype_Component_Texture_Terrain */
 	if (FAILED(pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_Terrain"), CTexture::Create(m_pGraphic_Device, CTexture::TYPE_GENERAL, TEXT("../Bin/Resources/Textures/Terrain/Tile0.jpg")))))
 	{
 		MSG_BOX("Failed to Add_Prototype : Prototype_Component_Texture_Terrain");
 		return E_FAIL;
 	}
 
+	/* For.Prototype_Component_Texture_Player */
+	if (FAILED(pGameInstance->Add_Prototype(LEVEL_GAMEPLAY, TEXT("Prototype_Component_Texture_Player"),
+		CTexture::Create(m_pGraphic_Device, CTexture::TYPE_GENERAL, TEXT("../Bin/Resources/Textures/Player/Player.png")))))
+		return E_FAIL;
+
 	lstrcpy(m_szLoading, TEXT("모델을 로딩 중입니다."));
 	if(FAILED(pGameInstance->Add_Prototype(LEVEL_GAMEPLAY,TEXT("Prototype_Component_VIBuffer_Terrain"),
-		CVIBuffer_Terrain::Create(m_pGraphic_Device,100,100))))
+		CVIBuffer_Terrain::Create(m_pGraphic_Device, TEXT("../Bin/Resources/Textures/Terrain/Height.bmp")))))
 	{
 		MSG_BOX("Failed to Add_Prototype : Prototype_Component_VIBuffer_Terrain");
 		return E_FAIL;
@@ -124,6 +134,16 @@ HRESULT CLoader::Loading_ForGamePlay()
 
 	if (FAILED(pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Camera_Free"),
 		CCamera_Free::Create(m_pGraphic_Device))))
+		return E_FAIL;
+
+	/* For.Prototype_GameObject_Player */
+	if (FAILED(pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Player"),
+		CPlayer::Create(m_pGraphic_Device))))
+		return E_FAIL;
+
+	/* For.Prototype_GameObject_Monster */
+	if (FAILED(pGameInstance->Add_Prototype(TEXT("Prototype_GameObject_Monster"),
+		CMonster::Create(m_pGraphic_Device))))
 		return E_FAIL;
 
 	lstrcpy(m_szLoading, TEXT("로딩이 완료되었습니다."));
